@@ -129,8 +129,6 @@ html {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: 15rem 10rem;
-    
-    // max-height: 100%;
   }
   &__top {
     display: flex;
