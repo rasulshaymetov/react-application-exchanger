@@ -40,9 +40,6 @@ const Aside = () => {
   function clickNav(e: any) {
     setClickedNav(e.id);
   }
-  function checkState() {
-    console.log(clickedNav);
-  }
   return (
     <div className="aside">
       <div className="aside__wrapper">

@@ -1,3 +1,6 @@
+html {
+  font-size: 1px;
+}
 .header {
   background: #2d1c73;
   color: white;
@@ -22,6 +25,7 @@
       gap: 15px;
     }
     li {
+      font-size: 16rem;
       border: 1px solid rgba(255, 255, 255, 0);
       border-radius: 10px;
       padding: 11px 15px 12px 15px;
@@ -37,6 +41,7 @@
     li {
       border: 1px solid rgba(255, 255, 255, 0);
       border-radius: 10px;
+      font-size: 16rem;
       padding: 6px 15px 7px 15px;
       &:hover {
         border: 1px solid rgba(255, 255, 255, 0.3);
@@ -45,39 +50,97 @@
   }
 }
 .aside {
-  display: flex;
+  // display: flex;
+  position: relative;
 
   &__wrapper {
     background: #ffffff;
     max-width: 335px;
-    width: 100%; 
-    padding-top:44.35px;
+    width: 100%;
+    padding-top: 44.35px;
     padding-bottom: 51.57px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
   }
-  ul{
-    div{
-      transition: all .3s ease;
+  ul {
+    div {
+      font-size: 16rem;
+      transition: all 0.3s ease;
       cursor: pointer;
       padding: 15.47px 0 15.47px 30px;
       border-left: 10px solid transparent;
-      &:hover{
-        background: #F5F4FC;
+      &:hover {
+        background: #f5f4fc;
       }
-    }
-    flex-direction: column;;
-    display: flex;
-    li{
-      list-style: none;
-    
     }
   }
 }
 
-.active-list{
-  background: #F5F4FC;
-  border-left: 10px solid #4320CF  !important;
-  color: #4320CF;
-    font-weight: 700;
+.active-list {
+  background: #f5f4fc;
+  border-left: 10px solid #4320cf !important;
+  color: #4320cf;
+  font-weight: 700;
+}
+.main {
+  &__wrapper {
+    position: relative;
+    padding: 30rem 50rem 60rem;
+    // display: flex;
+    margin: 0 auto;
+    max-width: 1600rem;
+    width: 100%;
+    height: 100%;
+    min-height: calc(100vh - 150rem);
+    position: relative;
+  }
+  &__container {
+    display: grid;
+    grid-template-columns: minmax(170rem, 335rem) 1125rem; // display: flex;
+  }
+}
+.search {
+  background: #ffffff;
+  font-size: 16rem;
+  margin-left: 40px;
+  max-width: 1125px;
+  max-height: 107px;
+  height: 100%;
+  // display: flex;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  input {
+    max-width: 522px;
+    // max-height: 57px;
+    // height: 100%;
+    padding: 18rem 0 21rem 20rem;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+  }
+  button {
+    width: 30rem;
+    border: 1px solid #000000;
+    background: #ffffff;
+    height: 30rem;
+    cursor: pointer;
+    border-radius: 50rem;
+    div{
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;;
+    }
+  }
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+}
+.rotate{
+  transform: rotate(180deg);
+  transition: transform 0.3s ease 0s;
 }
