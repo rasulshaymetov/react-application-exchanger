@@ -50,7 +50,6 @@ html {
   }
 }
 .aside {
-  // display: flex;
   position: relative;
 
   &__wrapper {
@@ -83,10 +82,12 @@ html {
   font-weight: 700;
 }
 .main {
+  &__content {
+    margin-left: 40rem;
+  }
   &__wrapper {
     position: relative;
     padding: 30rem 50rem 60rem;
-    // display: flex;
     margin: 0 auto;
     max-width: 1600rem;
     width: 100%;
@@ -99,48 +100,91 @@ html {
     grid-template-columns: minmax(170rem, 335rem) 1125rem; // display: flex;
   }
 }
-.search {
-  background: #ffffff;
-  font-size: 16rem;
-  margin-left: 40px;
-  max-width: 1125px;
-  max-height: 107px;
-  height: 100%;
-  // display: flex;
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  input {
-    max-width: 522px;
-    // max-height: 57px;
-    // height: 100%;
-    padding: 18rem 0 21rem 20rem;
-    width: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-  }
-  button {
-    width: 30rem;
-    border: 1px solid #000000;
-    background: #ffffff;
-    height: 30rem;
-    cursor: pointer;
-    border-radius: 50rem;
-    div{
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;;
-    }
-  }
-  &__wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-}
-.rotate{
+
+.rotate {
   transform: rotate(180deg);
   transition: transform 0.3s ease 0s;
+}
+
+.cards {
+  padding-left: 30rem;
+  padding-right: 30rem;
+  padding-top: 37.5rem;
+  h1 {
+    font-size: 32rem;
+    font-weight: 400;
+    margin-bottom: 25rem;
+  }
+  margin-top: 12.5rem;
+  font-size: 20rem;
+  background: #ffffff;
+  max-width: 1125px;
+  width: 100%;
+  max-height: 713px;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 15rem 10rem;
+    
+    // max-height: 100%;
+  }
+  &__top {
+    display: flex;
+    margin-top: 20rem;
+  }
+  &__card {
+    max-width: 342px;
+    max-height: 135px;
+    padding-left: 20rem;
+    padding-right: 20rem;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    &:hover {
+      border: 1px solid #4320cf;
+      transition: all 0.15s ease-in-out;
+    }
+    &_wrapper{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  &__currency {
+    display: flex;
+
+    margin-top: 42rem;
+    margin-bottom: 20rem;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 5rem;
+    max-width: 342px;
+    width: 100%;
+    &_value {
+      max-width: 56px;
+      font-size: 12rem;
+      max-height: 34px;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      display: flex;
+      padding: 10rem 15rem 10rem 15rem;
+      justify-content: center;
+      align-items: center;
+      &:hover {
+        background: #4320cf;
+        color: #ffffff;
+        transition: all 0.15s ease-in-out;
+      }
+    }
+  }
+  &__logo {
+    padding-right: 10rem;
+  }
 }
