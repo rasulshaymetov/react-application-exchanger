@@ -107,6 +107,7 @@ html {
 }
 
 .cards {
+  overflow-y: auto;
   padding-left: 30rem;
   padding-right: 30rem;
   padding-top: 37.5rem;
@@ -124,10 +125,9 @@ html {
   height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  &__wrapper {
+  &__component {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 1fr);
     gap: 15rem 10rem;
   }
   &__top {
@@ -151,6 +151,12 @@ html {
       display: flex;
       flex-direction: column;
     }
+  }
+  &__line{
+    margin: 30rem 0;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    max-width: 1065px;
+    width: 100%;
   }
   &__currency {
     display: flex;
