@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import arrowLeft from "../../assets/arrrow-l.svg";
 import arrowRight from "../../assets/arrow-r.svg";
 import styles from "./Search.module.scss"

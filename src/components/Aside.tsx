@@ -1,21 +1,18 @@
-import React, { useState, useContext, useEffect} from "react";
+import { useState, useContext} from "react";
 import AppContext from "../context";
-import { INavlist } from "../models/models";
 
 const Aside = () => {
   const [clickedNav, setClickedNav] = useState<any>(1);
-  const {end, navlist, CARDS,refs}:any = useContext(AppContext)
+  const {CARDS,refs}:any = useContext(AppContext)
   
   function clickNav(e: any) {
-    setClickedNav(e.id);
+    setClickedNav(e);
     refs[e].current.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
     });
   }
-  useEffect(() => {
-    console.log(clickedNav)
-  }, [clickedNav])
+ 
   
   return (
     <div className="aside">

@@ -2,46 +2,10 @@ import "./App.scss";
 import Header from "./components/Header";
 import Aside from "./components/Aside";
 import Search from "./components/Search";
-import { ICards } from "./models/models";
 import Card from "./components/Card";
 import AppContext from "./context";
-import { useContext, useRef, createRef } from "react";
+import { useRef, createRef } from "react";
 import Footer from "./components/Footer";
-import { INavlist } from "./models/models";
-const navlist: Array<INavlist> = [
-  {
-    name: "История поиска",
-    id: "0",
-  },
-  {
-    name: "Популярное",
-    id: "1",
-  },
-  {
-    name: "Криптовалюты",
-    id: "2",
-  },
-  {
-    name: "Платежные системы",
-    id: "3",
-  },
-  {
-    name: "Коды",
-    id: "4",
-  },
-  {
-    name: "Банки",
-    id: "5",
-  },
-  {
-    name: "Переводы",
-    id: "6",
-  },
-  {
-    name: "Наличные",
-    id: "7",
-  },
-];
 const CARDS: any = [
   {
     heading: "Банки",
@@ -63,7 +27,6 @@ const CARDS: any = [
         id: "3",
         title: "Русский Стандарт",
         rating: "4",
-
         currency: ["RUB"],
       },
       { id: "4", title: "Открытие", rating: "4", currency: ["RUB", "USD"] },
@@ -77,7 +40,6 @@ const CARDS: any = [
         id: "1",
         title: "Открытие",
         rating: "4",
-
         currency: ["RUB", "USD"],
       },
     ],
@@ -108,20 +70,20 @@ const CARDS: any = [
   },
 ];
 function App() {
-  let cardIds = []
-  for(let i = 0; i < CARDS.length; i++) {
-    cardIds.push(CARDS[i].mainId)
+  let cardIds = [];
+  for (let i = 0; i < CARDS.length; i++) {
+    cardIds.push(CARDS[i].mainId);
   }
 
-  const refs = cardIds.reduce((acc:any, value:number) => {
+  const refs = cardIds.reduce((acc: any, value: number) => {
     acc[value] = createRef();
-        return acc;
-  },{})
+    return acc;
+  }, {});
 
   const end = useRef<any>(null);
   return (
     <div className="App">
-      <AppContext.Provider value={{ CARDS, end, navlist, refs}}>
+      <AppContext.Provider value={{ CARDS, end, refs }}>
         <Header />
         <div className="main__wrapper">
           <div className="main__container">
@@ -134,7 +96,7 @@ function App() {
           </div>
         </div>
       </AppContext.Provider>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
