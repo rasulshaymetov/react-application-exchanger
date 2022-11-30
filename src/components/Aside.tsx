@@ -1,8 +1,10 @@
-import React, { useState} from "react";
+import React, { useState, useContext, useRef} from "react";
+import AppContext from "../context";
 import { INavlist } from "../models/models";
 
 const Aside = () => {
   const [clickedNav, setClickedNav] = useState<string>("0");
+  const {end}:any = useContext(AppContext)
   const navlist: Array<INavlist> = [
     {
       name: "История поиска",
@@ -39,6 +41,9 @@ const Aside = () => {
   ];
   function clickNav(e: any) {
     setClickedNav(e.id);
+    if(e.id === "5"){
+      end.current?.scrollIntoView();
+    }
   }
   return (
     <div className="aside">

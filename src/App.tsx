@@ -3,10 +3,14 @@ import Header from "./components/Header";
 import Aside from "./components/Aside";
 import Search from "./components/Search";
 import { ICards } from "./models/models";
-import logo from "./assets/card-logo.svg";
+import Card from "./components/Card";
+import AppContext from "./context";
+import { useContext, useRef } from "react";
+import Footer from "./components/Footer";
 const CARDS: any = [
   {
     heading: "Банки",
+    mainId: 1,
     items: [
       {
         id: "1",
@@ -32,6 +36,7 @@ const CARDS: any = [
   },
   {
     heading: "Переводы",
+    mainId: 2,
     items: [
       {
         id: "1",
@@ -44,87 +49,47 @@ const CARDS: any = [
   },
   {
     heading: "Криптовалюты",
+    mainId: 3,
     items: [
       {
         id: "1",
         title: "Bitcoin",
         rating: "4",
-
         currency: ["BTC", "WBTC", "BTCBEP20"],
       },
       {
-        id: "1",
+        id: "2",
         title: "Etherium",
         rating: "4",
-
         currency: ["ETH", "ETHBEP20"],
       },
       {
-        id: "1",
+        id: "3",
         title: "Litecoin",
         rating: "4",
-
         currency: ["LTC"],
       },
     ],
   },
 ];
 function App() {
+  const end = useRef<any | null>(null);
   return (
     <div className="App">
-      <Header />
-      <div className="main__wrapper">
-        <div className="main__container">
-          <Aside />
+      <AppContext.Provider value={{ CARDS, end }}>
+        <Header />
+        <div className="main__wrapper">
+          <div className="main__container">
+            <Aside />
 
-          <div className="main__content">
-            <Search />
-            <div className="cards">
-              <div className="cards__wrapper">
-                {CARDS?.map(function (card: any) {
-                  return (
-                    <div className="cards__block">
-                      <h1 onClick={test}>{card.heading}</h1>
-                      <div key={card.id} className="cards__component">
-                        {card.items?.map(function (item: any) {
-                          return (
-                            <div className="cards__card">
-                              <div className="cards__card_wrapper">
-                                <div className="cards__top">
-                                  <div className="cards__logo">
-                                    <img src={logo} alt="" />
-                                  </div>
-                                  <p className="cards__title">{item.title}</p>
-                                </div>
-
-                                <div className="cards__currency">
-                                  {item.currency?.map(
-                                    (type: string, index: number) => {
-                                      return (
-                                        <div
-                                          className="cards__currency_value"
-                                          key={index}
-                                        >
-                                          {type}
-                                        </div>
-                                      );
-                                    }
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      <hr className="cards__line" />
-                    </div>
-                  );
-                })}
-              </div>
+            <div className="main__content">
+              <Search />
+              <Card />
             </div>
           </div>
         </div>
-      </div>
+      </AppContext.Provider>
+      <Footer/>
     </div>
   );
 }

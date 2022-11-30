@@ -87,7 +87,7 @@ html {
   }
   &__wrapper {
     position: relative;
-    padding: 30rem 50rem 60rem;
+    padding: 30rem 50rem 0rem;
     margin: 0 auto;
     max-width: 1600rem;
     width: 100%;
@@ -121,7 +121,7 @@ html {
   background: #ffffff;
   max-width: 1125px;
   width: 100%;
-  max-height: 713px;
+  max-height: 600px;
   height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -136,7 +136,7 @@ html {
   }
   &__card {
     max-width: 342px;
-    max-height: 135px;
+    max-height: 153px;
     padding-left: 20rem;
     padding-right: 20rem;
     width: 100%;
@@ -191,4 +191,21 @@ html {
   &__logo {
     padding-right: 10rem;
   }
+}
+
+.footer{
+  max-width: 100vw;
+  max-height: 75px;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  // height: 75px;
+  // width: 1920px;
+  color: white;
+  font-size: 20rem;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 50rem;
+  background: #151515;
 }
