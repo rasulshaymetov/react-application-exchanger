@@ -5,8 +5,43 @@ import Search from "./components/Search";
 import { ICards } from "./models/models";
 import Card from "./components/Card";
 import AppContext from "./context";
-import { useContext, useRef } from "react";
+import { useContext, useRef, createRef } from "react";
 import Footer from "./components/Footer";
+import { INavlist } from "./models/models";
+const navlist: Array<INavlist> = [
+  {
+    name: "История поиска",
+    id: "0",
+  },
+  {
+    name: "Популярное",
+    id: "1",
+  },
+  {
+    name: "Криптовалюты",
+    id: "2",
+  },
+  {
+    name: "Платежные системы",
+    id: "3",
+  },
+  {
+    name: "Коды",
+    id: "4",
+  },
+  {
+    name: "Банки",
+    id: "5",
+  },
+  {
+    name: "Переводы",
+    id: "6",
+  },
+  {
+    name: "Наличные",
+    id: "7",
+  },
+];
 const CARDS: any = [
   {
     heading: "Банки",
@@ -73,10 +108,20 @@ const CARDS: any = [
   },
 ];
 function App() {
-  const end = useRef<any | null>(null);
+  let cardIds = []
+  for(let i = 0; i < CARDS.length; i++) {
+    cardIds.push(CARDS[i].mainId)
+  }
+
+  const refs = cardIds.reduce((acc:any, value:number) => {
+    acc[value] = createRef();
+        return acc;
+  },{})
+
+  const end = useRef<any>(null);
   return (
     <div className="App">
-      <AppContext.Provider value={{ CARDS, end }}>
+      <AppContext.Provider value={{ CARDS, end, navlist, refs}}>
         <Header />
         <div className="main__wrapper">
           <div className="main__container">

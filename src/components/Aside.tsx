@@ -1,65 +1,37 @@
-import React, { useState, useContext, useRef} from "react";
+import React, { useState, useContext, useEffect} from "react";
 import AppContext from "../context";
 import { INavlist } from "../models/models";
 
 const Aside = () => {
-  const [clickedNav, setClickedNav] = useState<string>("0");
-  const {end}:any = useContext(AppContext)
-  const navlist: Array<INavlist> = [
-    {
-      name: "История поиска",
-      id: "0",
-    },
-    {
-      name: "Популярное",
-      id: "1",
-    },
-    {
-      name: "Криптовалюты",
-      id: "2",
-    },
-    {
-      name: "Платежные системы",
-      id: "3",
-    },
-    {
-      name: "Коды",
-      id: "4",
-    },
-    {
-      name: "Банки",
-      id: "5",
-    },
-    {
-      name: "Переводы",
-      id: "6",
-    },
-    {
-      name: "Наличные",
-      id: "7",
-    },
-  ];
+  const [clickedNav, setClickedNav] = useState<any>(1);
+  const {end, navlist, CARDS,refs}:any = useContext(AppContext)
+  
   function clickNav(e: any) {
     setClickedNav(e.id);
-    if(e.id === "5"){
-      end.current?.scrollIntoView();
-    }
+    refs[e].current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
   }
+  useEffect(() => {
+    console.log(clickedNav)
+  }, [clickedNav])
+  
   return (
     <div className="aside">
       <div className="aside__wrapper">
         <ul>
-          {navlist.map(function (obj) {
+          {CARDS.map(function (obj:any) {
             return (
               <div
-                onClick={(e) => clickNav(e.currentTarget)}
+                onClick={() => clickNav(obj.mainId)}
                 className={`aside__list-elem ${
-                  clickedNav === obj.id ? "active-list" : null
+                  clickedNav == obj.mainId ? "active-list" : null
                 }`}
-                key={obj.id}
-                id={obj.id}
+                key={obj.mainId}
+                id={obj.mainId}
               >
-                {obj.name}
+                {obj.heading}
               </div>
             );
           })}

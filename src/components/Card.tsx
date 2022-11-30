@@ -5,17 +5,25 @@ import AppContext from '../context';
 
 
 const Card = () => {
-  const  {CARDS, end}:any = useContext(AppContext)
-  
-
-console.log(end)
+  const  {CARDS, end,refs}:any = useContext(AppContext)
+  console.log(refs)
+function test (id:any) {
+  refs[id].current.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  });
+  console.log(refs[id].current)
+}
   return (
     <div className="cards">
+  
     <div className="cards__wrapper">
       {CARDS?.map(function (card: any) {
         return (
+          
           <div className="cards__block">
-            <h1 id={card.mainId}  ref={end}>{card.heading}</h1>
+                <button onClick={() =>test(card.mainId)}>loredfhbsdf;khjosdf;lghoisfoigjsdfogj;dlgjsdlfkgsdl;kfgj</button>
+            <h1 id={card.mainId} ref={refs[card.mainId]}>{card.heading}</h1>
             <div key={card.id} className="cards__component">
               {card.items?.map(function (item: any) {
                 return (
