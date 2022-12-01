@@ -2,8 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import logo from "../assets/card-logo.svg";
 import AppContext from "../context";
 const Card = () => {
-  const { CARDS, refs }: any = useContext(AppContext);
-  console.log(refs);
+  const { CARDS, refs, selectValue }: any = useContext(AppContext);
   function test(id: any) {
     refs[id].current.scrollIntoView({
       behavior: "smooth",
@@ -11,24 +10,6 @@ const Card = () => {
     });
     console.log(id);
   }
-  const [isCount, setIsCount] = useState(0);
-  const [isFirstCard, setIsFirstCard] = useState(true);
-  function selectValue(e: any) {
-    setIsCount(isCount + 1);
-    if (isFirstCard === true) {
-      CARDS[0].items.shift();
-      CARDS[0].items.push(e);
-      setIsFirstCard(false);
-    } else {
-      let originalCards: any = [];
-      for (let i = 0; i < CARDS[0].items.length; i++) {
-        originalCards.push(CARDS[0].items[i].title);
-      }
-      if (!originalCards.includes(e.title)) CARDS[0].items.push(e);
-    }
-  }
-
-  useEffect(() => {}, [isCount]);
 
   return (
     <div className="cards">
@@ -36,7 +17,7 @@ const Card = () => {
         {CARDS?.map(function (card: any) {
           return (
             <div className="cards__block">
-              <h1 id={card.mainId} ref={refs[card.mainId]}>
+              <h1 key={card.mainId} id={card.mainId} ref={refs[card.mainId]}>
                 {card.heading}
               </h1>
               <div key={card.id} className="cards__component">
@@ -56,7 +37,7 @@ const Card = () => {
                             return (
                               <div
                                 className="cards__currency_value"
-                                onClick={() => selectValue(item)}
+                                onClick={() => selectValue(item,type)}
                                 key={index}
                               >
                                 {type}

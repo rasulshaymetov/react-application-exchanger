@@ -4,14 +4,13 @@ import Aside from "./components/Aside";
 import Search from "./components/Search";
 import Card from "./components/Card";
 import AppContext from "./context";
-import { useRef, createRef } from "react";
+import { useRef, createRef, useState, useEffect } from "react";
 import Footer from "./components/Footer";
 const CARDS: any = [
   {
     heading: "История поиска",
     mainId: 1,
-    items: [
-    ],
+    items: [],
   },
   {
     heading: "Банки",
@@ -76,6 +75,37 @@ const CARDS: any = [
   },
 ];
 function App() {
+  const [isCount, setIsCount] = useState(0);
+  const [isFirstCard, setIsFirstCard] = useState(true);
+  const [isFirstInputValue, setIsFirstInputValue] = useState("");
+  const [isSecondInputValue, setIsSecondInputValue] = useState("");
+  const [isDisabledSelect, setIsDisabledSelect] = useState(false);
+  function selectValue(e: any, type: any) {
+    if (isDisabledSelect === false) {
+      setIsCount(isCount + 1);
+      let currentValue = "";
+      currentValue = `${e.title} (${type})`;
+      if (isFirstCard === true) {
+        setIsFirstInputValue(currentValue);
+        CARDS[0].items.shift();
+        CARDS[0].items.push(e);
+        setIsFirstCard(false);
+      } else {
+        let originalCards: any = [];
+        // for (let i = 0; i < CARDS[0].items.length; i++) {
+        //   originalCards.push(CARDS[0].items[i].title);
+        // }
+        if ((isFirstInputValue !== currentValue)) {
+          CARDS[0].items.push(e);
+          setIsSecondInputValue(currentValue);
+          setIsDisabledSelect(true);
+        }
+      }
+    }
+  }
+
+  useEffect(() => {}, [isCount]);
+
   let cardIds = [];
   for (let i = 0; i < CARDS.length; i++) {
     cardIds.push(CARDS[i].mainId);
@@ -89,10 +119,20 @@ function App() {
   const end = useRef<any>(null);
   return (
     <div className="App">
-      <AppContext.Provider value={{ CARDS, end, refs }}>
+      <AppContext.Provider
+        value={{
+          CARDS,
+          end,
+          refs,
+          selectValue,
+          isFirstInputValue,
+          setIsFirstInputValue,
+          isSecondInputValue,
+          setIsSecondInputValue,
+        }}
+      >
         <Header />
         <div className="main__wrapper">
-          
           <div className="main__container">
             <Aside />
 
