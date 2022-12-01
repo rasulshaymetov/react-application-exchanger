@@ -6,6 +6,8 @@ import Card from "./components/Card";
 import AppContext from "./context";
 import { useRef, createRef, useState, useEffect } from "react";
 import Footer from "./components/Footer";
+import { useSelector, useDispatch } from "react-redux";
+
 const CARDS: any = [
   {
     heading: "История поиска",
@@ -75,27 +77,36 @@ const CARDS: any = [
   },
 ];
 function App() {
+  const { searchValue } = useSelector((state: any) => state.filter);
   const [isCount, setIsCount] = useState(0);
   const [isFirstCard, setIsFirstCard] = useState(true);
+  const [isFilteredItems, setIsFilteredItems] = useState("");
   const [isFirstInputValue, setIsFirstInputValue] = useState("");
   const [isSecondInputValue, setIsSecondInputValue] = useState("");
   const [isDisabledSelect, setIsDisabledSelect] = useState(false);
+  const [isFinishedValue, setIsFinishedValue]  = useState(false)
+  let firstPinnedValue = ''
   function selectValue(e: any, type: any) {
+
     if (isDisabledSelect === false) {
-      setIsCount(isCount + 1);
       let currentValue = "";
+      firstPinnedValue = currentValue;
+      setIsCount(isCount + 1);
       currentValue = `${e.title} (${type})`;
+      console.log(currentValue);
       if (isFirstCard === true) {
         setIsFirstInputValue(currentValue);
         CARDS[0].items.shift();
         CARDS[0].items.push(e);
         setIsFirstCard(false);
+        setIsFinishedValue(true)
       } else {
         let originalCards: any = [];
         // for (let i = 0; i < CARDS[0].items.length; i++) {
         //   originalCards.push(CARDS[0].items[i].title);
         // }
-        if ((isFirstInputValue !== currentValue)) {
+        console.log(CARDS[0].items.title);
+        if (isFirstInputValue !== currentValue) {
           CARDS[0].items.push(e);
           setIsSecondInputValue(currentValue);
           setIsDisabledSelect(true);
@@ -104,7 +115,8 @@ function App() {
     }
   }
 
-  useEffect(() => {}, [isCount]);
+  useEffect(() => {
+  }, [isCount]);
 
   let cardIds = [];
   for (let i = 0; i < CARDS.length; i++) {
@@ -117,8 +129,40 @@ function App() {
   }, {});
 
   const end = useRef<any>(null);
+  // const renderItems = () => {
+  //   const filteredItems = CARDS.filter((item: any) => {
+  //     item.title.toLowerCase().includes(searchValue);
+  //   });
+  // };
+  let cardTitles: any = [];
+
+  useEffect(() => {
+    // for (let i = 0; i < CARDS[0].items.length; i++) {
+    //   originalCards.push(CARDS[0].items[i].title);
+    // }
+    // if (CARDS[0].items.length > 0 && isFirstCard === false)
+    {
+      for (let i = 1; i < CARDS.length; i++) {
+        for (let j = 0; j < CARDS[i].items.length; j++) {
+          cardTitles.push(CARDS[i].items[j].title);
+        }
+      }
+    }
+    var filteredItems = cardTitles.filter((item: string) => {
+      return item
+        .toLowerCase()
+        .trim()
+        .includes(isFirstInputValue.toLowerCase().trim());
+    });
+    setIsFilteredItems(filteredItems);
+    
+  }, [isCount, isFirstInputValue]);
+  function test() {
+    console.log(isFilteredItems);
+  }
   return (
     <div className="App">
+      <button onClick={test}>Test</button>
       <AppContext.Provider
         value={{
           CARDS,
@@ -129,6 +173,8 @@ function App() {
           setIsFirstInputValue,
           isSecondInputValue,
           setIsSecondInputValue,
+          isFilteredItems,
+          isFinishedValue
         }}
       >
         <Header />

@@ -3,7 +3,7 @@ import AppContext from "../context";
 
 const Aside = () => {
   const [clickedNav, setClickedNav] = useState<any>(1);
-  const { CARDS, refs }: any = useContext(AppContext);
+  const { CARDS, refs, isInputValue, setIsInputValue }: any = useContext(AppContext);
 
   function clickNav(e: any) {
     setClickedNav(e);
