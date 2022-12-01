@@ -3,41 +3,69 @@ import logo from "../assets/card-logo.svg";
 import AppContext from "../context";
 
 const Card = () => {
-  const { CARDS, refs, selectValue, isFilteredItems, searchValue, isFirstInputValue, isFinishedValue }: any =
-    useContext(AppContext);
+  const {
+    CARDS,
+    refs,
+    selectValue,
+    isFilteredItems,
+    searchValue,
+    isFirstInputValue,
+    isFinishedValue,
+  }: any = useContext(AppContext);
   function test(id: any) {
     refs[id].current.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
     console.log(id);
-  }    
-  
+  }
+  var nestedObject = [
+    {
+      itemId: 1,
+      itemDetails: {
+        name: "C",
+        caregory: "Programming Language",
+        price: 500,
+      },
+      itemCategory: "Basic",
+    },
+    {
+      itemId: 2,
+      itemDetails: {
+        name: "C++",
+        caregory: "Programming Language",
+        price: 700,
+      },
+      itemCategory: "Beginner",
+    },
+    {
+      itemId: 1,
+      itemDetails: {
+        name: "Java Script",
+        caregory: "Web Development",
+        price: 1500,
+      },
+      itemCategory: "Advanced",
+    },
+  ];
   // {
-    // for (let i = 1; i < CARDS.length; i++) {
-      // for (let j = 0; j < CARDS[i].items.length; j++) {
-        // cardTitles.push(CARDS[i].items[j].title);
-      // }
-    // }
+  //   for (let i = 1; i < CARDS.length; i++) {
+  //     for (let j = 0; j < CARDS[i].items.length; j++) {
+  //       cardTitles.push(CARDS[i].items[j].title);
+  //     }
+  //   }
   // }
   // var filteredItems = cardTitles.filter((item: string) => {
-    // return item
-      // .toLowerCase()
-      // .trim()
-      // .includes(isFirstInputValue.toLowerCase().trim());
+  // return item
+  // .toLowerCase()
+  // .trim()
+  // .includes(isFirstInputValue.toLowerCase().trim());
   // });
-   function fakeAPI(){
-    let a:any = []
-    for(let i = 1; i < CARDS.length; i++) {
-      for(let j = 0; j < CARDS[i].items.length; j++){
-      
-          
-        
-      }
-    }
-    console.log(a)
-   }
-   const renderItems = CARDS?.map(function (card: any, index: any) {
+  function fakeAPI() {
+    console.log(isFilteredItems);
+  }
+
+  const renderItems = CARDS?.map(function (card: any, index: any) {
     return (
       <div className="cards__block">
         <h1 key={card.mainId} id={card.mainId} ref={refs[card.mainId]}>
@@ -78,14 +106,48 @@ const Card = () => {
         <hr className="cards__line" />
       </div>
     );
-  })
-  const filterRenderItems = []
+  });
+  //
+  // CARDS.map(item:any => {
+  // return item.items.flat().filter(item=>e.ttitle.toLocaleLowerCase().includes('Тинькофф'.toLocaleLowerCase())
+  // })
+  const filterRenderItems = isFilteredItems?.map(function (
+    card: any,
+    index: any
+  ) {
+    return (
+      <div className="cards__card">
+        <div className="cards__card_wrapper">
+          <div className="cards__top">
+            <div className="cards__logo">
+              <img src={logo} alt="" />
+            </div>
+            <p key={card.id} className="cards__title">
+              {card.title}
+            </p>
+          </div>
+
+          <div className="cards__currency">
+            {card.currency?.map((type: string, index: number) => {
+              return (
+                <div
+                  className="cards__currency_value"
+                  onClick={() => selectValue(card, type)}
+                  key={index}
+                >
+                  {type}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  });
   return (
     <div className="cards">
-      <button onClick={fakeAPI}>Fake Search API</button>
       <div className="cards__wrapper">
-        {isFirstInputValue.length > 0 && isFinishedValue === false ? null : renderItems}
-      
+        {isFirstInputValue.length > 0 && isFinishedValue === false ? filterRenderItems : renderItems}
       </div>
     </div>
   );

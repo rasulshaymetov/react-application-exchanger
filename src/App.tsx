@@ -8,7 +8,7 @@ import { useRef, createRef, useState, useEffect } from "react";
 import Footer from "./components/Footer";
 import { useSelector, useDispatch } from "react-redux";
 
-const CARDS: any = [
+const CARDS = [
   {
     heading: "История поиска",
     mainId: 1,
@@ -84,10 +84,9 @@ function App() {
   const [isFirstInputValue, setIsFirstInputValue] = useState("");
   const [isSecondInputValue, setIsSecondInputValue] = useState("");
   const [isDisabledSelect, setIsDisabledSelect] = useState(false);
-  const [isFinishedValue, setIsFinishedValue]  = useState(false)
-  let firstPinnedValue = ''
+  const [isFinishedValue, setIsFinishedValue] = useState(false);
+  let firstPinnedValue = "";
   function selectValue(e: any, type: any) {
-
     if (isDisabledSelect === false) {
       let currentValue = "";
       firstPinnedValue = currentValue;
@@ -99,13 +98,13 @@ function App() {
         CARDS[0].items.shift();
         CARDS[0].items.push(e);
         setIsFirstCard(false);
-        setIsFinishedValue(true)
+        setIsFinishedValue(true);
       } else {
         let originalCards: any = [];
         // for (let i = 0; i < CARDS[0].items.length; i++) {
         //   originalCards.push(CARDS[0].items[i].title);
         // }
-        console.log(CARDS[0].items.title);
+        // console.log(CARDS[0].items.title);
         if (isFirstInputValue !== currentValue) {
           CARDS[0].items.push(e);
           setIsSecondInputValue(currentValue);
@@ -115,8 +114,7 @@ function App() {
     }
   }
 
-  useEffect(() => {
-  }, [isCount]);
+  useEffect(() => {}, [isCount]);
 
   let cardIds = [];
   for (let i = 0; i < CARDS.length; i++) {
@@ -148,21 +146,26 @@ function App() {
         }
       }
     }
-    var filteredItems = cardTitles.filter((item: string) => {
-      return item
-        .toLowerCase()
-        .trim()
-        .includes(isFirstInputValue.toLowerCase().trim());
-    });
-    setIsFilteredItems(filteredItems);
-    
-  }, [isCount, isFirstInputValue]);
+    let filterRenderItems: any = CARDS.map((e) => e.items)
+      .flat()
+      .filter((e) =>
+        e.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+      );
+    setIsFilteredItems(filterRenderItems);
+  }, [isCount, isFirstInputValue, searchValue]);
   function test() {
     console.log(isFilteredItems);
   }
+  let filterRenderItems = CARDS.map((e) => e.items)
+    .flat()
+    .filter((e) =>
+      e.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+    );
+  function itsWorks() {
+    console.log(filterRenderItems);
+  }
   return (
     <div className="App">
-      <button onClick={test}>Test</button>
       <AppContext.Provider
         value={{
           CARDS,
@@ -174,7 +177,7 @@ function App() {
           isSecondInputValue,
           setIsSecondInputValue,
           isFilteredItems,
-          isFinishedValue
+          isFinishedValue,
         }}
       >
         <Header />
