@@ -1,7 +1,6 @@
-import {useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import logo from "../assets/card-logo.svg";
 import AppContext from "../context";
-
 const Card = () => {
   const { CARDS, refs }: any = useContext(AppContext);
   console.log(refs);
@@ -12,6 +11,25 @@ const Card = () => {
     });
     console.log(id);
   }
+  const [isCount, setIsCount] = useState(0);
+  const [isFirstCard, setIsFirstCard] = useState(true);
+  function selectValue(e: any) {
+    setIsCount(isCount + 1);
+    if (isFirstCard === true) {
+      CARDS[0].items.shift();
+      CARDS[0].items.push(e);
+      setIsFirstCard(false);
+    } else {
+      let originalCards: any = [];
+      for (let i = 0; i < CARDS[0].items.length; i++) {
+        originalCards.push(CARDS[0].items[i].title);
+      }
+      if (!originalCards.includes(e.title)) CARDS[0].items.push(e);
+    }
+  }
+
+  useEffect(() => {}, [isCount]);
+
   return (
     <div className="cards">
       <div className="cards__wrapper">
@@ -38,6 +56,7 @@ const Card = () => {
                             return (
                               <div
                                 className="cards__currency_value"
+                                onClick={() => selectValue(item)}
                                 key={index}
                               >
                                 {type}

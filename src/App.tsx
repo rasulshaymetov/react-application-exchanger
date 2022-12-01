@@ -8,8 +8,14 @@ import { useRef, createRef } from "react";
 import Footer from "./components/Footer";
 const CARDS: any = [
   {
-    heading: "Банки",
+    heading: "История поиска",
     mainId: 1,
+    items: [
+    ],
+  },
+  {
+    heading: "Банки",
+    mainId: 2,
     items: [
       {
         id: "1",
@@ -34,10 +40,10 @@ const CARDS: any = [
   },
   {
     heading: "Переводы",
-    mainId: 2,
+    mainId: 3,
     items: [
       {
-        id: "1",
+        id: "4",
         title: "Открытие",
         rating: "4",
         currency: ["RUB", "USD"],
@@ -46,22 +52,22 @@ const CARDS: any = [
   },
   {
     heading: "Криптовалюты",
-    mainId: 3,
+    mainId: 4,
     items: [
       {
-        id: "1",
+        id: "5",
         title: "Bitcoin",
         rating: "4",
         currency: ["BTC", "WBTC", "BTCBEP20"],
       },
       {
-        id: "2",
+        id: "6",
         title: "Etherium",
         rating: "4",
         currency: ["ETH", "ETHBEP20"],
       },
       {
-        id: "3",
+        id: "7",
         title: "Litecoin",
         rating: "4",
         currency: ["LTC"],
@@ -86,6 +92,7 @@ function App() {
       <AppContext.Provider value={{ CARDS, end, refs }}>
         <Header />
         <div className="main__wrapper">
+          
           <div className="main__container">
             <Aside />
 

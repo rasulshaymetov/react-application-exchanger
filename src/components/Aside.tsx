@@ -1,24 +1,28 @@
-import { useState, useContext} from "react";
+import { useState, useContext, useEffect } from "react";
 import AppContext from "../context";
 
 const Aside = () => {
   const [clickedNav, setClickedNav] = useState<any>(1);
-  const {CARDS,refs}:any = useContext(AppContext)
-  
+  const { CARDS, refs }: any = useContext(AppContext);
+
   function clickNav(e: any) {
     setClickedNav(e);
     refs[e].current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
     });
   }
- 
-  
+  let aside: any = document.querySelectorAll(".aside");
+  aside.onscroll = function () {
+    console.log("scrollling");
+  };
+
   return (
     <div className="aside">
       <div className="aside__wrapper">
         <ul>
-          {CARDS.map(function (obj:any) {
+          {CARDS.map(function (obj: any) {
             return (
               <div
                 onClick={() => clickNav(obj.mainId)}
