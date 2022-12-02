@@ -3,6 +3,7 @@ import logo from "../assets/card-logo.svg";
 import AppContext from "../context";
 
 const Card = () => {
+  const [a, setA] = useState([]);
   const {
     CARDS,
     refs,
@@ -19,48 +20,7 @@ const Card = () => {
     });
     console.log(id);
   }
-  var nestedObject = [
-    {
-      itemId: 1,
-      itemDetails: {
-        name: "C",
-        caregory: "Programming Language",
-        price: 500,
-      },
-      itemCategory: "Basic",
-    },
-    {
-      itemId: 2,
-      itemDetails: {
-        name: "C++",
-        caregory: "Programming Language",
-        price: 700,
-      },
-      itemCategory: "Beginner",
-    },
-    {
-      itemId: 1,
-      itemDetails: {
-        name: "Java Script",
-        caregory: "Web Development",
-        price: 1500,
-      },
-      itemCategory: "Advanced",
-    },
-  ];
-  // {
-  //   for (let i = 1; i < CARDS.length; i++) {
-  //     for (let j = 0; j < CARDS[i].items.length; j++) {
-  //       cardTitles.push(CARDS[i].items[j].title);
-  //     }
-  //   }
-  // }
-  // var filteredItems = cardTitles.filter((item: string) => {
-  // return item
-  // .toLowerCase()
-  // .trim()
-  // .includes(isFirstInputValue.toLowerCase().trim());
-  // });
+
   function fakeAPI() {
     console.log(isFilteredItems);
   }
@@ -71,6 +31,7 @@ const Card = () => {
         <h1 key={card.mainId} id={card.mainId} ref={refs[card.mainId]}>
           {card.heading}
         </h1>
+        
         <div key={index} className="cards__component">
           {card.items?.map(function (item: any) {
             return (
@@ -107,47 +68,51 @@ const Card = () => {
       </div>
     );
   });
-  //
-  // CARDS.map(item:any => {
-  // return item.items.flat().filter(item=>e.ttitle.toLocaleLowerCase().includes('Тинькофф'.toLocaleLowerCase())
-  // })
-  const filterRenderItems = isFilteredItems?.map(function (
-    card: any,
-    index: any
-  ) {
-    return (
-      <div className="cards__card">
-        <div className="cards__card_wrapper">
-          <div className="cards__top">
-            <div className="cards__logo">
-              <img src={logo} alt="" />
-            </div>
-            <p key={card.id} className="cards__title">
-              {card.title}
-            </p>
-          </div>
 
-          <div className="cards__currency">
-            {card.currency?.map((type: string, index: number) => {
-              return (
-                <div
-                  className="cards__currency_value"
-                  onClick={() => selectValue(card, type)}
-                  key={index}
-                >
-                  {type}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    );
-  });
+  setTimeout(() => {
+  }, 2500);
+  let filterRenderItems: any = [];
   return (
     <div className="cards">
       <div className="cards__wrapper">
-        {isFirstInputValue.length > 0 && isFinishedValue === false ? filterRenderItems : renderItems}
+        {isFirstInputValue.length > 0  && isFinishedValue === false ?  <h1>Поиск</h1> : null}
+        <div className={`${isFirstInputValue.length >  0 && isFinishedValue === false  ? 'cards__component' : null}`}>
+          
+        {isFirstInputValue.length > 0 && isFinishedValue === false
+          ? isFilteredItems?.map(function (card: any, index: any) {
+            return (
+
+              <div className="cards__card">
+                <div className="cards__card_wrapper">
+                  <div className="cards__top">
+                    <div className="cards__logo">
+                      <img src={logo} alt="" />
+                    </div>
+                    <p key={card.id} className="cards__title">
+                      {card.title}
+                    </p>
+                  </div>
+      
+                  <div className="cards__currency">
+                    {card.currency?.map((type: string, index: number) => {
+                      return (
+                        <div
+                          className="cards__currency_value"
+                          onClick={() => selectValue(card, type)}
+                          key={index}
+                        >
+                          {type}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+              
+            );
+          })
+          : renderItems}
+          </div>
       </div>
     </div>
   );

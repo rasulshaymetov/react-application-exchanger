@@ -4,9 +4,11 @@ import Aside from "./components/Aside";
 import Search from "./components/Search";
 import Card from "./components/Card";
 import AppContext from "./context";
-import { useRef, createRef, useState, useEffect } from "react";
+import { useRef, createRef, useState, useEffect, useCallback } from "react";
 import Footer from "./components/Footer";
 import { useSelector, useDispatch } from "react-redux";
+import debounce from "lodash.debounce";
+import { setSearchValue } from "./redux/slices/filterSlice";
 
 const CARDS = [
   {
@@ -85,12 +87,15 @@ function App() {
   const [isSecondInputValue, setIsSecondInputValue] = useState("");
   const [isDisabledSelect, setIsDisabledSelect] = useState(false);
   const [isFinishedValue, setIsFinishedValue] = useState(false);
+  const dispatch = useDispatch();
   let firstPinnedValue = "";
   function selectValue(e: any, type: any) {
     if (isDisabledSelect === false) {
       let currentValue = "";
       firstPinnedValue = currentValue;
+      updateSearchValue(currentValue)
       setIsCount(isCount + 1);
+      // dispatch()
       currentValue = `${e.title} (${type})`;
       console.log(currentValue);
       if (isFirstCard === true) {
@@ -113,6 +118,12 @@ function App() {
       }
     }
   }
+  const updateSearchValue = useCallback(
+    debounce((str:any) => {
+      dispatch(setSearchValue(str));
+    }, 250),
+    []
+  );
 
   useEffect(() => {}, [isCount]);
 
@@ -152,7 +163,13 @@ function App() {
         e.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
       );
     setIsFilteredItems(filterRenderItems);
-  }, [isCount, isFirstInputValue, searchValue]);
+    if (isFinishedValue === searchValue) {
+      console.log("sd");
+    } else {
+      console.log(isFinishedValue);
+      console.log(searchValue);
+    }
+  }, [isCount, isFirstInputValue, searchValue, isFinishedValue]);
   function test() {
     console.log(isFilteredItems);
   }
