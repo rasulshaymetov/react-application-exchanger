@@ -3,7 +3,7 @@ import AppContext from "../context";
 
 const Aside = () => {
   const [clickedNav, setClickedNav] = useState<any>(1);
-  const { CARDS, refs, isInputValue, setIsInputValue }: any = useContext(AppContext);
+  const { CARDS, refs, isInputValue, setIsInputValue, isFinishedValue, isFirstInputValue }: any = useContext(AppContext);
 
   function clickNav(e: any) {
     setClickedNav(e);
@@ -17,25 +17,36 @@ const Aside = () => {
   aside.onscroll = function () {
     console.log("scrollling");
   };
+  let searchCards = [{heading:'Поиск'}]
+  let navigation = CARDS.map(function (obj: any) {
+    return (
+      <div
+        onClick={() => clickNav(obj.mainId)}
+        className={`aside__list-elem ${
+          clickedNav == obj.mainId ? "active-list" : null
+        }`}
+        key={obj.mainId}
+        id={obj.mainId}
+      >
+        {obj.heading}
+      </div>
+    );
+  })
+  let searchNavigation = searchCards.map(function (obj: any){
+    return (
+      <div
+        className='aside__list-elem active-list'
+      >
+        {obj.heading}
+      </div>
+    );
+  })
 
   return (
     <div className="aside">
       <div className="aside__wrapper">
         <ul>
-          {CARDS.map(function (obj: any) {
-            return (
-              <div
-                onClick={() => clickNav(obj.mainId)}
-                className={`aside__list-elem ${
-                  clickedNav == obj.mainId ? "active-list" : null
-                }`}
-                key={obj.mainId}
-                id={obj.mainId}
-              >
-                {obj.heading}
-              </div>
-            );
-          })}
+          {isFirstInputValue.length > 0 && isFinishedValue === false ?(searchNavigation) : (navigation)}
         </ul>
       </div>
     </div>

@@ -5,6 +5,7 @@ import AppContext from "../context";
 const Card = () => {
   const [a, setA] = useState([]);
   const {
+    fakeAPI,
     CARDS,
     refs,
     selectValue,
@@ -18,20 +19,20 @@ const Card = () => {
       behavior: "smooth",
       block: "start",
     });
-    console.log(id);
   }
 
-  function fakeAPI() {
-    console.log(isFilteredItems);
-  }
 
+  useEffect(() => {
+    console.log("Rerender");
+  }, [CARDS]);
+ 
   const renderItems = CARDS?.map(function (card: any, index: any) {
     return (
       <div className="cards__block">
         <h1 key={card.mainId} id={card.mainId} ref={refs[card.mainId]}>
           {card.heading}
         </h1>
-        
+
         <div key={index} className="cards__component">
           {card.items?.map(function (item: any) {
             return (
@@ -39,7 +40,7 @@ const Card = () => {
                 <div className="cards__card_wrapper">
                   <div className="cards__top">
                     <div className="cards__logo">
-                      <img src={logo} alt="" />
+                     <div className="card__image"></div>
                     </div>
                     <p key={item.id} className="cards__title">
                       {item.title}
@@ -69,50 +70,54 @@ const Card = () => {
     );
   });
 
-  setTimeout(() => {
-  }, 2500);
-  let filterRenderItems: any = [];
+
+
   return (
     <div className="cards">
       <div className="cards__wrapper">
-        {isFirstInputValue.length > 0  && isFinishedValue === false ?  <h1>Поиск</h1> : null}
-        <div className={`${isFirstInputValue.length >  0 && isFinishedValue === false  ? 'cards__component' : null}`}>
-          
-        {isFirstInputValue.length > 0 && isFinishedValue === false
-          ? isFilteredItems?.map(function (card: any, index: any) {
-            return (
-
-              <div className="cards__card">
-                <div className="cards__card_wrapper">
-                  <div className="cards__top">
-                    <div className="cards__logo">
-                      <img src={logo} alt="" />
-                    </div>
-                    <p key={card.id} className="cards__title">
-                      {card.title}
-                    </p>
-                  </div>
-      
-                  <div className="cards__currency">
-                    {card.currency?.map((type: string, index: number) => {
-                      return (
-                        <div
-                          className="cards__currency_value"
-                          onClick={() => selectValue(card, type)}
-                          key={index}
-                        >
-                          {type}
+        {isFirstInputValue.length > 0 && isFinishedValue === false ? (
+          <h1>Поиск</h1>
+        ) : null}
+        <div
+          className={`${
+            isFirstInputValue.length > 0 && isFinishedValue === false
+              ? "cards__component"
+              : null
+          }`}
+        >
+          {isFirstInputValue.length > 0 && isFinishedValue === false
+            ? isFilteredItems?.map(function (card: any, index: any) {
+                return (
+                  <div className="cards__card">
+                    <div className="cards__card_wrapper">
+                      <div className="cards__top">
+                        <div className="cards__logo">
+                          <div className="cards__image"></div>
                         </div>
-                      );
-                    })}
+                        <p key={card.id} className="cards__title">
+                          {card.title}
+                        </p>
+                      </div>
+
+                      <div className="cards__currency">
+                        {card.currency?.map((type: string, index: number) => {
+                          return (
+                            <div
+                              className="cards__currency_value"
+                              onClick={() => selectValue(card, type)}
+                              key={index}
+                            >
+                              {type}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              
-            );
-          })
-          : renderItems}
-          </div>
+                );
+              })
+            : renderItems}
+        </div>
       </div>
     </div>
   );

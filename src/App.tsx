@@ -10,15 +10,87 @@ import { useSelector, useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
 import { setSearchValue } from "./redux/slices/filterSlice";
 
-const CARDS = [
+let CARDS: any = [
   {
     heading: "История поиска",
     mainId: 1,
     items: [],
   },
   {
-    heading: "Банки",
+    heading: "Популярное",
     mainId: 2,
+    items: [
+      {
+        id: "1",
+        title: "Тинькофф",
+        rating: "4",
+        currency: ["RUB", "USD", "EUR"],
+      },
+      {
+        id: "2",
+        title: "Альфа Банк",
+        rating: "4",
+        currency: ["RUB", "USD"],
+      },
+    ],
+  },
+  {
+    heading: "Криповалюты",
+    mainId: 3,
+    items: [
+      {
+        id: "5",
+        title: "Bitcoin",
+        rating: "4",
+        currency: ["BTC", "WBTC", "BTCBEP20"],
+      },
+      {
+        id: "6",
+        title: "Ethereum",
+        rating: "4",
+        currency: ["ETH", "ETHBEP20"],
+      },
+      {
+        id: "7",
+        title: "Binance USD",
+        rating: "4",
+        currency: ["RUB"],
+      },
+    ],
+  },
+  {
+    heading: "Платёжные системы",
+    mainId: 4,
+    items: [
+      {
+        id: "1",
+        title: "Киви",
+        rating: "4",
+        currency: ["RUB", "KZT"],
+      },
+      {
+        id: "2",
+        title: "ЮMoney",
+        rating: "4",
+        currency: ["RUB"],
+      },
+      {
+        id: "3",
+        title: "Счет телефона",
+        rating: "4",
+        currency: ["RUB"],
+      },
+      { id: "4", title: "Открытие", rating: "4", currency: ["RUB", "USD"] },
+    ],
+  },
+  {
+    heading: "Коды",
+    mainId: 5,
+    items: [],
+  },
+  {
+    heading: "Банки",
+    mainId: 6,
     items: [
       {
         id: "1",
@@ -43,41 +115,49 @@ const CARDS = [
   },
   {
     heading: "Переводы",
-    mainId: 3,
+    mainId: 7,
     items: [
       {
+        id: "1",
+        title: "Контакт",
+        rating: "4",
+        currency: ["RUB", "USD"],
+      },
+
+      {
         id: "4",
-        title: "Открытие",
+        title: "Вестерн Юнион",
         rating: "4",
         currency: ["RUB", "USD"],
       },
     ],
   },
   {
-    heading: "Криптовалюты",
-    mainId: 4,
+    heading: "Наличные",
+    mainId: 8,
     items: [
       {
-        id: "5",
-        title: "Bitcoin",
+        id: "1",
+        title: "Наличные Рубль",
         rating: "4",
-        currency: ["BTC", "WBTC", "BTCBEP20"],
+        currency: ["CASHRUB"],
       },
       {
-        id: "6",
-        title: "Etherium",
+        id: "2",
+        title: "Наличные Доллар",
         rating: "4",
-        currency: ["ETH", "ETHBEP20"],
+        currency: ["CASHUSD"],
       },
       {
-        id: "7",
-        title: "Litecoin",
+        id: "3",
+        title: "Наличные Евро",
         rating: "4",
-        currency: ["LTC"],
+        currency: ["CASHEUR"],
       },
     ],
   },
 ];
+
 function App() {
   const { searchValue } = useSelector((state: any) => state.filter);
   const [isCount, setIsCount] = useState(0);
@@ -88,14 +168,12 @@ function App() {
   const [isDisabledSelect, setIsDisabledSelect] = useState(false);
   const [isFinishedValue, setIsFinishedValue] = useState(false);
   const dispatch = useDispatch();
-  let firstPinnedValue = "";
+  var deletedArray: any;
   function selectValue(e: any, type: any) {
     if (isDisabledSelect === false) {
       let currentValue = "";
-      firstPinnedValue = currentValue;
-      updateSearchValue(currentValue)
+      updateSearchValue(currentValue);
       setIsCount(isCount + 1);
-      // dispatch()
       currentValue = `${e.title} (${type})`;
       console.log(currentValue);
       if (isFirstCard === true) {
@@ -104,12 +182,9 @@ function App() {
         CARDS[0].items.push(e);
         setIsFirstCard(false);
         setIsFinishedValue(true);
+        deletedArray = CARDS.pop();
+        deletedArray = CARDS.pop();
       } else {
-        let originalCards: any = [];
-        // for (let i = 0; i < CARDS[0].items.length; i++) {
-        //   originalCards.push(CARDS[0].items[i].title);
-        // }
-        // console.log(CARDS[0].items.title);
         if (isFirstInputValue !== currentValue) {
           CARDS[0].items.push(e);
           setIsSecondInputValue(currentValue);
@@ -119,12 +194,17 @@ function App() {
     }
   }
   const updateSearchValue = useCallback(
-    debounce((str:any) => {
+    debounce((str: any) => {
       dispatch(setSearchValue(str));
     }, 250),
     []
   );
 
+  function fakeAPI() {
+    console.log(CARDS);
+   
+    console.log(CARDS);
+  }
   useEffect(() => {}, [isCount]);
 
   let cardIds = [];
@@ -138,18 +218,13 @@ function App() {
   }, {});
 
   const end = useRef<any>(null);
-  // const renderItems = () => {
-  //   const filteredItems = CARDS.filter((item: any) => {
-  //     item.title.toLowerCase().includes(searchValue);
-  //   });
-  // };
   let cardTitles: any = [];
+  function onChangeFirstInput(e: any) {
+    setIsFirstInputValue(e.target.value);
 
+    updateSearchValue(e.target.value);
+  }
   useEffect(() => {
-    // for (let i = 0; i < CARDS[0].items.length; i++) {
-    //   originalCards.push(CARDS[0].items[i].title);
-    // }
-    // if (CARDS[0].items.length > 0 && isFirstCard === false)
     {
       for (let i = 1; i < CARDS.length; i++) {
         for (let j = 0; j < CARDS[i].items.length; j++) {
@@ -157,9 +232,9 @@ function App() {
         }
       }
     }
-    let filterRenderItems: any = CARDS.map((e) => e.items)
+    let filterRenderItems: any = CARDS.map((e: any) => e.items)
       .flat()
-      .filter((e) =>
+      .filter((e: any) =>
         e.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
       );
     setIsFilteredItems(filterRenderItems);
@@ -170,25 +245,18 @@ function App() {
       console.log(searchValue);
     }
   }, [isCount, isFirstInputValue, searchValue, isFinishedValue]);
-  function test() {
-    console.log(isFilteredItems);
-  }
-  let filterRenderItems = CARDS.map((e) => e.items)
-    .flat()
-    .filter((e) =>
-      e.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
-    );
-  function itsWorks() {
-    console.log(filterRenderItems);
-  }
+
   return (
     <div className="App">
       <AppContext.Provider
         value={{
           CARDS,
+          fakeAPI,
           end,
           refs,
+          isFirstCard,
           selectValue,
+          onChangeFirstInput,
           isFirstInputValue,
           setIsFirstInputValue,
           isSecondInputValue,
@@ -198,6 +266,14 @@ function App() {
         }}
       >
         <Header />
+        <button onClick={fakeAPI}>Mutate array</button>
+        <button onClick={() => console.log(CARDS)}>
+          Show array information
+        </button>
+        <button onClick={() => console.log(deletedArray)}>
+          Show deleted array
+        </button>
+        <button onClick={() => console.log(isFirstCard)}>Is finished first value?</button>
         <div className="main__wrapper">
           <div className="main__container">
             <Aside />

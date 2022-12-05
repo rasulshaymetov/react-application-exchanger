@@ -18,6 +18,8 @@ const Search:React.FC = () => {
     setIsFirstInputValue,
     isSecondInputValue,
     setIsSecondInputValue,
+    onChangeFirstInput,
+    isFirstCard
   }: any = useContext(AppContext);
   function handleSwitch() {
     let firstValue = isFirstInputValue;
@@ -27,10 +29,7 @@ const Search:React.FC = () => {
     setIsSwitch(!isSwitch);
     setTimeout(resetSwitch, 320);
   }
-  function onChangeFirstInput(e: any) {
-    setIsFirstInputValue(e.target.value)
-    updateSearchValue(e.target.value);
-  }
+
   const updateSearchValue = useCallback(
     debounce((str:any) => {
       dispatch(setSearchValue(str));
@@ -46,6 +45,7 @@ const Search:React.FC = () => {
           value={isFirstInputValue}
           onChange={onChangeFirstInput}
           placeholder="Отдаю"
+       
           className="search-input"
           aria-label="Search"
         />
@@ -66,7 +66,9 @@ const Search:React.FC = () => {
           onChange={(e) => setIsSecondInputValue(e.target.value)}
           placeholder="Получаю"
           aria-label="Search"
-          className="search-input"
+          className={`search-input ${isFirstCard === false ? null : "disabled"}`}
+          disabled={isFirstCard === false ? false : true}
+          
         />
       </div>
     </div>
