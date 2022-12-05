@@ -3,7 +3,14 @@ import AppContext from "../context";
 
 const Aside = () => {
   const [clickedNav, setClickedNav] = useState<any>(1);
-  const { CARDS, refs, isInputValue, setIsInputValue, isFinishedValue, isFirstInputValue }: any = useContext(AppContext);
+  const {
+    CARDS,
+    refs,
+    isInputValue,
+    setIsInputValue,
+    isFinishedValue,
+    isFirstInputValue,
+  }: any = useContext(AppContext);
 
   function clickNav(e: any) {
     setClickedNav(e);
@@ -17,7 +24,9 @@ const Aside = () => {
   aside.onscroll = function () {
     console.log("scrollling");
   };
-  let searchCards = [{heading:'Поиск'}]
+  let searchCards = [
+    { heading: `Поиск: ${isFirstInputValue ? "Отдаю" : "Получаю"}` },
+  ];
   let navigation = CARDS.map(function (obj: any) {
     return (
       <div
@@ -31,22 +40,18 @@ const Aside = () => {
         {obj.heading}
       </div>
     );
-  })
-  let searchNavigation = searchCards.map(function (obj: any){
-    return (
-      <div
-        className='aside__list-elem active-list'
-      >
-        {obj.heading}
-      </div>
-    );
-  })
+  });
+  let searchNavigation = searchCards.map(function (obj: any) {
+    return <div className="aside__list-elem active-list">{obj.heading}</div>;
+  });
 
   return (
     <div className="aside">
       <div className="aside__wrapper">
         <ul>
-          {isFirstInputValue.length > 0 && isFinishedValue === false ?(searchNavigation) : (navigation)}
+          {isFirstInputValue.length > 0 && isFinishedValue === false
+            ? searchNavigation
+            : navigation}
         </ul>
       </div>
     </div>

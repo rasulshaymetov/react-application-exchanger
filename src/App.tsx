@@ -21,13 +21,13 @@ let CARDS: any = [
     mainId: 2,
     items: [
       {
-        id: "1",
+        id: "10",
         title: "Тинькофф",
         rating: "4",
         currency: ["RUB", "USD", "EUR"],
       },
       {
-        id: "2",
+        id: "11",
         title: "Альфа Банк",
         rating: "4",
         currency: ["RUB", "USD"],
@@ -63,24 +63,23 @@ let CARDS: any = [
     mainId: 4,
     items: [
       {
-        id: "1",
+        id: "7",
         title: "Киви",
         rating: "4",
         currency: ["RUB", "KZT"],
       },
       {
-        id: "2",
+        id: "8",
         title: "ЮMoney",
         rating: "4",
         currency: ["RUB"],
       },
       {
-        id: "3",
+        id: "9",
         title: "Счет телефона",
         rating: "4",
         currency: ["RUB"],
       },
-      { id: "4", title: "Открытие", rating: "4", currency: ["RUB", "USD"] },
     ],
   },
   {
@@ -93,24 +92,24 @@ let CARDS: any = [
     mainId: 6,
     items: [
       {
-        id: "1",
+        id: "10",
         title: "Тинькофф",
         rating: "4",
         currency: ["RUB", "USD", "EUR"],
       },
       {
-        id: "2",
+        id: "11",
         title: "Альфа Банк",
         rating: "4",
         currency: ["RUB", "USD"],
       },
       {
-        id: "3",
+        id: "12",
         title: "Русский Стандарт",
         rating: "4",
         currency: ["RUB"],
       },
-      { id: "4", title: "Открытие", rating: "4", currency: ["RUB", "USD"] },
+      { id: "13", title: "Открытие", rating: "4", currency: ["RUB", "USD"] },
     ],
   },
   {
@@ -118,14 +117,14 @@ let CARDS: any = [
     mainId: 7,
     items: [
       {
-        id: "1",
+        id: "14",
         title: "Контакт",
         rating: "4",
         currency: ["RUB", "USD"],
       },
 
       {
-        id: "4",
+        id: "15",
         title: "Вестерн Юнион",
         rating: "4",
         currency: ["RUB", "USD"],
@@ -137,19 +136,19 @@ let CARDS: any = [
     mainId: 8,
     items: [
       {
-        id: "1",
+        id: "16",
         title: "Наличные Рубль",
         rating: "4",
         currency: ["CASHRUB"],
       },
       {
-        id: "2",
+        id: "17",
         title: "Наличные Доллар",
         rating: "4",
         currency: ["CASHUSD"],
       },
       {
-        id: "3",
+        id: "18",
         title: "Наличные Евро",
         rating: "4",
         currency: ["CASHEUR"],
@@ -224,6 +223,7 @@ function App() {
 
     updateSearchValue(e.target.value);
   }
+  let arr:any = []
   useEffect(() => {
     {
       for (let i = 1; i < CARDS.length; i++) {
@@ -232,11 +232,17 @@ function App() {
         }
       }
     }
-    let filterRenderItems: any = CARDS.map((e: any) => e.items)
+    var filteredArray=  CARDS.slice(2)
+    let filterRenderItems: any = filteredArray.map((e: any) => e.items)
       .flat()
       .filter((e: any) =>
         e.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
       );
+      // filterRenderItems = filterRenderItems.forEach((element:any) => {
+      //   if(!arr.includes(element.title)){
+      //     arr.push(element.title)
+      //   }
+      // });
     setIsFilteredItems(filterRenderItems);
     if (isFinishedValue === searchValue) {
       console.log("sd");
@@ -245,6 +251,9 @@ function App() {
       console.log(searchValue);
     }
   }, [isCount, isFirstInputValue, searchValue, isFinishedValue]);
+
+
+
 
   return (
     <div className="App">
@@ -273,7 +282,9 @@ function App() {
         <button onClick={() => console.log(deletedArray)}>
           Show deleted array
         </button>
+        <button onClick={() => console.log(arr)}>Show filtered array</button>
         <button onClick={() => console.log(isFirstCard)}>Is finished first value?</button>
+        <button onClick={() => console.log(isFilteredItems)}>Show filtered items</button>
         <div className="main__wrapper">
           <div className="main__container">
             <Aside />

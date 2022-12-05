@@ -45,7 +45,6 @@ const Search:React.FC = () => {
           value={isFirstInputValue}
           onChange={onChangeFirstInput}
           placeholder="Отдаю"
-       
           className="search-input"
           aria-label="Search"
         />
