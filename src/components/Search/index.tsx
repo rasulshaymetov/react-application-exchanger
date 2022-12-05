@@ -17,14 +17,17 @@ const Search:React.FC = () => {
     isFirstInputValue,
     setIsFirstInputValue,
     isSecondInputValue,
+    isLastInputValue,
+    setIsLastInputValue,
     setIsSecondInputValue,
     onChangeFirstInput,
+    onChangeSecondInput,
     isFirstCard
   }: any = useContext(AppContext);
   function handleSwitch() {
     let firstValue = isFirstInputValue;
     let secondValue = isSecondInputValue;
-    setIsSecondInputValue(firstValue);
+    setIsLastInputValue(firstValue);
     setIsFirstInputValue(secondValue);
     setIsSwitch(!isSwitch);
     setTimeout(resetSwitch, 320);
@@ -37,6 +40,7 @@ const Search:React.FC = () => {
     []
   );
   
+  
   return (
     <div className={styles.search}>
       <div className={styles.wrapper}>
@@ -45,8 +49,9 @@ const Search:React.FC = () => {
           value={isFirstInputValue}
           onChange={onChangeFirstInput}
           placeholder="Отдаю"
-          className="search-input"
           aria-label="Search"
+          className={`search-input ${isFirstCard === true ? null : "disabled"}`}
+          disabled={isFirstCard === true ? false : true}
         />
         <button
           type="button"
@@ -61,8 +66,8 @@ const Search:React.FC = () => {
         </button>
         <input
           type="text"
-          value={isSecondInputValue}
-          onChange={(e) => setIsSecondInputValue(e.target.value)}
+          value={isLastInputValue}
+          onChange={onChangeSecondInput}
           placeholder="Получаю"
           aria-label="Search"
           className={`search-input ${isFirstCard === false ? null : "disabled"}`}

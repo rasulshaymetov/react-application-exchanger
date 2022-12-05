@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import AppContext from "../context";
+import { useSelector } from "react-redux";
 
 const Aside = () => {
   const [clickedNav, setClickedNav] = useState<any>(1);
@@ -9,9 +10,10 @@ const Aside = () => {
     isInputValue,
     setIsInputValue,
     isFinishedValue,
+    isLastInputValue,
     isFirstInputValue,
   }: any = useContext(AppContext);
-
+  const { searchValue } = useSelector((state: any) => state.filter);
   function clickNav(e: any) {
     setClickedNav(e);
     refs[e].current.scrollIntoView({
@@ -20,12 +22,9 @@ const Aside = () => {
       inline: "nearest",
     });
   }
-  let aside: any = document.querySelectorAll(".aside");
-  aside.onscroll = function () {
-    console.log("scrollling");
-  };
+
   let searchCards = [
-    { heading: `Поиск: ${isFirstInputValue ? "Отдаю" : "Получаю"}` },
+    { heading: `Поиск: ${isLastInputValue ? "Получаю" : "Отдаю"}` },
   ];
   let navigation = CARDS.map(function (obj: any) {
     return (
@@ -49,9 +48,11 @@ const Aside = () => {
     <div className="aside">
       <div className="aside__wrapper">
         <ul>
-          {isFirstInputValue.length > 0 && isFinishedValue === false
+          
+          {/* {searchValue.length > 0  
             ? searchNavigation
-            : navigation}
+            : navigation} */}
+            {navigation}
         </ul>
       </div>
     </div>
