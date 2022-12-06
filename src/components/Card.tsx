@@ -1,22 +1,24 @@
-import { useContext, useEffect, useState } from "react";
-import logo from "../assets/card-logo.svg";
+import { useContext } from "react";
 import AppContext from "../context";
+import { useSelector } from "react-redux";
 
 const Card = () => {
-  const [a, setA] = useState([]);
   const {
-    fakeAPI,
     CARDS,
     refs,
     selectValue,
     isFilteredItems,
     isSecondInputValue,
-    searchValue,
     isLastInputValue,
     isFirstInputValue,
     isFinishedValue,
     isLastFilteredItems,
   }: any = useContext(AppContext);
+
+  // * Вызываю значение из Redux для наблюдения значения в поисковике
+  const { searchValue } = useSelector((state: any) => state.filter);
+
+  // * Скролл по категориям карточек
   function test(id: any) {
     refs[id].current.scrollIntoView({
       behavior: "smooth",
@@ -24,8 +26,7 @@ const Card = () => {
     });
   }
 
-
-
+  // * Рендер оригинальных карточек
   const renderItems = CARDS?.map(function (card: any, index: any) {
     return (
       <div className="cards__block">
@@ -72,16 +73,15 @@ const Card = () => {
   return (
     <div className="cards">
       <div className="cards__wrapper">
-        {isFirstInputValue.length > 0 && isFinishedValue === false ? (
-          <h1>Поиск</h1>
-        ) : null}
-        {isLastInputValue.length > 0 && isFinishedValue === true ? (
-          <h1>Поиск</h1>
-        ) : null}
+
+       {/* // * Если поисковик не пустой, то отобразить поиск */}
+        {searchValue.length > 0 ? <h1>Поиск</h1> : null}
+        
+        {/* // * Рендер карточек для первого поисковика   */}
         {isSecondInputValue === false ? (
           <div
             className={`${
-              isFirstInputValue.length > 0 && isFinishedValue === false
+              searchValue.length > 0 && isFinishedValue === false
                 ? "cards__component"
                 : null
             }`}
@@ -120,70 +120,47 @@ const Card = () => {
               : renderItems}
           </div>
         ) : null}
+
+         {/* // * Рендер карточек для второго поисковика */}
         {isSecondInputValue === true ? (
           <div
             className={`${
-              isLastInputValue.length > 0 ? "cards__component" : null
+              searchValue.length > 0 ? "cards__component" : null
             }`}
           >
-            {isLastInputValue.length > 0 ? isLastFilteredItems.map(function (card: any, index: any) {
-              return (
-                <div className="cards__card">
-                  <div className="cards__card_wrapper">
-                    <div className="cards__top">
-                      <div className="cards__logo">
-                        <div className="cards__image"></div>
-                      </div>
-                      <p key={card.id} className="cards__title">{card.title}</p>
-                    </div>
-                    <div className="cards__currency">
-                      {card.currency?.map((type:string, index:number)=>{
-                        return (
-                          <div
-                            className="cards__currency_value"
-                            onClick={() => selectValue(card, type)}
-                            key={index}
-                          >
-                            {type}
+            {isLastInputValue.length > 0
+              ? isLastFilteredItems.map(function (card: any, index: any) {
+                  return (
+                    <div className="cards__card">
+                      <div className="cards__card_wrapper">
+                        <div className="cards__top">
+                          <div className="cards__logo">
+                            <div className="cards__image"></div>
                           </div>
-                        )
-                      })}
+                          <p key={card.id} className="cards__title">
+                            {card.title}
+                          </p>
+                        </div>
+                        <div className="cards__currency">
+                          {card.currency?.map((type: string, index: number) => {
+                            return (
+                              <div
+                                className="cards__currency_value"
+                                onClick={() => selectValue(card, type)}
+                                key={index}
+                              >
+                                {type}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              );
-            }) : renderItems}
+                  );
+                })
+              : renderItems}
           </div>
         ) : null}
-        {/* {isFinishedValue === true
-          ? isLastFilteredItems.map(function (card: any, index: any) {
-              return (
-                <div className="cards__card">
-                  <div className="cards__card_wrapper">
-                    <div className="cards__top">
-                      <div className="cards__logo">
-                        <div className="cards__image"></div>
-                      </div>
-                      <p key={card.id} className="cards__title">{card.title}</p>
-                    </div>
-                    <div className="cards__currency">
-                      {card.currency?.map((type:string, index:number)=>{
-                        return (
-                          <div
-                            className="cards__currency_value"
-                            onClick={() => selectValue(card, type)}
-                            key={index}
-                          >
-                            {type}
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-                </div>
-              );
-            })
-          : null} */}
       </div>
     </div>
   );

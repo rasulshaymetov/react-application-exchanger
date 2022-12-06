@@ -1,5 +1,4 @@
 import "./App.scss";
-import ReactDOM from "react-dom/client";
 import "./index.css";
 import Main from "./components/pages/Main";
 import {Routes, Route} from 'react-router-dom'
@@ -10,7 +9,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Main/>} />
-        <Route path="/exchangers" element={<Exchaners/>}/>
+        <Route path="/exchangers" element ={<Exchaners/>}/>
       </Routes>
     </div>
   );

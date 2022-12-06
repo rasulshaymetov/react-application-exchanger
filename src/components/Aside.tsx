@@ -1,19 +1,17 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import AppContext from "../context";
 import { useSelector } from "react-redux";
 
 const Aside = () => {
+  // * Проверяем, совпадает ли кликнутая кнопка навигации с состоянием
   const [clickedNav, setClickedNav] = useState<any>(1);
-  const {
-    CARDS,
-    refs,
-    isInputValue,
-    setIsInputValue,
-    isFinishedValue,
-    isLastInputValue,
-    isFirstInputValue,
-  }: any = useContext(AppContext);
+
+  const { CARDS, refs, isLastInputValue }: any = useContext(AppContext);
+
+  // * Вытаскивааем значение Search из Redux для наблюдения
   const { searchValue } = useSelector((state: any) => state.filter);
+  
+  // * Скролл
   function clickNav(e: any) {
     setClickedNav(e);
     refs[e].current.scrollIntoView({
@@ -23,9 +21,12 @@ const Aside = () => {
     });
   }
 
+  // * При поиске, значение в навигационной панели будет следующим
   let searchCards = [
     { heading: `Поиск: ${isLastInputValue ? "Получаю" : "Отдаю"}` },
   ];
+
+  //  * Рендер навигационной панели
   let navigation = CARDS.map(function (obj: any) {
     return (
       <div
@@ -40,6 +41,7 @@ const Aside = () => {
       </div>
     );
   });
+  // * Новое значение, если в поисковике будет что-то введено
   let searchNavigation = searchCards.map(function (obj: any) {
     return <div className="aside__list-elem active-list">{obj.heading}</div>;
   });
@@ -47,13 +49,8 @@ const Aside = () => {
   return (
     <div className="aside">
       <div className="aside__wrapper">
-        <ul>
-          
-          {/* {searchValue.length > 0  
-            ? searchNavigation
-            : navigation} */}
-            {navigation}
-        </ul>
+        {/* // * Условие, при котором рендерится оригинальная панель или измененная для поиска */}
+        <ul>{searchValue.length > 0 ? searchNavigation : navigation}</ul>
       </div>
     </div>
   );

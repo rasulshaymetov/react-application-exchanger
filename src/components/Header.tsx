@@ -7,7 +7,7 @@ const Header = () => {
           <img src={logo} alt="" />
         </div>
         <div className="header__nav">
-          <ul>
+          <ul>        
             <li>Мониторинг</li>
             <li>Обменники</li>
             <li>Партнёрам</li>

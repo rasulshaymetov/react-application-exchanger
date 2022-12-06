@@ -1,5 +1,5 @@
 import React from "react";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import Aside from "../../components/Aside";
 import Search from "../../components/Search";
@@ -10,7 +10,6 @@ import { useRef, createRef, useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
 import { setSearchValue } from "../../redux/slices/filterSlice";
-import { Routes, Route } from "react-router-dom";
 let CARDS: any = [
   {
     heading: "История поиска",
@@ -172,18 +171,17 @@ const Main = () => {
   const [isInputsFinished, setIsInputsFinished] = useState(false);
 
   const dispatch = useDispatch();
-  var deletedArray: any;
-  function selectValue(e: any, type: any) {
+
+  // * Функция по выбору карточек
+  function selectValue(e: any, type: any) { 
     if (isDisabledSelect === false && isSecondInputValue === false) {
       let currentValue = "";
       updateSearchValue(currentValue);
       setIsCount(isCount + 1);
       currentValue = `${e.title} (${type})`;
-      console.log(currentValue);
       if (isFirstCard === true) {
+        let deletedArray: any;
         setIsFirstInputValue(currentValue);
-        // CARDS[0].items.shift();
-        // CARDS[0].items.push(e);
         setIsFirstCard(false);
         setIsFinishedValue(true);
         setIsSecondInputValue(true);
@@ -191,7 +189,6 @@ const Main = () => {
         deletedArray = CARDS.pop();
         updateSearchValue("");
       } else {
-        console.log("Lorem10");
       }
       if (isFirstInputValue !== currentValue) {
         CARDS[0].items.push(e);
@@ -203,54 +200,44 @@ const Main = () => {
       updateSearchValue(currentValue);
       setIsCount(isCount + 1);
       currentValue = `${e.title} (${type})`;
-      console.log(currentValue);
       setIsLastInputValue(currentValue);
-      setIsInputsFinished(true)
+      setIsInputsFinished(true);
     }
   }
+  // * Отправление значения в Redux
   const updateSearchValue = useCallback(
     debounce((str: any) => {
       dispatch(setSearchValue(str));
-    }, 250),
+    }, 50),
     []
   );
 
-  function fakeAPI() {
-    console.log(CARDS);
-
-    console.log(CARDS);
-  }
-  useEffect(() => {}, [isCount]);
-
+  // * Функция по созданию ключей для навигации в Aside
   let cardIds = [];
   for (let i = 0; i < CARDS.length; i++) {
     cardIds.push(CARDS[i].mainId);
   }
-
   const refs = cardIds.reduce((acc: any, value: number) => {
     acc[value] = createRef();
     return acc;
   }, {});
-
   const end = useRef<any>(null);
-  let cardTitles: any = [];
+
+  // * Отправление значения первого поисковика в Redux
   function onChangeFirstInput(e: any) {
     setIsFirstInputValue(e.target.value);
     updateSearchValue(e.target.value);
   }
+    // * Отправление значения второго поисковика в Redux
   function onChangeSecondInput(e: any) {
     setIsLastInputValue(e.target.value);
     updateSearchValue(e.target.value);
   }
-  let arr: any = [];
+
+   
+  // * Фильтрация карточек в поисковике
   useEffect(() => {
-    {
-      for (let i = 1; i < CARDS.length; i++) {
-        for (let j = 0; j < CARDS[i].items.length; j++) {
-          cardTitles.push(CARDS[i].items[j].title);
-        }
-      }
-    }
+
     var filteredArray = CARDS;
     let filterRenderItems: any = filteredArray
       .map((e: any) => e.items)
@@ -263,11 +250,8 @@ const Main = () => {
       let firstClick = false;
 
       if (firstClick === false) {
-        console.log("Удаляется элемент навигации");
         firstClick = true;
       }
-
-      console.log(CARDS);
 
       let filterRenderLastItems: any = filteredLastArray
         .map((e: any) => e.items)
@@ -279,10 +263,6 @@ const Main = () => {
     }
 
     setIsFilteredItems(filterRenderItems);
-    if (isFinishedValue === searchValue) {
-      
-    } else {
-    }
   }, [
     isCount,
     isFirstInputValue,
@@ -291,20 +271,21 @@ const Main = () => {
     isLastInputValue,
   ]);
 
-
-const navigate = useNavigate()
-useEffect(() => {
-  if(isInputsFinished === true){
-      navigate("/exchangers")
-  }
-}, [isInputsFinished])
+  // * Если выбраны две валюты, навигация в следующую страницу
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isInputsFinished === true) {
+      navigate("/exchangers");
+    }
+  }, [isInputsFinished]);
+   
+  // ? Нужно удалить дубликаты при фильтрации карточек
 
   return (
     <>
       <AppContext.Provider
         value={{
           CARDS,
-          fakeAPI,
           end,
           refs,
           isFirstCard,
@@ -319,14 +300,14 @@ useEffect(() => {
           setIsSecondInputValue,
           isFilteredItems,
           isFinishedValue,
-          isLastFilteredItems
+          isLastFilteredItems,
         }}
       >
         <Header />
         <div className="main__wrapper">
           <div className="main__container">
             <Aside />
-            
+
             <div className="main__content">
               <Search />
               <Card />
