@@ -280,7 +280,9 @@ const Main = () => {
   }, [isInputsFinished]);
    
   // ? Нужно удалить дубликаты при фильтрации карточек
-
+  function test(){
+    
+  }
   return (
     <>
       <AppContext.Provider
