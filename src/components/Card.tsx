@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import AppContext from "../context";
 import { useSelector } from "react-redux";
+import React from "react";
 
 const Card = () => {
   const {
@@ -13,6 +14,8 @@ const Card = () => {
     isFirstInputValue,
     isFinishedValue,
     isLastFilteredItems,
+    setIsPopup,
+    isPopup
   }: any = useContext(AppContext);
 
   // * Вызываю значение из Redux для наблюдения значения в поисковике
@@ -25,7 +28,6 @@ const Card = () => {
       block: "start",
     });
   }
-
   // * Рендер оригинальных карточек
   const renderItems = CARDS?.map(function (card: any, index: any) {
     return (
@@ -35,9 +37,9 @@ const Card = () => {
         </h1>
 
         <div key={index} className="cards__component">
-          {card.items?.map(function (item: any) {
+          {card.items?.map(function (item: any, index:number) {
             return (
-              <div className="cards__card">
+              <div key={index} className="cards__card">
                 <div className="cards__card_wrapper">
                   <div className="cards__top">
                     <div className="cards__logo">
@@ -70,13 +72,27 @@ const Card = () => {
       </div>
     );
   });
+ 
+  function openPopup () {
+    setIsPopup(!isPopup);
+  }
   return (
-    <div className="cards">
+    <div className={`cards ${isPopup ? 'bg-popup-block'  : null}`}>
+      {/* <div className="cards__a"> */}
       <div className="cards__wrapper">
+        <div className="cards__popup">
+          <p  onClick={() => openPopup()}className="cards__select">Все валюты</p>
+          <div className={`cards__values ${!isPopup ? 'd-none' : null}`}>
+            <div className="cards__select_value">Только USD</div>
+            <div className="cards__select_value">Только USD</div>
+            <div className="cards__select_value">Только USD</div>
+          </div>
+          {/* </div> */}
+        </div>
 
-       {/* // * Если поисковик не пустой, то отобразить поиск */}
+        {/* // * Если поисковик не пустой, то отобразить поиск */}
         {searchValue.length > 0 ? <h1>Поиск</h1> : null}
-        
+
         {/* // * Рендер карточек для первого поисковика   */}
         {isSecondInputValue === false ? (
           <div
@@ -121,12 +137,10 @@ const Card = () => {
           </div>
         ) : null}
 
-         {/* // * Рендер карточек для второго поисковика */}
+        {/* // * Рендер карточек для второго поисковика */}
         {isSecondInputValue === true ? (
           <div
-            className={`${
-              searchValue.length > 0 ? "cards__component" : null
-            }`}
+            className={`${searchValue.length > 0 ? "cards__component" : null}`}
           >
             {isLastInputValue.length > 0
               ? isLastFilteredItems.map(function (card: any, index: any) {

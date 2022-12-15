@@ -1,12 +1,13 @@
 import { useState, useContext } from "react";
 import AppContext from "../context";
 import { useSelector } from "react-redux";
+import React from "react";
 
 const Aside = () => {
   // * Проверяем, совпадает ли кликнутая кнопка навигации с состоянием
   const [clickedNav, setClickedNav] = useState<any>(1);
 
-  const { CARDS, refs, isLastInputValue }: any = useContext(AppContext);
+  const { CARDS, refs, isLastInputValue, isPopup }: any = useContext(AppContext);
 
   // * Вытаскивааем значение Search из Redux для наблюдения
   const { searchValue } = useSelector((state: any) => state.filter);
@@ -20,7 +21,7 @@ const Aside = () => {
       inline: "nearest",
     });
   }
-
+   
   // * При поиске, значение в навигационной панели будет следующим
   let searchCards = [
     { heading: `Поиск: ${isLastInputValue ? "Получаю" : "Отдаю"}` },
@@ -47,8 +48,8 @@ const Aside = () => {
   });
 
   return (
-    <div className="aside">
-      <div className="aside__wrapper">
+      <div className='aside'>
+      <div  className={`aside__wrapper ${isPopup ? 'bg-popup-block aside__popup'  : null}`}>
         {/* // * Условие, при котором рендерится оригинальная панель или измененная для поиска */}
         <ul>{searchValue.length > 0 ? searchNavigation : navigation}</ul>
       </div>

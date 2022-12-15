@@ -1,18 +1,20 @@
-import { useState, useContext, useCallback } from "react";
+import { useState, useContext, useCallback, useEffect } from "react";
 import debounce from "lodash.debounce";
 import arrowLeft from "../../assets/arrrow-l.svg";
 import arrowRight from "../../assets/arrow-r.svg";
+import { useLocation } from "react-router-dom";
+import filter from "../../assets/filter.svg"
 import styles from "./Search.module.scss";
 import AppContext from "../../context";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../../redux/slices/filterSlice";
-const Search:React.FC = () => {
-  const [isValue, setIsValue] = useState('')
+const Search: React.FC = () => {
+  const [isValue, setIsValue] = useState("");
   const [isSwitch, setIsSwitch] = useState(false);
   function resetSwitch() {
     setIsSwitch(false);
   }
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const {
     isFirstInputValue,
     setIsFirstInputValue,
@@ -22,7 +24,8 @@ const Search:React.FC = () => {
     setIsSecondInputValue,
     onChangeFirstInput,
     onChangeSecondInput,
-    isFirstCard
+    isFirstCard,
+    isPopup
   }: any = useContext(AppContext);
   function handleSwitch() {
     let firstValue = isFirstInputValue;
@@ -34,46 +37,93 @@ const Search:React.FC = () => {
   }
 
   const updateSearchValue = useCallback(
-    debounce((str:any) => {
+    debounce((str: any) => {
       dispatch(setSearchValue(str));
     }, 250),
     []
   );
-  
-  
+  // * Клик на дополнительные кнопки
+  const [isClickedSearch, setIsClickedSearch] = useState("1");
+  // * В зависимости от страницы, рендер дополнительных элементов
+  const [isMainPage, setIsMainPage] = useState(true);
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setIsMainPage(true);
+    } else {
+      setIsMainPage(false);
+    }
+  }, [location]);
+
   return (
-    <div className={styles.search}>
+    <div
+      style={isMainPage ? { maxHeight: "107px" } : { maxHeight: "184px" }}
+      className={`${styles.search} ${isPopup ? 'bg-popup-block'  : null}`}
+    >
       <div className={styles.wrapper}>
-        <input
-          type="text"
-          value={isFirstInputValue}
-          onChange={onChangeFirstInput}
-          placeholder="Отдаю"
-          aria-label="Search"
-          className={`search-input ${isFirstCard === true ? null : "disabled"}`}
-          disabled={isFirstCard === true ? false : true}
-        />
-        <button
-          type="button"
-          disabled={isSwitch ? true : false}
-          onClick={handleSwitch}
-          className={`search-switch ${isSwitch ? "rotate" : null}`}
+        <div className={styles.flex}>
+          <input
+            type="text"
+            value={isFirstInputValue}
+            onChange={onChangeFirstInput}
+            placeholder="Отдаю"
+            aria-label="Search"
+            className={`search-input ${
+              isFirstCard === true ? null : "disabled"
+            }`}
+            disabled={isFirstCard === true ? false : true}
+          />
+          <button
+            type="button"
+            disabled={isSwitch ? true : false}
+            onClick={handleSwitch}
+            style={{ position: "absolute" }}
+            className={`search-switch ${isSwitch ? "rotate" : null}`}
+          >
+            <div>
+              <img src={arrowLeft} alt="" />
+              <img src={arrowRight} alt="" />
+            </div>
+          </button>
+          <input
+            type="text"
+            value={isLastInputValue}
+            onChange={onChangeSecondInput}
+            placeholder="Получаю"
+            aria-label="Search"
+            className={`search-input ${
+              isFirstCard === false ? null : "disabled"
+            }`}
+            disabled={isFirstCard === false ? false : true}
+          />
+        </div>
+        {/* Дополнительные кнопки */}
+        <div  className={!isMainPage ? styles.additional_actions : 'd-none'}>
+        <div
+          style={isMainPage ? { display: "none" } : {display: "flex"}}
+          className={styles.checkbox}
         >
-          <div>
-            <img src={arrowLeft} alt="" />
-            <img src={arrowRight} alt="" />
-          </div>
-        </button>
-        <input
-          type="text"
-          value={isLastInputValue}
-          onChange={onChangeSecondInput}
-          placeholder="Получаю"
-          aria-label="Search"
-          className={`search-input ${isFirstCard === false ? null : "disabled"}`}
-          disabled={isFirstCard === false ? false : true}
-          
-        />
+          <button
+            onClick={() => setIsClickedSearch("1")}
+            className={`${isClickedSearch === "1" ? "selected-action" : null}`}
+          >
+            Отдаю
+          </button>
+          <button
+            onClick={() => setIsClickedSearch("2")}
+            className={` ${isClickedSearch === "2" ? "selected-action" : null}`}
+          >
+            Получаю
+          </button>
+            <div className={`${isMainPage ? 'additional_input-wrapper' : 'd-none'}`}>
+    
+        </div>
+        </div>
+        <input type="number" className={styles.additional_input} />
+        <button className={styles.selectCity}>Выбрать город</button>
+        <button className={styles.filter}><img src={filter} alt="" /></button>
+      </div>
+      
       </div>
     </div>
   );

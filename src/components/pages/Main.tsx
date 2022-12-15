@@ -10,6 +10,7 @@ import { useRef, createRef, useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
 import { setSearchValue } from "../../redux/slices/filterSlice";
+import { setArrayValue } from "../../redux/slices/arrSlice";
 let CARDS: any = [
   {
     heading: "История поиска",
@@ -171,22 +172,28 @@ const Main = () => {
   const [isInputsFinished, setIsInputsFinished] = useState(false);
 
   const dispatch = useDispatch();
+  const [isDirectionCards, setIsDirectionCards] = useState([]);
+  const [isTempCards, setIsTempCards] = useState("");
+
+  const { selectedCards } = useSelector((state: any) => state.array);
 
   // * Функция по выбору карточек
-  function selectValue(e: any, type: any) { 
+  function selectValue(e: any, type: any) {
     if (isDisabledSelect === false && isSecondInputValue === false) {
       let currentValue = "";
       updateSearchValue(currentValue);
       setIsCount(isCount + 1);
       currentValue = `${e.title} (${type})`;
       if (isFirstCard === true) {
-        let deletedArray: any;
         setIsFirstInputValue(currentValue);
         setIsFirstCard(false);
         setIsFinishedValue(true);
         setIsSecondInputValue(true);
-        deletedArray = CARDS.pop();
-        deletedArray = CARDS.pop();
+        updateArrayValue(currentValue);
+        // * Если выбраны определенные карточки, то скрывать несколько элементов массива
+        // let deletedArray: any;
+        // deletedArray = CARDS.pop();
+        // deletedArray = CARDS.pop();
         updateSearchValue("");
       } else {
       }
@@ -194,21 +201,34 @@ const Main = () => {
         CARDS[0].items.push(e);
         setIsSecondInputValue(true);
         setIsDisabledSelect(true);
+        console.log("isFirstInputValue does not equals currentValue");
       }
     } else {
       let currentValue = "";
       updateSearchValue(currentValue);
       setIsCount(isCount + 1);
       currentValue = `${e.title} (${type})`;
+      updateArrayValue(currentValue);
       setIsLastInputValue(currentValue);
       setIsInputsFinished(true);
     }
   }
-  // * Отправление значения в Redux
+  // * Отправление значения в Redux с задержкой в 50 милисекунд
+
   const updateSearchValue = useCallback(
     debounce((str: any) => {
       dispatch(setSearchValue(str));
+      console.log(selectedCards);
     }, 50),
+    []
+  );
+
+  // ? Отправление значения в Redux для последующего рендера в DirectionAside
+  const updateArrayValue = useCallback(
+    debounce((str: any) => {
+      dispatch(setArrayValue(str));
+      console.log(str);
+    }, 10),
     []
   );
 
@@ -228,40 +248,45 @@ const Main = () => {
     setIsFirstInputValue(e.target.value);
     updateSearchValue(e.target.value);
   }
-    // * Отправление значения второго поисковика в Redux
+  // * Отправление значения второго поисковика в Redux
   function onChangeSecondInput(e: any) {
     setIsLastInputValue(e.target.value);
     updateSearchValue(e.target.value);
   }
 
-   
   // * Фильтрация карточек в поисковике
+  // ? Нужно удалить дубликаты при фильтрации карточек
   useEffect(() => {
-
+    // Создается дубликат оригинального массива для фильтрации
     var filteredArray = CARDS;
+    // Фильтрация для перового поисковика
+
     let filterRenderItems: any = filteredArray
       .map((e: any) => e.items)
       .flat()
       .filter((e: any) =>
         e.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
       );
+    // Проверка, является ли это вторым значением
     if (isSecondInputValue === true) {
+      // Создание дубликата массива
       var filteredLastArray = CARDS;
+      // Проверка, является ли это первым кликом для второго поисковика
       let firstClick = false;
-
       if (firstClick === false) {
         firstClick = true;
       }
-
+      // Фильтрация для второго поисковика
       let filterRenderLastItems: any = filteredLastArray
         .map((e: any) => e.items)
         .flat()
         .filter((e: any) =>
           e.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
         );
+      //  Добавление карточек в состояние отфильтрованных карточек для второго поисковика
       setIsLastFilteredItems(filterRenderLastItems);
     }
-
+    // Добавление карточек в состояние отфильтрованных карточек для первого поисковика
     setIsFilteredItems(filterRenderItems);
   }, [
     isCount,
@@ -272,20 +297,18 @@ const Main = () => {
   ]);
 
   // * Если выбраны две валюты, навигация в следующую страницу
+
   const navigate = useNavigate();
   useEffect(() => {
     if (isInputsFinished === true) {
-      navigate("/exchangers");
+      navigate("/direction");
     }
   }, [isInputsFinished]);
-   
-  // ? Нужно удалить дубликаты при фильтрации карточек
-  function test(){
-    
-  }
+  const [isPopup, setIsPopup] = useState(false);
   return (
     <>
-      <AppContext.Provider
+  <div className="main">
+  <AppContext.Provider
         value={{
           CARDS,
           end,
@@ -303,21 +326,28 @@ const Main = () => {
           isFilteredItems,
           isFinishedValue,
           isLastFilteredItems,
+          setIsDirectionCards,
+          isDirectionCards,
+          setIsPopup,
+          isPopup,
         }}
       >
-        <Header />
-        <div className="main__wrapper">
-          <div className="main__container">
-            <Aside />
+        <div className={`${isPopup ? "bg-popup-wrapper" : null}`}>
+          <Header />
+          <div className="main__wrapper">
+            <div className="main__container">
+              <Aside />
 
-            <div className="main__content">
-              <Search />
-              <Card />
+              <div className="main__content">
+                <Search />
+                <Card />
+              </div>
             </div>
           </div>
         </div>
       </AppContext.Provider>
       <Footer />
+  </div>
     </>
   );
 };
