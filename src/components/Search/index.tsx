@@ -137,7 +137,7 @@ const Search: React.FC = () => {
             <button onClick={() => setIsNumberValue('')}>
               <img src={clear} alt="Clear" />
             </button>
-            <span>USD</span>
+            <span>RUB</span>
           </div>
           <button className={styles.selectCity}>Выбрать город</button>
           <button className={styles.filter}>
