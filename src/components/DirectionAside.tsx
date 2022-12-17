@@ -4,6 +4,7 @@ import arrow from "../assets/sort.svg";
 const DirectionAside = () => {
   const { selectedCards } = useSelector((state: any) => state.array);
   const [isClickedNav, setIsClickedNav] = useState("1");
+  const [isHide, setIsHide] = useState(false)
   return (
     <div className="aside">
       <div className="aside__wrapper">
@@ -44,7 +45,7 @@ const DirectionAside = () => {
             <li className="clear">Очистить историю поиска</li>
           </ul>
         </div>
-        <button className="hide-button">
+        <button onClick={() => setIsHide(prev => !prev) } className={`hide-button ${isHide ? 'rotate-180' : ''}`}>
         <img src={arrow} alt="Hide button"/>
       </button>
       </div>

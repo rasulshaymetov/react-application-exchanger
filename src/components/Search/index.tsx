@@ -3,11 +3,12 @@ import debounce from "lodash.debounce";
 import arrowLeft from "../../assets/arrrow-l.svg";
 import arrowRight from "../../assets/arrow-r.svg";
 import { useLocation } from "react-router-dom";
-import filter from "../../assets/filter.svg"
+import filter from "../../assets/filter.svg";
 import styles from "./Search.module.scss";
 import AppContext from "../../context";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../../redux/slices/filterSlice";
+import clear from "../../assets/clear.svg";
 const Search: React.FC = () => {
   const [isValue, setIsValue] = useState("");
   const [isSwitch, setIsSwitch] = useState(false);
@@ -25,7 +26,7 @@ const Search: React.FC = () => {
     onChangeFirstInput,
     onChangeSecondInput,
     isFirstCard,
-    isPopup
+    isPopup,
   }: any = useContext(AppContext);
   function handleSwitch() {
     let firstValue = isFirstInputValue;
@@ -54,11 +55,14 @@ const Search: React.FC = () => {
       setIsMainPage(false);
     }
   }, [location]);
-
+ const [isNumberValue, setIsNumberValue] = useState('')
+ function onChangeNumberValue(e:any){
+    setIsNumberValue(e.target.value)
+ }
   return (
     <div
       style={isMainPage ? { maxHeight: "107px" } : { maxHeight: "184px" }}
-      className={`${styles.search} ${isPopup ? 'bg-popup-block'  : null}`}
+      className={`${styles.search} ${isPopup ? "bg-popup-block" : null}`}
     >
       <div className={styles.wrapper}>
         <div className={styles.flex}>
@@ -98,32 +102,48 @@ const Search: React.FC = () => {
           />
         </div>
         {/* Дополнительные кнопки */}
-        <div  className={!isMainPage ? styles.additional_actions : 'd-none'}>
-        <div
-          style={isMainPage ? { display: "none" } : {display: "flex"}}
-          className={styles.checkbox}
-        >
-          <button
-            onClick={() => setIsClickedSearch("1")}
-            className={`${isClickedSearch === "1" ? "selected-action" : null}`}
+        <div className={!isMainPage ? styles.additional_actions : "d-none"}>
+          <div
+            style={isMainPage ? { display: "none" } : { display: "flex" }}
+            className={styles.checkbox}
           >
-            Отдаю
+            <button
+              onClick={() => setIsClickedSearch("1")}
+              className={`${
+                isClickedSearch === "1" ? "selected-action" : null
+              }`}
+            >
+              Отдаю
+            </button>
+            <button
+              onClick={() => setIsClickedSearch("2")}
+              className={` ${
+                isClickedSearch === "2" ? "selected-action" : null
+              }`}
+            >
+              Получаю
+            </button>
+            <div
+              className={`${
+                isMainPage ? "additional_input-wrapper" : "d-none"
+              }`}
+            ></div>
+          </div>
+          <div className={styles.additional_input}>
+            <input 
+            value={isNumberValue}
+            onChange={onChangeNumberValue}
+            type="number" className={styles.additional_input} />
+            <button onClick={() => setIsNumberValue('')}>
+              <img src={clear} alt="Clear" />
+            </button>
+            <span>USD</span>
+          </div>
+          <button className={styles.selectCity}>Выбрать город</button>
+          <button className={styles.filter}>
+            <img src={filter} alt="Filter" />
           </button>
-          <button
-            onClick={() => setIsClickedSearch("2")}
-            className={` ${isClickedSearch === "2" ? "selected-action" : null}`}
-          >
-            Получаю
-          </button>
-            <div className={`${isMainPage ? 'additional_input-wrapper' : 'd-none'}`}>
-    
         </div>
-        </div>
-        <input type="number" className={styles.additional_input} />
-        <button className={styles.selectCity}>Выбрать город</button>
-        <button className={styles.filter}><img src={filter} alt="" /></button>
-      </div>
-      
       </div>
     </div>
   );

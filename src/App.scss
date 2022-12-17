@@ -463,5 +463,8 @@ li {
   cursor: pointer;
   position: absolute;
   top: 95%;
-  left: 40%
+  left: 40%;
+}
+.rotate-180{
+  transform: rotate(180deg);
 }
