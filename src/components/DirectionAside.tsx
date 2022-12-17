@@ -20,7 +20,9 @@ const DirectionAside = () => {
             <div className={`${isClickedNav === '4' ? 'active-list' : null}`} onClick={() => setIsClickedNav("4")}>
             <li>Тинькофф (USD) → <br/> Bitcoin (BTC) </li>
             </div>
+            <li className="clear">Очистить историю поиска</li>
           </ul>
+
         </div>
       </div>
     </div>
