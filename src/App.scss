@@ -141,6 +141,12 @@ li {
   max-height: calc(100vh - 366rem);
   padding: 30rem 30rem;
   padding-top: 37.5rem;
+  &__image{
+    
+      width: 20rem;
+      height: 20rem;
+    
+  }
   &__popup {
     padding: 20rem 0 34rem 0;
     display: flex;
@@ -250,9 +256,9 @@ li {
     }
   }
   &__logo {
-    padding: 10rem;
+    // padding: 10rem;
     border-radius: 50px;
-    border: 1px solid #333;
+    // border: 1px solid #333;
     margin-right: 10rem;
   }
 }

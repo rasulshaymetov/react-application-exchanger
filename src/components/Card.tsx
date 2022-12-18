@@ -43,7 +43,9 @@ const Card = () => {
                 <div className="cards__card_wrapper">
                   <div className="cards__top">
                     <div className="cards__logo">
-                      <div className="card__image"></div>
+                      {/* <div className="cards__image"> */}
+                        <img className="cards__image" src={item.imageUrl} alt="" />
+                        {/* </div> */}
                     </div>
                     <p key={item.id} className="cards__title">
                       {item.title}

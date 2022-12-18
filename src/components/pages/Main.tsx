@@ -24,12 +24,15 @@ let CARDS: any = [
       {
         id: "10",
         title: "Тинькофф",
+        imageUrl: "./image/values/tinkoff.svg",
         rating: "4",
         currency: ["RUB", "USD", "EUR"],
       },
       {
         id: "11",
         title: "Альфа Банк",
+        imageUrl: "./image/values/alfa.svg",
+
         rating: "4",
         currency: ["RUB", "USD"],
       },
@@ -42,18 +45,21 @@ let CARDS: any = [
       {
         id: "5",
         title: "Bitcoin",
+        imageUrl: "./image/values/bitcoin.png",
         rating: "4",
         currency: ["BTC", "WBTC", "BTCBEP20"],
       },
       {
         id: "6",
         title: "Ethereum",
+        imageUrl: "./image/values/etherium.png",
         rating: "4",
         currency: ["ETH", "ETHBEP20"],
       },
       {
         id: "7",
         title: "Binance USD",
+        imageUrl: "./image/values/binance.png",
         rating: "4",
         currency: ["RUB"],
       },
@@ -66,18 +72,21 @@ let CARDS: any = [
       {
         id: "7",
         title: "Киви",
+        imageUrl: "./image/values/qiwi.png",
         rating: "4",
         currency: ["RUB", "KZT"],
       },
       {
         id: "8",
         title: "ЮMoney",
+        imageUrl: "./image/values/umoney.png",
         rating: "4",
         currency: ["RUB"],
       },
       {
         id: "9",
         title: "Счет телефона",
+        imageUrl: "./image/values/number.png",
         rating: "4",
         currency: ["RUB"],
       },
@@ -95,22 +104,31 @@ let CARDS: any = [
       {
         id: "10",
         title: "Тинькофф",
+        imageUrl: "./image/values/tinkoff.svg",
         rating: "4",
         currency: ["RUB", "USD", "EUR"],
       },
       {
         id: "11",
         title: "Альфа Банк",
+        imageUrl: "./image/values/alfa.svg",
         rating: "4",
         currency: ["RUB", "USD"],
       },
       {
         id: "12",
         title: "Русский Стандарт",
+        imageUrl: "./image/values/standart.svg",
         rating: "4",
         currency: ["RUB"],
       },
-      { id: "13", title: "Открытие", rating: "4", currency: ["RUB", "USD"] },
+      {
+        id: "13",
+        title: "Открытие",
+        imageUrl: "./image/values/opening.svg",
+        rating: "4",
+        currency: ["RUB", "USD"],
+      },
     ],
   },
   {
@@ -120,6 +138,7 @@ let CARDS: any = [
       {
         id: "14",
         title: "Контакт",
+        imageUrl: "./image/values/contact.png",
         rating: "4",
         currency: ["RUB", "USD"],
       },
@@ -127,6 +146,7 @@ let CARDS: any = [
       {
         id: "15",
         title: "Вестерн Юнион",
+        imageUrl: "./image/values/wu.png",
         rating: "4",
         currency: ["RUB", "USD"],
       },
@@ -139,18 +159,21 @@ let CARDS: any = [
       {
         id: "16",
         title: "Наличные Рубль",
+        imageUrl:'./image/values/rub.png',
         rating: "4",
         currency: ["CASHRUB"],
       },
       {
         id: "17",
         title: "Наличные Доллар",
+        imageUrl:'./image/values/dollar.svg',
         rating: "4",
         currency: ["CASHUSD"],
       },
       {
         id: "18",
         title: "Наличные Евро",
+        imageUrl:'./image/values/euro.png',
         rating: "4",
         currency: ["CASHEUR"],
       },
@@ -307,47 +330,47 @@ const Main = () => {
   const [isPopup, setIsPopup] = useState(false);
   return (
     <>
-  <div className="main">
-  <AppContext.Provider
-        value={{
-          CARDS,
-          end,
-          refs,
-          isFirstCard,
-          selectValue,
-          onChangeFirstInput,
-          onChangeSecondInput,
-          isFirstInputValue,
-          setIsFirstInputValue,
-          isSecondInputValue,
-          isLastInputValue,
-          setIsLastInputValue,
-          setIsSecondInputValue,
-          isFilteredItems,
-          isFinishedValue,
-          isLastFilteredItems,
-          setIsDirectionCards,
-          isDirectionCards,
-          setIsPopup,
-          isPopup,
-        }}
-      >
-        <div className={`${isPopup ? "bg-popup-wrapper" : null}`}>
-          <Header />
-          <div className="main__wrapper">
-            <div className="main__container">
-              <Aside />
+      <div className="main">
+        <AppContext.Provider
+          value={{
+            CARDS,
+            end,
+            refs,
+            isFirstCard,
+            selectValue,
+            onChangeFirstInput,
+            onChangeSecondInput,
+            isFirstInputValue,
+            setIsFirstInputValue,
+            isSecondInputValue,
+            isLastInputValue,
+            setIsLastInputValue,
+            setIsSecondInputValue,
+            isFilteredItems,
+            isFinishedValue,
+            isLastFilteredItems,
+            setIsDirectionCards,
+            isDirectionCards,
+            setIsPopup,
+            isPopup,
+          }}
+        >
+          <div className={`${isPopup ? "bg-popup-wrapper" : null}`}>
+            <Header />
+            <div className="main__wrapper">
+              <div className="main__container">
+                <Aside />
 
-              <div className="main__content">
-                <Search />
-                <Card />
+                <div className="main__content">
+                  <Search />
+                  <Card />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </AppContext.Provider>
-      <Footer />
-  </div>
+        </AppContext.Provider>
+        <Footer />
+      </div>
     </>
   );
 };
