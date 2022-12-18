@@ -137,15 +137,23 @@ li {
 
 .cards {
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 3rem;
+    opacity: 0.5;
+    height: 162rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    border: 1px solid #4320CF;
+    background:  #4320CF;;
+    border-radius: 50rem;
+  }
   position: relative;
   max-height: calc(100vh - 366rem);
   padding: 30rem 30rem;
   padding-top: 37.5rem;
-  &__image{
-    
-      width: 20rem;
-      height: 20rem;
-    
+  &__image {
+    width: 20rem;
+    height: 20rem;
   }
   &__popup {
     padding: 20rem 0 34rem 0;
@@ -172,6 +180,7 @@ li {
     font-size: 16rem;
     cursor: pointer;
     display: inline;
+    padding-bottom: 10rem;
     user-select: none;
     &_value {
       padding: 10rem 0;
@@ -330,9 +339,9 @@ li {
     border: 1px solid rgba(67, 32, 207, 0.5);
     position: absolute;
     &:hover {
-      background: #4320cf;  
+      background: #4320cf;
       cursor: pointer;
-      img{
+      img {
         content: url("/assets/hover__sort.svg");
       }
     }
@@ -488,9 +497,9 @@ li {
   top: 95%;
   left: 40%;
   &:hover {
-    background: #4320cf;  
+    background: #4320cf;
     cursor: pointer;
-    img{
+    img {
       content: url("/assets/hover__sort.svg");
     }
   }

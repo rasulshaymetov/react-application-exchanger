@@ -86,8 +86,8 @@ const Card = () => {
           <p  onClick={() => openPopup()}className="cards__select">Все валюты</p>
           <div className={`cards__values ${!isPopup ? 'd-none' : null}`}>
             <div className="cards__select_value">Только USD</div>
-            <div className="cards__select_value">Только USD</div>
-            <div className="cards__select_value">Только USD</div>
+            <div className="cards__select_value">Только RUB</div>
+            <div className="cards__select_value">Только EUR</div>
           </div>
           {/* </div> */}
         </div>
