@@ -205,7 +205,7 @@ const Card = () => {
               : renderItems}
           </div>
         ) : null}
-        {/* Рендер отфильтрованных карточек */}
+        {/* Рендер отфильтрованных карточек по валютам*/}
             {isRenderValues ? <div>Поиск по {isFilterValue}</div> : null}
        <div className="cards__component">
     
