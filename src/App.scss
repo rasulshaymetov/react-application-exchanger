@@ -2,6 +2,11 @@ $popup-block: #e6e6e6;
 $popup-wrapper: #dddce3;
 html {
   font-size: 1px;
+  &::-webkit-scrollbar {
+    width: 3rem;
+    opacity: 0.5;
+    height: 162rem;
+  }
 }
 a {
   text-decoration: none;
@@ -143,8 +148,8 @@ li {
     height: 162rem;
   }
   &::-webkit-scrollbar-thumb {
-    border: 1px solid #4320CF;
-    background:  #4320CF;;
+    border: 1px solid #4320cf;
+    background: #4320cf;
     border-radius: 50rem;
   }
   position: relative;
@@ -155,6 +160,11 @@ li {
     width: 20rem;
     height: 20rem;
   }
+  &__wrapper {
+    position: relative;
+  }
+  &__block {
+  }
   &__popup {
     padding: 20rem 0 34rem 0;
     display: flex;
@@ -164,11 +174,12 @@ li {
     max-height: 186rem;
     width: 100%;
     height: 100%;
-    background: #ffffff;
+
     border-radius: 10px;
     position: absolute;
     left: 85%;
   }
+
   h1 {
     font-size: 32rem;
     font-weight: 400;
@@ -469,12 +480,13 @@ li {
     }
   }
 }
-
+.bg-white {
+  background: #ffffff;
+}
 .direction-footer {
   margin-top: 105rem;
 }
 .visible-none {
-  // visibility: hidden;
   display: none;
 }
 .clear {

@@ -26,7 +26,7 @@ let CARDS: any = [
         title: "Тинькофф",
         imageUrl: "./image/values/tinkoff.svg",
         rating: "4",
-        currency: ["RUB", "USD", "EUR"],
+        currency: ["RUB"],
       },
       {
         id: "11",
@@ -138,7 +138,7 @@ let CARDS: any = [
       {
         id: "14",
         title: "Контакт",
-        imageUrl: "./image/values/contact.png",
+        imageUrl: "./image/values/contact-alt.png",
         rating: "4",
         currency: ["RUB", "USD"],
       },
@@ -159,21 +159,21 @@ let CARDS: any = [
       {
         id: "16",
         title: "Наличные Рубль",
-        imageUrl:'./image/values/rub.png',
+        imageUrl: "./image/values/rub.png",
         rating: "4",
         currency: ["CASHRUB"],
       },
       {
         id: "17",
         title: "Наличные Доллар",
-        imageUrl:'./image/values/dollar.svg',
+        imageUrl: "./image/values/dollar.svg",
         rating: "4",
         currency: ["CASHUSD"],
       },
       {
         id: "18",
         title: "Наличные Евро",
-        imageUrl:'./image/values/euro.png',
+        imageUrl: "./image/values/euro.png",
         rating: "4",
         currency: ["CASHEUR"],
       },
@@ -193,7 +193,8 @@ const Main = () => {
   const [isFinishedValue, setIsFinishedValue] = useState(false);
   const [isLastInputValue, setIsLastInputValue] = useState("");
   const [isInputsFinished, setIsInputsFinished] = useState(false);
-
+  const [isFilterValue, setIsFilterValue] = useState("");
+  const [isFilteredValues, setIsFilteredValues] = useState([]);
   const dispatch = useDispatch();
   const [isDirectionCards, setIsDirectionCards] = useState([]);
   const [isTempCards, setIsTempCards] = useState("");
@@ -318,6 +319,20 @@ const Main = () => {
     isFinishedValue,
     isLastInputValue,
   ]);
+  let b:any = []
+  const [isRenderValues, setIsRenderValues] = useState(false)
+  useEffect(() => {
+    let a = CARDS.map((e: any) => e.items);
+    for (let i = 0; i < a.length; i++) {
+      for (let j = 0; j < a[i].length; j++) {
+        if (a[i][j].currency.includes(isFilterValue)) {
+          b.push(a[i][j]);
+          setIsFilteredValues(b)
+        }
+      }
+    }
+
+  }, [isFilterValue, isRenderValues]);
 
   // * Если выбраны две валюты, навигация в следующую страницу
 
@@ -331,6 +346,8 @@ const Main = () => {
   return (
     <>
       <div className="main">
+        <button onClick={() => console.log(b)}>Lorem</button>
+        <button  onClick={() => console.log(isFilteredValues)}>State</button>
         <AppContext.Provider
           value={{
             CARDS,
@@ -353,6 +370,11 @@ const Main = () => {
             isDirectionCards,
             setIsPopup,
             isPopup,
+            isFilterValue,
+            isFilteredValues,
+            setIsFilterValue,
+            setIsRenderValues,
+            isRenderValues,
           }}
         >
           <div className={`${isPopup ? "bg-popup-wrapper" : null}`}>

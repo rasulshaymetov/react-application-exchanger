@@ -79,10 +79,10 @@ const Search: React.FC = () => {
           />
           <button
             type="button"
-            disabled={isSwitch ? true : false}
+            disabled={isSwitch || isPopup ? true : false }
             onClick={handleSwitch}
             style={{ position: "absolute" }}
-            className={`search-switch ${isSwitch ? "rotate" : null}`}
+            className={`search-switch ${isSwitch ? "rotate" : null} ${isPopup ? "bg-popup-block" : null}`}
           >
             <div>
               <img src={arrowLeft} alt="" />

@@ -15,7 +15,12 @@ const Card = () => {
     isFinishedValue,
     isLastFilteredItems,
     setIsPopup,
-    isPopup
+    isPopup,
+    setIsFilterValue,
+    isFilteredValues,
+    isRenderValues,
+    setIsRenderValues,
+    isFilterValue
   }: any = useContext(AppContext);
 
   // * Вызываю значение из Redux для наблюдения значения в поисковике
@@ -29,7 +34,7 @@ const Card = () => {
     });
   }
   // * Рендер оригинальных карточек
-  const renderItems = CARDS?.map(function (card: any, index: any) {
+  const renderItems = CARDS?.map(function (card: any, index: number) {
     return (
       <div className="cards__block">
         <h1 key={card.mainId} id={card.mainId} ref={refs[card.mainId]}>
@@ -37,15 +42,19 @@ const Card = () => {
         </h1>
 
         <div key={index} className="cards__component">
-          {card.items?.map(function (item: any, index:number) {
+          {card.items?.map(function (item: any, index: number) {
             return (
               <div key={index} className="cards__card">
                 <div className="cards__card_wrapper">
                   <div className="cards__top">
                     <div className="cards__logo">
                       {/* <div className="cards__image"> */}
-                        <img className="cards__image" src={item.imageUrl} alt="" />
-                        {/* </div> */}
+                      <img
+                        className="cards__image"
+                        src={item.imageUrl}
+                        alt=""
+                      />
+                      {/* </div> */}
                     </div>
                     <p key={item.id} className="cards__title">
                       {item.title}
@@ -74,20 +83,38 @@ const Card = () => {
       </div>
     );
   });
- 
-  function openPopup () {
+
+  function openPopup() {
     setIsPopup(!isPopup);
   }
+
+  function filterValues(currentValue: string) {
+    setIsFilterValue(currentValue);
+    setIsRenderValues(true)
+  }
+  const popupValues = ["USD", "RUB", "EUR"];
+  const values = popupValues.map(function (item: string, index: number) {
+    return (
+      <div
+        key={index}
+        title={item}
+        onClick={() => filterValues(item)}
+        className="cards__select_value"
+      >
+        Только {item}
+      </div>
+    );
+  });
   return (
-    <div className={`cards ${isPopup ? 'bg-popup-block'  : null}`}>
+    <div className={`cards ${isPopup ? "bg-popup-block" : null}`}>
       {/* <div className="cards__a"> */}
       <div className="cards__wrapper">
-        <div className="cards__popup">
-          <p  onClick={() => openPopup()}className="cards__select">Все валюты</p>
-          <div className={`cards__values ${!isPopup ? 'd-none' : null}`}>
-            <div className="cards__select_value">Только USD</div>
-            <div className="cards__select_value">Только RUB</div>
-            <div className="cards__select_value">Только EUR</div>
+        <div className={`cards__popup ${isPopup ? "bg-white" : ""}`}>
+          <p onClick={() => openPopup()} className="cards__select">
+            Все валюты
+          </p>
+          <div className={`cards__values ${!isPopup ? "d-none" : null}`}>
+            {values}
           </div>
           {/* </div> */}
         </div>
@@ -96,7 +123,7 @@ const Card = () => {
         {searchValue.length > 0 ? <h1>Поиск</h1> : null}
 
         {/* // * Рендер карточек для первого поисковика   */}
-        {isSecondInputValue === false ? (
+        {isSecondInputValue === false &&  isRenderValues === false ? (
           <div
             className={`${
               searchValue.length > 0 && isFinishedValue === false
@@ -104,10 +131,10 @@ const Card = () => {
                 : null
             }`}
           >
-            {isFirstInputValue.length > 0 && isFinishedValue === false
-              ? isFilteredItems?.map(function (card: any, index: any) {
+            {isFirstInputValue.length > 0 && isFinishedValue === false 
+              ? isFilteredItems?.map(function (card: any, index: number) {
                   return (
-                    <div className="cards__card">
+                    <div key={card.mainId} className="cards__card">
                       <div className="cards__card_wrapper">
                         <div className="cards__top">
                           <div className="cards__logo">
@@ -136,6 +163,7 @@ const Card = () => {
                   );
                 })
               : renderItems}
+              {isRenderValues === true ? 'Time' : ''}
           </div>
         ) : null}
 
@@ -145,9 +173,9 @@ const Card = () => {
             className={`${searchValue.length > 0 ? "cards__component" : null}`}
           >
             {isLastInputValue.length > 0
-              ? isLastFilteredItems.map(function (card: any, index: any) {
+              ? isLastFilteredItems.map(function (card: any, index: number) {
                   return (
-                    <div className="cards__card">
+                    <div key={index} className="cards__card">
                       <div className="cards__card_wrapper">
                         <div className="cards__top">
                           <div className="cards__logo">
@@ -177,6 +205,33 @@ const Card = () => {
               : renderItems}
           </div>
         ) : null}
+            {isRenderValues ? <div>Поиск по {isFilterValue}</div> : null}
+       <div className="cards__component">
+    
+       { isRenderValues ? isFilteredValues.map(function(item:any){
+            return(
+              <div className="cards__card">
+                <div className="cards__card_wrapper">
+                  <div className="cards__top">
+                    <div className="cards__logo">
+                     <img className="cards__image" src={item.imageUrl} alt="" />
+                    </div>
+                    
+                    <p className="cards__title">{item.title}</p>
+                    </div>
+                    <div className="cards__currency">
+                  {item.currency?.map((type:string, index:number)=>{
+                    return(
+                      <div className="cards__currency_value">{type}</div>
+                    )
+                  })}
+                    </div>
+                 
+                </div>
+              </div>
+            )
+        }) : null}
+       </div>
       </div>
     </div>
   );
