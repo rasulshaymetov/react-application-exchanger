@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import star from "../assets/star.svg";
 import error from "../assets/error.svg";
 import hover_error from "../assets/hover__error.svg";
@@ -116,6 +116,7 @@ const EXCHANGERS = [
 ];
 
 const Table = () => {
+  const [isHideTable, setIsHideTable] = useState(false)
   return (
     <div className="table table__value-selected">
       <div className="table__wrapper">
@@ -194,6 +195,9 @@ const Table = () => {
           </div>
         </div>
       </div>
+      <button onClick={() => setIsHideTable(prev => !prev)} className={`table__hide ${isHideTable ? "rotate-180" : ''}`}>
+        <img src={sort} alt="" />
+      </button>
     </div>
   );
 };

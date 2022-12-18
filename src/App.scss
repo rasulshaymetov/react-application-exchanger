@@ -306,6 +306,7 @@ li {
 
 .table {
   margin-bottom: 40rem;
+  position: relative;
   padding: 30rem 30rem 59rem 30rem;
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -313,7 +314,23 @@ li {
   max-width: 1125rem;
   width: 100%;
   margin-top: 20rem;
-
+  &__hide {
+    top: 97%;
+    left: 94%;
+    width: 40rem;
+    height: 40rem;
+    border-radius: 50rem;
+    background: #ffffff;
+    border: 1px solid rgba(67, 32, 207, 0.5);
+    position: absolute;
+    &:hover {
+      background: #4320cf;  
+      cursor: pointer;
+      img{
+        content: url("/assets/hover__sort.svg");
+      }
+    }
+  }
   &__heading {
     font-size: 12rem;
   }
@@ -464,7 +481,14 @@ li {
   position: absolute;
   top: 95%;
   left: 40%;
+  &:hover {
+    background: #4320cf;  
+    cursor: pointer;
+    img{
+      content: url("/assets/hover__sort.svg");
+    }
+  }
 }
-.rotate-180{
+.rotate-180 {
   transform: rotate(180deg);
 }
