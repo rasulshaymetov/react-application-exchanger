@@ -346,8 +346,6 @@ const Main = () => {
   return (
     <>
       <div className="main">
-        <button onClick={() => console.log(b)}>Lorem</button>
-        <button  onClick={() => console.log(isFilteredValues)}>State</button>
         <AppContext.Provider
           value={{
             CARDS,

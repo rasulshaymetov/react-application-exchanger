@@ -2,10 +2,15 @@ $popup-block: #e6e6e6;
 $popup-wrapper: #dddce3;
 html {
   font-size: 1px;
+  &::-webkit-scrollbar-thumb {
+    // border: 1px solid #4320cf;
+    background: #4320cf;
+    border-radius: 50rem;
+  }
   &::-webkit-scrollbar {
-    width: 3rem;
-    opacity: 0.5;
-    height: 162rem;
+    width: 2rem;  
+    opacity: 0.3;
+    height: 100vh;
   }
 }
 a {
@@ -143,9 +148,9 @@ li {
 .cards {
   overflow-y: auto;
   &::-webkit-scrollbar {
-    width: 3rem;
+    width: 3rem;  
     opacity: 0.5;
-    height: 162rem;
+    height: 160rem;
   }
   &::-webkit-scrollbar-thumb {
     border: 1px solid #4320cf;

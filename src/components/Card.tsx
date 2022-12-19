@@ -86,11 +86,16 @@ const Card = () => {
 
   function openPopup() {
     setIsPopup(!isPopup);
+    if(isPopup === true){
+     setIsRenderValues(false)
+      console.log('sd')
+    }
   }
 
   function filterValues(currentValue: string) {
     setIsFilterValue(currentValue);
     setIsRenderValues(true)
+    setIsPopup(false)
   }
   const popupValues = ["USD", "RUB", "EUR"];
   const values = popupValues.map(function (item: string, index: number) {
@@ -163,7 +168,7 @@ const Card = () => {
                   );
                 })
               : renderItems}
-              {isRenderValues === true ? 'Time' : ''}
+            
           </div>
         ) : null}
 
