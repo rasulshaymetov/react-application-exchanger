@@ -8,7 +8,7 @@ html {
     border-radius: 50rem;
   }
   &::-webkit-scrollbar {
-    width: 2rem;  
+    width: 2rem;
     opacity: 0.3;
     height: 100vh;
   }
@@ -148,7 +148,7 @@ li {
 .cards {
   overflow-y: auto;
   &::-webkit-scrollbar {
-    width: 3rem;  
+    width: 3rem;
     opacity: 0.5;
     height: 160rem;
   }
@@ -157,7 +157,7 @@ li {
     background: #4320cf;
     border-radius: 50rem;
   }
-  &__filter{
+  &__filter {
     font-size: 32rem;
     line-height: 37rem;
     color: #000000;
@@ -530,4 +530,116 @@ li {
 }
 .rotate-180 {
   transform: rotate(180deg);
+}
+.error {
+  color: white;
+  max-width: 1126rem;
+  max-height: 990rem;
+  background: #333;
+  width: 100%;
+  border-radius: 10rem;
+  padding: 30rem 30rem 40rem 0;
+  h1 {
+    padding-left: 30rem;
+    margin-bottom: 45rem;
+  }
+  &__inputs {
+    padding-left: 30rem;
+    display: flex;
+    gap: 20rem;
+    margin-bottom: 40rem;
+    p {
+      font-size: 12rem;
+      margin-bottom: 10rem;
+    }
+
+    input {
+      background: #ffffff;
+      border: 1px solid #000000;
+      border-radius: 10px;
+      max-width: 523rem;
+      max-height: 57rem;
+      width: 100%;
+      height: 100%;
+      padding: 19rem 0 20rem 20rem;
+      font-size: 16rem;
+      &:focus {
+        outline: none;
+      }
+    }
+    div {
+      width: 100%;
+    }
+  }
+  &__grid {
+    p:last-child {
+      margin-top: 20rem;
+      margin-bottom: 40rem;
+    }
+    p {
+      padding-left: 30rem;
+    }
+    font-size: 16rem;
+    span {
+      opacity: 0.4;
+    }
+    ul {
+      border-bottom: 1px solid #cccccc94;
+      padding-left: 30rem;
+      &:hover {
+        background: #4320cf;
+        border-bottom: 1px solid transparent;
+      }
+      div {
+        padding: 21rem 0 20rem 0;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+  &__commentary {
+    p {
+      font-size: 12rem;
+      margin-bottom: 10rem;
+    }
+    padding-left: 30px;
+    textarea {
+      padding: 19rem 0 0 20rem;
+      font-size: 16rem;
+      max-width: 1066rem;
+      max-height: 113rem;
+      min-height: 113rem;
+      border-radius: 10px;
+      border: 1px solid #000000;
+      background: #ffffff;
+      width: 100%;
+      height: 100%;
+      margin-bottom: 50rem;
+    }
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    button {
+      margin-left: 553rem;
+      background: #4320cf;
+      border-radius: 10px;
+      max-width: 523rem;
+      max-height: 57rem;
+      width: 100%;
+      color: white;
+      padding: 19rem 0 20rem 0;
+      border: 1px solid #4320cf;
+      cursor: pointer;
+      height: 100%;
+      margin-bottom: 28rem;
+    }
+    p{
+      margin-left: 553rem;
+      color: #B1B1B1;
+      font-size: 14rem;
+      max-width: 506rem;
+    }
+  }
 }
