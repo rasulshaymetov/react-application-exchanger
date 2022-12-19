@@ -8,27 +8,36 @@ import Table from "../Table";
 import About from "../About";
 import More from "../More";
 import Error from "../Error";
+import AppContext from "../../context";
+import {useState} from "react"
 
 const Direction = () => {
+  const [isError, setIsError] = useState(false);
   return (
     <>
-      {" "}
-      {/* <div className="main"> */}
-      <Header />
-      <div className="main__wrapper">
-        <div className="main__container">
-          <DirectionAside />
-          <div className="main__content">
-            <Search />
-            <Table />
-            <About />
-            <More />
-            <Error />
+      {/* <div className="overlay"> */}
+        <AppContext.Provider
+        value={{
+          isError, setIsError
+        }}>
+              <Header />
+        <div className="main__wrapper">
+          <div className="main__container">
+            <DirectionAside />
+            <div className="main__content">
+              <Search />
+              <Table />
+              <About />
+              <More />
+              
+            </div>
           </div>
         </div>
-      </div>
+        
+        <Footer />
+        <Error />
+        </AppContext.Provider>
       {/* </div> */}
-      <Footer />
     </>
   );
 };

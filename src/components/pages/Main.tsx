@@ -181,11 +181,9 @@ let CARDS: any = [
   },
 ];
 const Main = () => {
-
   // Ввод
   const [isFirstInputValue, setIsFirstInputValue] = useState("");
   const [isLastInputValue, setIsLastInputValue] = useState("");
-
 
   const { searchValue } = useSelector((state: any) => state.filter);
   const [isCount, setIsCount] = useState(0);
@@ -319,20 +317,19 @@ const Main = () => {
     isFinishedValue,
     isLastInputValue,
   ]);
-  
-  let b:any = []
-  const [isRenderValues, setIsRenderValues] = useState(false)
+
+  let b: any = [];
+  const [isRenderValues, setIsRenderValues] = useState(false);
   useEffect(() => {
     let a = CARDS.map((e: any) => e.items);
     for (let i = 0; i < a.length; i++) {
       for (let j = 0; j < a[i].length; j++) {
         if (a[i][j].currency.includes(isFilterValue)) {
           b.push(a[i][j]);
-          setIsFilteredValues(b)
+          setIsFilteredValues(b);
         }
       }
     }
-
   }, [isFilterValue, isRenderValues, searchValue]);
 
   // * Если выбраны две валюты, навигация в следующую страницу
@@ -344,6 +341,7 @@ const Main = () => {
     }
   }, [isInputsFinished]);
   const [isPopup, setIsPopup] = useState(false);
+
   return (
     <>
       <div className="main">
