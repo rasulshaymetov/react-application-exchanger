@@ -48,9 +48,9 @@ const More = () => {
         </h2>
         <div className="more__grid">
           <ul>
-            {MORE.map(function (item: any) {
+            {MORE.map(function (item: any, index: number) {
               return (
-                <li>
+                <li key={index}>
                   {item.firstname + " → "} <br />
                
                    <span>{item.lastname}</span>;

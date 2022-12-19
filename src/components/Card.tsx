@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import AppContext from "../context";
 import { useSelector } from "react-redux";
 import React from "react";
-
+import { useDispatch } from "react-redux";
+import { setSearchValue } from "../redux/slices/filterSlice";
 const Card = () => {
   const {
     CARDS,
@@ -20,7 +21,10 @@ const Card = () => {
     isFilteredValues,
     isRenderValues,
     setIsRenderValues,
-    isFilterValue
+    isFilterValue,
+    setIsFirstInputValue,
+    setIsLastInputValue,
+    setIsFirstCard
   }: any = useContext(AppContext);
 
   // * Вызываю значение из Redux для наблюдения значения в поисковике
@@ -86,15 +90,18 @@ const Card = () => {
 
   function openPopup() {
     setIsPopup(!isPopup);
-    if(isPopup === true){
+    if(isPopup === true || searchValue.length > 0){
      setIsRenderValues(false)
-      console.log('sd')
     }
+    
   }
-
+  const dispatch = useDispatch()
   function filterValues(currentValue: string) {
     setIsFilterValue(currentValue);
     setIsRenderValues(true)
+    dispatch(setSearchValue(''))
+    setIsFirstInputValue('')
+    setIsLastInputValue('')
     setIsPopup(false)
   }
   const popupValues = ["USD", "RUB", "EUR"];
@@ -211,12 +218,12 @@ const Card = () => {
           </div>
         ) : null}
         {/* Рендер отфильтрованных карточек по валютам*/}
-            {isRenderValues ? <div>Поиск по {isFilterValue}</div> : null}
+            {isRenderValues ? <div className="cards__filter">Поиск по {isFilterValue}</div> : null}
        <div className="cards__component">
     
-       { isRenderValues ? isFilteredValues.map(function(item:any){
+       { isRenderValues ? isFilteredValues.map(function(item:any, index:number){
             return(
-              <div className="cards__card">
+              <div key={index} className="cards__card">
                 <div className="cards__card_wrapper">
                   <div className="cards__top">
                     <div className="cards__logo">
@@ -228,7 +235,7 @@ const Card = () => {
                     <div className="cards__currency">
                   {item.currency?.map((type:string, index:number)=>{
                     return(
-                      <div className="cards__currency_value">{type}</div>
+                      <div key={index} className="cards__currency_value">{type}</div>
                     )
                   })}
                     </div>

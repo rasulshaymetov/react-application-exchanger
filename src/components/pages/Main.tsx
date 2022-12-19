@@ -180,18 +180,21 @@ let CARDS: any = [
     ],
   },
 ];
-
 const Main = () => {
+
+  // Ввод
+  const [isFirstInputValue, setIsFirstInputValue] = useState("");
+  const [isLastInputValue, setIsLastInputValue] = useState("");
+
+
   const { searchValue } = useSelector((state: any) => state.filter);
   const [isCount, setIsCount] = useState(0);
   const [isFirstCard, setIsFirstCard] = useState(true);
   const [isFilteredItems, setIsFilteredItems] = useState("");
-  const [isLastFilteredItems, setIsLastFilteredItems] = useState("");
-  const [isFirstInputValue, setIsFirstInputValue] = useState("");
   const [isSecondInputValue, setIsSecondInputValue] = useState(false);
+  const [isLastFilteredItems, setIsLastFilteredItems] = useState("");
   const [isDisabledSelect, setIsDisabledSelect] = useState(false);
   const [isFinishedValue, setIsFinishedValue] = useState(false);
-  const [isLastInputValue, setIsLastInputValue] = useState("");
   const [isInputsFinished, setIsInputsFinished] = useState(false);
   const [isFilterValue, setIsFilterValue] = useState("");
   const [isFilteredValues, setIsFilteredValues] = useState([]);
@@ -225,7 +228,6 @@ const Main = () => {
         CARDS[0].items.push(e);
         setIsSecondInputValue(true);
         setIsDisabledSelect(true);
-        console.log("isFirstInputValue does not equals currentValue");
       }
     } else {
       let currentValue = "";
@@ -242,7 +244,6 @@ const Main = () => {
   const updateSearchValue = useCallback(
     debounce((str: any) => {
       dispatch(setSearchValue(str));
-      console.log(selectedCards);
     }, 50),
     []
   );
@@ -251,7 +252,6 @@ const Main = () => {
   const updateArrayValue = useCallback(
     debounce((str: any) => {
       dispatch(setArrayValue(str));
-      console.log(str);
     }, 10),
     []
   );
@@ -319,6 +319,7 @@ const Main = () => {
     isFinishedValue,
     isLastInputValue,
   ]);
+  
   let b:any = []
   const [isRenderValues, setIsRenderValues] = useState(false)
   useEffect(() => {
@@ -332,7 +333,7 @@ const Main = () => {
       }
     }
 
-  }, [isFilterValue, isRenderValues]);
+  }, [isFilterValue, isRenderValues, searchValue]);
 
   // * Если выбраны две валюты, навигация в следующую страницу
 
@@ -352,6 +353,7 @@ const Main = () => {
             end,
             refs,
             isFirstCard,
+            setIsFirstCard,
             selectValue,
             onChangeFirstInput,
             onChangeSecondInput,

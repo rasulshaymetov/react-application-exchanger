@@ -157,6 +157,13 @@ li {
     background: #4320cf;
     border-radius: 50rem;
   }
+  &__filter{
+    font-size: 32rem;
+    line-height: 37rem;
+    color: #000000;
+    margin-bottom: 25rem;
+    font-weight: 400;
+  }
   position: relative;
   max-height: calc(100vh - 366rem);
   padding: 30rem 30rem;

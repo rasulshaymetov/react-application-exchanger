@@ -15,6 +15,7 @@ const Search: React.FC = () => {
   function resetSwitch() {
     setIsSwitch(false);
   }
+  const [isDisabled, setIsDisabled] = useState(false)
   const dispatch = useDispatch();
   const {
     isFirstInputValue,
@@ -75,7 +76,7 @@ const Search: React.FC = () => {
             className={`search-input ${
               isFirstCard === true ? null : "disabled"
             }`}
-            disabled={isFirstCard === true ? false : true}
+            disabled={ isFirstCard  ? false : true}
           />
           <button
             type="button"

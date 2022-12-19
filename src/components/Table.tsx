@@ -154,7 +154,7 @@ const Table = () => {
                         <li style={{display:'flex', gap:'5rem', flexWrap:'wrap'}} key={index}>
                           {arg.image?.map(function(a:any){
                             return (
-                              <img src={a} alt="." />
+                              <img key={a} src={a} alt="." />
                             )
                           })}
                         </li>
