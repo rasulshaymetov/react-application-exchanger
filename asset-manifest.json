@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/react-application-exchanger/static/css/main.7863c767.css",
-    "main.js": "/react-application-exchanger/static/js/main.5857be24.js",
+    "main.css": "/react-application-exchanger/static/css/main.6095b656.css",
+    "main.js": "/react-application-exchanger/static/js/main.231cab6b.js",
     "static/media/logo.svg": "/react-application-exchanger/static/media/logo.ccf2eb0a58be8be96e2219f921ca2083.svg",
     "index.html": "/react-application-exchanger/index.html",
     "static/media/filter.svg": "/react-application-exchanger/static/media/filter.b6dfc9f8d278f4852f85f8367d92cafe.svg",
     "static/media/error.svg": "/react-application-exchanger/static/media/error.391194abb0df830a2fe3.svg",
     "static/media/hover__error.svg": "/react-application-exchanger/static/media/hover__error.117686041f2cb36e691c.svg",
     "static/media/star.svg": "/react-application-exchanger/static/media/star.b9579848bf429ee07a047e90d8c820d2.svg",
-    "static/media/x.svg": "/react-application-exchanger/static/media/x.c82ee522f8ac4a1557480224f1f73aa3.svg",
-    "static/media/clear.svg": "/react-application-exchanger/static/media/clear.b1d78cf8f4f7e925a3f6e4c248408ddf.svg",
+    "static/media/x.svg": "/react-application-exchanger/static/media/x.748e19af70c3bc5cfdf0e8aa6458a9ec.svg",
+    "static/media/clear.svg": "/react-application-exchanger/static/media/clear.707bb7298ac52d932df4cc852a9c62d9.svg",
     "static/media/arrow-r.svg": "/react-application-exchanger/static/media/arrow-r.3416ca26106412c47c362ffd066edace.svg",
     "static/media/arrrow-l.svg": "/react-application-exchanger/static/media/arrrow-l.27e14ef5e485e47407a6981393a219f1.svg",
+    "static/media/hover__sort.svg": "/react-application-exchanger/static/media/hover__sort.23fde9467ece8dd2d652.svg",
     "static/media/dropdown.svg": "/react-application-exchanger/static/media/dropdown.1c0b6c00a09f81170722c3f89f35cf50.svg",
-    "static/media/hover__sort.svg": "/react-application-exchanger/static/media/hover__sort.58b25157609538703ad0.svg",
     "static/media/sort.svg": "/react-application-exchanger/static/media/sort.2a191217216082b4836c5483cd877e76.svg",
-    "main.7863c767.css.map": "/react-application-exchanger/static/css/main.7863c767.css.map",
-    "main.5857be24.js.map": "/react-application-exchanger/static/js/main.5857be24.js.map"
+    "main.6095b656.css.map": "/react-application-exchanger/static/css/main.6095b656.css.map",
+    "main.231cab6b.js.map": "/react-application-exchanger/static/js/main.231cab6b.js.map"
   },
   "entrypoints": [
-    "static/css/main.7863c767.css",
-    "static/js/main.5857be24.js"
+    "static/css/main.6095b656.css",
+    "static/js/main.231cab6b.js"
   ]
 }
