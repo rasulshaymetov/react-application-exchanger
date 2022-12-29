@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-application-exchanger/static/css/main.6095b656.css",
-    "main.js": "/react-application-exchanger/static/js/main.231cab6b.js",
+    "main.js": "/react-application-exchanger/static/js/main.8eead56b.js",
     "static/media/logo.svg": "/react-application-exchanger/static/media/logo.ccf2eb0a58be8be96e2219f921ca2083.svg",
     "index.html": "/react-application-exchanger/index.html",
     "static/media/filter.svg": "/react-application-exchanger/static/media/filter.b6dfc9f8d278f4852f85f8367d92cafe.svg",
@@ -16,10 +16,10 @@
     "static/media/dropdown.svg": "/react-application-exchanger/static/media/dropdown.1c0b6c00a09f81170722c3f89f35cf50.svg",
     "static/media/sort.svg": "/react-application-exchanger/static/media/sort.2a191217216082b4836c5483cd877e76.svg",
     "main.6095b656.css.map": "/react-application-exchanger/static/css/main.6095b656.css.map",
-    "main.231cab6b.js.map": "/react-application-exchanger/static/js/main.231cab6b.js.map"
+    "main.8eead56b.js.map": "/react-application-exchanger/static/js/main.8eead56b.js.map"
   },
   "entrypoints": [
     "static/css/main.6095b656.css",
-    "static/js/main.231cab6b.js"
+    "static/js/main.8eead56b.js"
   ]
 }
