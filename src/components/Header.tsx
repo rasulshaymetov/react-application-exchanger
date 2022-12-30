@@ -14,7 +14,7 @@ const Header = () => {
 
   useEffect(() => {
     //* Если пользователь будет находиться в обменниках, то ссылка ведущая туда изменит свой стиль
-    if (location.pathname === "react-application-exchanger/direction") {
+    if (location.pathname === "/react-application-exchanger/direction") {
       setIsDirection(true);
     }
   }, [location]);

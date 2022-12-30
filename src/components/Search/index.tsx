@@ -50,7 +50,7 @@ const Search: React.FC = () => {
   const [isMainPage, setIsMainPage] = useState(true);
   const location = useLocation();
   useEffect(() => {
-    if (location.pathname === "/react-application-exchanger") {
+    if (location.pathname === "/react-application-exchanger/" || location.pathname === "/react-application-exchanger") {
       setIsMainPage(true);
     } else {
       setIsMainPage(false);
@@ -86,8 +86,8 @@ const Search: React.FC = () => {
             className={`search-switch ${isSwitch ? "rotate" : null} ${isPopup ? "bg-popup-block" : null}`}
           >
             <div>
-              <img src={arrowLeft} alt="" />
-              <img src={arrowRight} alt="" />
+              <img src={arrowLeft} alt="Arrow to left" />
+              <img src={arrowRight} alt="Arrow to right" />
             </div>
           </button>
           <input

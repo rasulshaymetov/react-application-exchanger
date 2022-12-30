@@ -192,7 +192,7 @@ const Main = () => {
     if(isLoader === true){
       setTimeout(() => {
         dispatch(setIsLoader(false));
-      }, 800);
+      }, 500);
     }
     }, [isLoader])
   
