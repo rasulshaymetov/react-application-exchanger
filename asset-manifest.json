@@ -1,9 +1,10 @@
 {
   "files": {
-    "main.css": "/react-application-exchanger/static/css/main.6095b656.css",
-    "main.js": "/react-application-exchanger/static/js/main.dbe57b4c.js",
+    "main.css": "/react-application-exchanger/static/css/main.66537f7f.css",
+    "main.js": "/react-application-exchanger/static/js/main.71f06841.js",
     "static/media/logo.svg": "/react-application-exchanger/static/media/logo.ccf2eb0a58be8be96e2219f921ca2083.svg",
     "index.html": "/react-application-exchanger/index.html",
+    "static/media/loader.svg": "/react-application-exchanger/static/media/loader.bf60eb3ffe82fa08a997b492e7a23060.svg",
     "static/media/filter.svg": "/react-application-exchanger/static/media/filter.b6dfc9f8d278f4852f85f8367d92cafe.svg",
     "static/media/error.svg": "/react-application-exchanger/static/media/error.391194abb0df830a2fe3.svg",
     "static/media/hover__error.svg": "/react-application-exchanger/static/media/hover__error.117686041f2cb36e691c.svg",
@@ -15,11 +16,11 @@
     "static/media/hover__sort.svg": "/react-application-exchanger/static/media/hover__sort.23fde9467ece8dd2d652.svg",
     "static/media/dropdown.svg": "/react-application-exchanger/static/media/dropdown.1c0b6c00a09f81170722c3f89f35cf50.svg",
     "static/media/sort.svg": "/react-application-exchanger/static/media/sort.2a191217216082b4836c5483cd877e76.svg",
-    "main.6095b656.css.map": "/react-application-exchanger/static/css/main.6095b656.css.map",
-    "main.dbe57b4c.js.map": "/react-application-exchanger/static/js/main.dbe57b4c.js.map"
+    "main.66537f7f.css.map": "/react-application-exchanger/static/css/main.66537f7f.css.map",
+    "main.71f06841.js.map": "/react-application-exchanger/static/js/main.71f06841.js.map"
   },
   "entrypoints": [
-    "static/css/main.6095b656.css",
-    "static/js/main.dbe57b4c.js"
+    "static/css/main.66537f7f.css",
+    "static/js/main.71f06841.js"
   ]
 }
