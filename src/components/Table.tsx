@@ -15,11 +15,7 @@ const EXCHANGERS = [
     name: "AlfaBit",
     special: [
       {
-        image: [
-          `/image/spec00.svg`,
-          `/image/spec01.svg`,
-          `/image/spec02.svg`,
-        ],
+        image: [`/image/spec00.svg`, `/image/spec01.svg`, `/image/spec02.svg`],
       },
     ],
     profit_give: "20,000",
@@ -136,24 +132,25 @@ const EXCHANGERS = [
 ];
 
 const Table = () => {
-  const {isPopupError} = useSelector((state:any) => state.error)
-  const dispatch = useDispatch()
-
+  const { isPopupError } = useSelector((state: any) => state.error);
+  const dispatch = useDispatch();
+  const [isHide, setIsHide] = useState(false)
   function sendError() {
-    dispatch(setisError(true))
+    dispatch(setisError(true));
   }
-
-  function setIsHideTable(){
-    dispatch(setisError(false))
+  function hideTable(){
+    setIsHide(prev => !prev)
+  }
+  function setIsHideTable() {
+    dispatch(setisError(false));
   }
   useEffect(() => {
-    console.log(isPopupError)
-  }, [isPopupError])
-  
+    console.log(isPopupError);
+  }, [isPopupError]);
 
   return (
     <div className="table table__value-selected">
-      <div className="table__wrapper">
+      <div className={`table__wrapper ${isHide ? 'table-hidden' : null}`}>
         <div className="table__container">
           <div className="table__heading">
             <ul className="table__header">
@@ -218,7 +215,7 @@ const Table = () => {
                     <li>{item.reserv} мнл.</li>
                     <button className="absolute-list">
                       <img
-                           onClick={sendError}
+                        onClick={sendError}
                         className="table__error"
                         src=""
                         alt="Error "
@@ -240,7 +237,7 @@ const Table = () => {
         </div>
       </div>
       <button
-        onClick={setIsHideTable}
+        onClick={hideTable}
         className={`table__hide ${isPopupError ? "rotate-180" : ""}`}
       >
         <img src={sort} alt="sort" />

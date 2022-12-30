@@ -137,6 +137,16 @@ li {
     padding-bottom: 60rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    &::-webkit-scrollbar {
+      width: 3rem;
+      opacity: 0.5;
+      height: inherit;
+    }
+    &::-webkit-scrollbar-thumb {
+      border: 1px solid #4320cf;
+      background: #4320cf;
+      border-radius: 50rem;
+    }
   }
   ul {
     div {
@@ -410,6 +420,17 @@ li {
   &__heading {
     font-size: 12rem;
   }
+  &__wrapper{
+  &::-webkit-scrollbar {
+    width: 3rem;
+    opacity: 0.5;
+    height: inherit;
+  }
+  &::-webkit-scrollbar-thumb {
+    border: 1px solid #4320cf;
+    background: #4320cf;
+    border-radius: 50rem;
+  }}
   &__content {
     font-size: 14rem;
     ul {
@@ -723,4 +744,10 @@ li {
   height: 100%;
   transition: height 0.25s ease-in;
   transition: max-height 0.25s ease-in;
+}
+.table-hidden{
+  max-height: 220rem;
+  overflow-y: auto;
+  height: 100%;
+
 }
