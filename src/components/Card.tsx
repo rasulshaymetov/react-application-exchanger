@@ -76,7 +76,6 @@ const Card = () => {
                         <div
                           className={`cards__currency_value ${type.length > 5 ? 'adaptive-text' : null}`}
                           onClick={() => selectValue(item, type)}
-                          onClick={() => a(type)}
                           key={index}
                         >
                           {type}
