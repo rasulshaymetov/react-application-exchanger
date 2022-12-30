@@ -14,11 +14,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { setIsLoader } from "../../redux/slices/loaderSlice";
 import Loader from "../Loader";
 import { useEffect } from "react";
+import closePopup from "../../assets/city_x.svg";
 
 const Direction = () => {
   const [isError, setIsError] = useState(false);
   const dispatch = useDispatch();
   const { isLoader } = useSelector((state: any) => state.loader);
+  const [isInput, setIsInput] = useState(false)
   useEffect(() => {
     if (isLoader === true) {
       setTimeout(() => {
@@ -36,7 +38,7 @@ const Direction = () => {
           setIsError,
         }}
       >
-               <Header />
+        <Header />
         {isLoader ? (
           <Loader />
         ) : (
@@ -58,6 +60,43 @@ const Direction = () => {
             <Error />
           </>
         )}
+        {/* <div className="city">
+          <div className="city__wrapper">
+            <div className="city__heading">
+              <h1>Выбор города</h1>
+              <button>
+                <img src={closePopup} alt="close" />
+              </button>
+            </div>
+            <div className="city__content">
+              <div className="city__select">
+                <p className="city__select-name">Страна</p>
+                <div className={` ${isInput ? 'city__dropdown' : null}`}>
+                <input className="ab" onFocus onFocus={() => setIsInput(prev => !prev)} type='text' id="" placeholder="Введите название страны…"/>
+            
+                  <p>Яна, ты можешь не кидать тысячу переписок</p>
+                  <p>Яна, шучу, кидай</p>
+                  <p>Яна, я жду фото</p>
+                </div>
+
+                <div className="city__select-footer">
+                  <p className="city__map">Указать на карте</p>
+                </div>
+              </div>
+              <div className="city__select">
+                <p className="city__select-name">Регион и город</p>
+                <input type='text' id=""/>
+
+                <div className="city__select-footer">
+                  <p className="city__map">Указать на карте</p>
+                </div>
+              </div>
+            </div>
+            <div className="city__form">
+            <button className="city__send">Задать город</button>
+            </div>
+          </div>
+        </div> */}
       </AppContext.Provider>
       {/* </div> */}
     </>
