@@ -7,8 +7,9 @@ const DirectionAside = () => {
   const [isHide, setIsHide] = useState(false)
   return (
     <div className="aside">
-      <div className="aside__wrapper">
-        <div>
+      <div className="aside__container">
+      <div className={`aside__wrapper ${isHide ? 'aside-hidden' : null}`}>
+        <div className="aside__block">
           <ul>
             <div
               className={`${isClickedNav === "1" ? "active-list" : null}`}
@@ -45,11 +46,12 @@ const DirectionAside = () => {
             <li className="clear">Очистить историю поиска</li>
           </ul>
         </div>
-        <button onClick={() => setIsHide(prev => !prev) } className={`hide-button ${isHide ? 'rotate-180' : ''}`}>
+     
+      </div>
+      <button onClick={() => setIsHide(prev => !prev) } className={`hide-button ${isHide ? '' : ''}`}>
         <img src={arrow} alt="Hide button"/>
       </button>
       </div>
-
     </div>
   );
 };

@@ -121,14 +121,20 @@ li {
 }
 .aside {
   position: relative;
-
+  transition: all 0.5s ease 0s; 
+ &__container{
+  position: relative;
+ }
   &__wrapper {
+    transition: height 0.25s ease-in;
+    transition: max-height 0.25s ease 0s; 
+    overflow-y: auto;
     position: relative;
     background: #ffffff;
     max-width: 335px;
     width: 100%;
-    padding-top: 44.35px;
-    padding-bottom: 51.57px;
+    padding-top: 15rem;
+    padding-bottom: 60rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
   }
@@ -565,7 +571,6 @@ li {
 }
 .error {
   position: fixed;
- 
   left: 25vw;
   top: 0vh;
   z-index: 5;
@@ -712,4 +717,10 @@ li {
     height: 100%;
   }
 
+}
+.aside-hidden{
+  max-height: 120rem !important;
+  height: 100%;
+  transition: height 0.25s ease-in;
+  transition: max-height 0.25s ease-in;
 }

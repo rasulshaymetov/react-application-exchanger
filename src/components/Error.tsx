@@ -7,9 +7,7 @@ import { setisError } from "../redux/slices/errorSlice";
 const Error = () => {
   const dispatch = useDispatch()
   const {isPopupError} = useSelector((state:any) => state.error)
-  // function sendFormError(){
-  //   setisPopupError(false);
-  // }
+
   function hidePopupError(){
     dispatch(setisError(false))
   }
