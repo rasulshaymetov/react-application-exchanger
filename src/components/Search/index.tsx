@@ -50,7 +50,7 @@ const Search: React.FC = () => {
   const [isMainPage, setIsMainPage] = useState(true);
   const location = useLocation();
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/react-application-exchanger") {
       setIsMainPage(true);
     } else {
       setIsMainPage(false);

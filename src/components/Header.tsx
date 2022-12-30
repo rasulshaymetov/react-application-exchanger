@@ -1,7 +1,11 @@
 import logo from "../assets/logo.svg";
 import { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { setIsLoader } from "../redux/slices/loaderSlice";
+import { useDispatch } from "react-redux";
 const Header = () => {
+  const dispatch = useDispatch();
+
   const [isDirection, setIsDirection] = useState(false);
   const [isNews, setIsNews] = useState(false);
   const [isPartner, setIsPartner] = useState(false);
@@ -10,15 +14,21 @@ const Header = () => {
 
   useEffect(() => {
     //* Если пользователь будет находиться в обменниках, то ссылка ведущая туда изменит свой стиль
-    if (location.pathname === "/direction") {
+    if (location.pathname === "react-application-exchanger/direction") {
       setIsDirection(true);
     }
   }, [location]);
-
+  function navigateToLink() {
+    dispatch(setIsLoader(true));
+  }
   return (
     <header className="header">
       <div className="header__wrapper">
-        <Link to="/" className="clear_link">
+        <Link
+          to="/react-application-exchanger"
+          className="clear_link"
+          onClick={navigateToLink}
+        >
           <div className="header__logo">
             <img src={logo} alt="" />
           </div>
@@ -30,7 +40,8 @@ const Header = () => {
               className={() =>
                 "nav-link " + (isDirection ? " selected" : "unselected")
               }
-              to="/direction"
+              onClick={navigateToLink}
+              to="/react-application-exchanger/direction"
             >
               <li>Мониторинг</li>
             </NavLink>
@@ -39,7 +50,8 @@ const Header = () => {
               className={() =>
                 "nav-link " + (isExchanger ? " selected" : "unselected")
               }
-              to="/direction"
+              onClick={navigateToLink}
+              to="/react-application-exchanger/direction"
             >
               <li>Обменники</li>
             </NavLink>
@@ -48,6 +60,7 @@ const Header = () => {
               className={() =>
                 "nav-link " + (isPartner ? " selected" : "unselected")
               }
+              onClick={navigateToLink}
               to="/direction"
             >
               <li>Партнёрам</li>
@@ -58,6 +71,7 @@ const Header = () => {
               className={() =>
                 "nav-link " + (isNews ? " selected" : "unselected")
               }
+              onClick={navigateToLink}
               to="/direction"
             >
               <li>Новости</li>

@@ -5,11 +5,13 @@ import {Routes, Route} from 'react-router-dom'
 import Direction from "./components/pages/Direction";
 function App() {
 
+
+  
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Main/>} />
-        <Route path="/direction" element ={<Direction/>}/>
+        <Route path="/react-application-exchanger/" element={<Main/>} />
+        <Route path="/react-application-exchanger/direction" element ={<Direction/>}/>
       </Routes>
     </div>
   );

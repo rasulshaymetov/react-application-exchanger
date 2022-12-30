@@ -11,6 +11,9 @@ import { useSelector, useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
 import { setSearchValue } from "../../redux/slices/filterSlice";
 import { setArrayValue } from "../../redux/slices/arrSlice";
+import loader from "../../assets/loader.svg";
+import { setIsLoader } from "../../redux/slices/loaderSlice";
+import Loader from "../Loader";
 let CARDS: any = [
   {
     heading: "История поиска",
@@ -181,6 +184,19 @@ let CARDS: any = [
   },
 ];
 const Main = () => {
+  // Loader
+  const dispatch = useDispatch();
+  const { isLoader } = useSelector((state: any) => state.loader);
+    
+  useEffect(() => {
+    if(isLoader === true){
+      setTimeout(() => {
+        dispatch(setIsLoader(false));
+      }, 800);
+    }
+    }, [isLoader])
+  
+
   // Ввод
   const [isFirstInputValue, setIsFirstInputValue] = useState("");
   const [isLastInputValue, setIsLastInputValue] = useState("");
@@ -196,7 +212,6 @@ const Main = () => {
   const [isInputsFinished, setIsInputsFinished] = useState(false);
   const [isFilterValue, setIsFilterValue] = useState("");
   const [isFilteredValues, setIsFilteredValues] = useState([]);
-  const dispatch = useDispatch();
   const [isDirectionCards, setIsDirectionCards] = useState([]);
   const [isTempCards, setIsTempCards] = useState("");
 
@@ -337,7 +352,7 @@ const Main = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (isInputsFinished === true) {
-      navigate("/direction");
+      navigate("/react-application-exchanger/direction");
     }
   }, [isInputsFinished]);
   const [isPopup, setIsPopup] = useState(false);
@@ -375,24 +390,34 @@ const Main = () => {
             isRenderValues,
           }}
         >
-          <div className={`${isPopup ? "bg-popup-wrapper" : null}`}>
-            <Header />
-            <div className="main__wrapper">
-              <div className="main__container">
-                <Aside />
+          {isLoader ? (
+            <Loader/>
+          ) : (
+            <>
+              <div className={`${isPopup ? "bg-popup-wrapper" : null}`}>
+                <Header />
+                <div className="main__wrapper">
+                  <div className="main__container">
+                    <Aside />
 
-                <div className="main__content">
-                  <Search />
-                  <Card />
+                    <div className="main__content">
+                      <Search />
+                      <Card />
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+              <Footer />
+            </>
+          )}
         </AppContext.Provider>
-        <Footer />
       </div>
     </>
   );
 };
 
 export default Main;
+
+{
+  /*  */
+}

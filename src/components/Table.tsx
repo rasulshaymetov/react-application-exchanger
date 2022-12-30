@@ -13,9 +13,9 @@ const EXCHANGERS = [
     special: [
       {
         image: [
-          `./image/spec00.svg`,
-          `./image/spec01.svg`,
-          `./image/spec02.svg`,
+          `/image/spec00.svg`,
+          `/image/spec01.svg`,
+          `/image/spec02.svg`,
         ],
       },
     ],
