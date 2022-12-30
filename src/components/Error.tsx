@@ -2,22 +2,25 @@ import React from "react";
 import { useContext } from "react";
 import AppContext from "../context";
 import x from "../assets/x.svg"
+import { useSelector, useDispatch } from "react-redux";
+import { setisError } from "../redux/slices/errorSlice";
 const Error = () => {
-  const { isError, setIsError }: any = useContext(AppContext);
-  function sendFormError(){
-    setIsError(false);
-  }
-  function hideError(){
-    setIsError(false);
+  const dispatch = useDispatch()
+  const {isPopupError} = useSelector((state:any) => state.error)
+  // function sendFormError(){
+  //   setisPopupError(false);
+  // }
+  function hidePopupError(){
+    dispatch(setisError(false))
   }
   return (
-    <div className={`${isError ? "overlay" : ""}`}>
+    <div className={`${isPopupError ? "overlay" : ""}`}>
 
    
   
-      <div className={`${isError ? "error" : ""}`}>
+      <div className={`${isPopupError ? "error" : "display-none"}`}>
         <div className="error__wrapper">
-        {isError ? <button className="error__hide" onClick={hideError}><img src={x} alt="" /></button> : null}
+        {isPopupError ? <button onClick={hidePopupError} className="error__hide"><img src={x} alt="" /></button> : null}
           <h1 className="error__heading">Сообщите о несоответствии</h1>
           <div className="error__inputs">
             <div>
@@ -91,7 +94,7 @@ const Error = () => {
             <textarea></textarea>
           </div>
           <div className="error__form">
-            <button onClick={sendFormError}>Отправить отчёт</button>
+            <button onClick={hidePopupError}>Отправить отчёт</button>
             <p>
               Пожалуйста, сообщайте о найденных несоответствиях курсов и
               резервов у обменников. Ваше сообщение обязательно будет проверено

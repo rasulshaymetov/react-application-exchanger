@@ -37,6 +37,11 @@ const Card = () => {
       block: "start",
     });
   }
+
+  
+  function a(t:any) {
+    console.log(t)
+  }
   // * Рендер оригинальных карточек
   const renderItems = CARDS?.map(function (card: any, index: number) {
     return (
@@ -69,8 +74,9 @@ const Card = () => {
                     {item.currency?.map((type: string, index: number) => {
                       return (
                         <div
-                          className="cards__currency_value"
-                          onClick={() => selectValue(item, type)}
+                          className={`cards__currency_value ${type.length > 5 ? 'adaptive-text' : null}`}
+                          // onClick={() => selectValue(item, type)}
+                          onClick={() => a(type)}
                           key={index}
                         >
                           {type}

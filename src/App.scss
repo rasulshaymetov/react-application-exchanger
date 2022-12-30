@@ -35,9 +35,10 @@ li {
     transform: rotate(180deg);
   }
 }
-
+.adaptive-text{
+  font-size: 10rem !important;
+}
 .loader{
-  width: 100vw;
   height: 100vh;
   &__wrapper{
     height: inherit;
@@ -564,6 +565,7 @@ li {
 }
 .error {
   position: fixed;
+ 
   left: 25vw;
   top: 0vh;
   z-index: 5;

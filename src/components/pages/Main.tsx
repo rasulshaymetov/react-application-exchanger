@@ -192,7 +192,7 @@ const Main = () => {
     if(isLoader === true){
       setTimeout(() => {
         dispatch(setIsLoader(false));
-      }, 500);
+      }, 1500);
     }
     }, [isLoader])
   
@@ -390,12 +390,13 @@ const Main = () => {
             isRenderValues,
           }}
         >
+              <Header />
           {isLoader ? (
             <Loader/>
           ) : (
             <>
               <div className={`${isPopup ? "bg-popup-wrapper" : null}`}>
-                <Header />
+            
                 <div className="main__wrapper">
                   <div className="main__container">
                     <Aside />

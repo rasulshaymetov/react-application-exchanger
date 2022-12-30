@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import star from "../assets/star.svg";
 import error from "../assets/error.svg";
 import hover_error from "../assets/hover__error.svg";
@@ -6,6 +6,9 @@ import spec00 from "../assets/spec00.svg";
 import { ITable } from "../models/models";
 import sort from "../assets/sort.svg";
 import AppContext from "../context";
+import { setisError } from "../redux/slices/errorSlice";
+import { useSelector, useDispatch } from "react-redux";
+
 const EXCHANGERS = [
   {
     id: "1",
@@ -133,11 +136,21 @@ const EXCHANGERS = [
 ];
 
 const Table = () => {
-  const [isHideTable, setIsHideTable] = useState(false);
-  const {setIsError}: any = useContext(AppContext)
-  function sendError(error: any) {
-    setIsError(true)
+  const {isPopupError} = useSelector((state:any) => state.error)
+  const dispatch = useDispatch()
+
+  function sendError() {
+    dispatch(setisError(true))
   }
+
+  function setIsHideTable(){
+    dispatch(setisError(false))
+  }
+  useEffect(() => {
+    console.log(isPopupError)
+  }, [isPopupError])
+  
+
   return (
     <div className="table table__value-selected">
       <div className="table__wrapper">
@@ -205,7 +218,7 @@ const Table = () => {
                     <li>{item.reserv} мнл.</li>
                     <button className="absolute-list">
                       <img
-                        onClick={sendError}
+                           onClick={sendError}
                         className="table__error"
                         src=""
                         alt="Error "
@@ -227,10 +240,10 @@ const Table = () => {
         </div>
       </div>
       <button
-        onClick={() => setIsHideTable((prev) => !prev)}
-        className={`table__hide ${isHideTable ? "rotate-180" : ""}`}
+        onClick={setIsHideTable}
+        className={`table__hide ${isPopupError ? "rotate-180" : ""}`}
       >
-        <img src={sort} alt="" />
+        <img src={sort} alt="sort" />
       </button>
     </div>
   );

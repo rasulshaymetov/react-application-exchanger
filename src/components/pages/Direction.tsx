@@ -23,7 +23,7 @@ const Direction = () => {
     if (isLoader === true) {
       setTimeout(() => {
         dispatch(setIsLoader(false));
-      }, 500);
+      }, 1500);
     }
   }, [isLoader]);
 
@@ -36,11 +36,12 @@ const Direction = () => {
           setIsError,
         }}
       >
+               <Header />
         {isLoader ? (
           <Loader />
         ) : (
           <>
-            <Header />
+     
             <div className="main__wrapper">
               <div className="main__container">
                 <DirectionAside />
