@@ -222,8 +222,7 @@ li {
   &__wrapper {
     position: relative;
   }
-  &__block {
-  }
+
   &__popup {
     padding: 20rem 0 34rem 0;
     display: flex;
@@ -791,8 +790,11 @@ li {
   &__content {
     display: flex;
     flex-wrap: wrap;
+    position: relative;;
     margin-bottom: 28rem;
     &::after {
+      top: 110rem;
+      // position: fixed;
       content: "";
       width: 1128rem;
       height: 1rem;
@@ -802,6 +804,8 @@ li {
     input {
       max-width: 523rem;
       max-height: 57rem;
+      border: none;
+      outline: none;
       // margin-bottom: 12rem;
       text-indent: 5rem;
       cursor: pointer;
@@ -809,9 +813,7 @@ li {
       padding: 19rem 0 20rem 20rem;
       font-size: 16rem;
       width: 100%;
-      &:focus {
-        border: 1px solid #4320cf;
-      }
+
       line-height: 57rem;
       height: 100%;
       option {
@@ -840,7 +842,6 @@ li {
     color: white;
     border: none;
     width: 523rem;
-
     height: 57rem;
     cursor: pointer;
   }
@@ -848,15 +849,31 @@ li {
     display: flex;
     justify-content: flex-end;
   }
+  &__input{
+    ul{
+      visibility: hidden;
+    }
+  }
   &__dropdown {
     font-size: 16rem;
-    border:  1px solid #4320cf;
+    transition: all 0.25s ease 0s;
+    height: 100%;
+    overflow-y: auto;
     border-radius: 10px;
+    &::-webkit-scrollbar {
+      width: 1rem;
+      opacity: 0.3;
+      height: 100vh;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #4320cf;
+      border-radius: 100rem;
+    }
+
    p{
     padding: 20rem 0 20rem 20rem;
     border-top: 1px solid #999999;
     cursor: pointer;
-    border-bottom: 1px solid #999999;
    }
   }
 }

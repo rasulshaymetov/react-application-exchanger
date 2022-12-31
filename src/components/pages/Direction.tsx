@@ -9,18 +9,19 @@ import About from "../About";
 import More from "../More";
 import Error from "../Error";
 import AppContext from "../../context";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsLoader } from "../../redux/slices/loaderSlice";
 import Loader from "../Loader";
-import { useEffect } from "react";
 import closePopup from "../../assets/city_x.svg";
 
 const Direction = () => {
   const [isError, setIsError] = useState(false);
   const dispatch = useDispatch();
   const { isLoader } = useSelector((state: any) => state.loader);
-  const [isInput, setIsInput] = useState(false)
+  const [isFirstInput, setIsFirstInput] = useState(false);
+  const [isSecondInput, setIsSecondInput] = useState(false);
+  const [isCount, setIsCount] = useState(0);
   useEffect(() => {
     if (isLoader === true) {
       setTimeout(() => {
@@ -28,6 +29,22 @@ const Direction = () => {
       }, 1500);
     }
   }, [isLoader]);
+  const country = useRef(null);
+  const city = useRef(null);
+  useEffect(() => {
+    if (document.activeElement === country.current) {
+      setIsFirstInput(true);
+    } else {
+      setIsFirstInput(false);
+    }
+  }, [country, isCount]);
+  useEffect(() => {
+    if (document.activeElement === city.current) {
+      setIsSecondInput(true);
+    } else {
+      setIsSecondInput(false);
+    }
+  }, [city, isCount]);
 
   return (
     <>
@@ -39,12 +56,12 @@ const Direction = () => {
         }}
       >
         <Header />
-        {isLoader ? (
+        {/* {isLoader ? (
           <Loader />
         ) : (
           <>
      
-            <div className="main__wrapper">
+            <div onMouseEnter={() => setIsCount(isCount + 1)} className="main__wrapper">
               <div className="main__container">
                 <DirectionAside />
                 <div className="main__content">
@@ -59,8 +76,8 @@ const Direction = () => {
             <Footer />
             <Error />
           </>
-        )}
-        {/* <div className="city">
+        )} */}
+        <div className="city">
           <div className="city__wrapper">
             <div className="city__heading">
               <h1>Выбор города</h1>
@@ -71,32 +88,123 @@ const Direction = () => {
             <div className="city__content">
               <div className="city__select">
                 <p className="city__select-name">Страна</p>
-                <div className={` ${isInput ? 'city__dropdown' : null}`}>
-                <input className="ab" onFocus onFocus={() => setIsInput(prev => !prev)} type='text' id="" placeholder="Введите название страны…"/>
-            
-                  <p>Яна, ты можешь не кидать тысячу переписок</p>
-                  <p>Яна, шучу, кидай</p>
-                  <p>Яна, я жду фото</p>
+                <div
+                  style={
+                    isFirstInput
+                      ? {
+                          visibility: "visible",
+                          maxHeight: "305rem",
+                          border: "1px solid rgba(67, 32, 207, 1)",
+                        }
+                      : {
+                          maxHeight: "57rem",
+                          border: "1px solid rgba(0, 0, 0, 1)",
+                        }
+                  }
+                  className={`city__dropdown ${isFirstInput ? null : null}`}
+                >
+                  <input
+                    className="city__input"
+                    onFocus={() => setIsCount(isCount + 1)}
+                    onMouseOut={() => setIsCount(isCount + 1)}
+                    onMouseEnter={() => setIsCount(isCount + 1)}
+                    ref={country}
+                    type="text"
+                    id=""
+                    placeholder="Введите название страны…"
+                  />
+                  <ul
+                    style={
+                      isFirstInput ? { display: "block" } : { display: "none" }
+                    }
+                  >
+                    <li>
+                      <p>sd</p>
+                    </li>
+                    <li>
+                      <p>asd</p>
+                    </li>
+                    <li>
+                      <p>asd</p>
+                    </li>
+                    <li>
+                      <p>asdasdк</p>
+                    </li>
+                    <li>
+                      <p>Яdasdasdнasdаasasd, asdasй</p>
+                    </li>
+                    <li>
+                      <p>asdasdasd</p>
+                    </li>
+                  </ul>
                 </div>
 
                 <div className="city__select-footer">
-                  <p className="city__map">Указать на карте</p>
+                  <p style={isFirstInput ? {display:"none"} : {display:'block'}} className="city__map">Указать на карте</p>
                 </div>
               </div>
               <div className="city__select">
                 <p className="city__select-name">Регион и город</p>
-                <input type='text' id=""/>
-
+                <div
+                  style={
+                    isSecondInput
+                      ? {
+                          visibility: "visible",
+                          maxHeight: "305rem",
+                          border: "1px solid rgba(67, 32, 207, 1)",
+                        }
+                      : {
+                          maxHeight: "57rem",
+                          border: "1px solid rgba(0, 0, 0, 1)",
+                        }
+                  }
+                  className={`city__dropdown ${isSecondInput ? null : null}`}
+                >
+                  <input
+                    className="city__input"
+                    onFocus={() => setIsCount(isCount + 1)}
+                    onMouseOut={() => setIsCount(isCount + 1)}
+                    onMouseEnter={() => setIsCount(isCount + 1)}
+                    ref={city}
+                    type="text"
+                    id=""
+                    placeholder="Введите название страны…"
+                  />
+                  <ul
+                    style={
+                      isSecondInput ? { display: "block" } : { display: "none" }
+                    }
+                  >
+                    <li>
+                      <p>sd</p>
+                    </li>
+                    <li>
+                      <p>asd</p>
+                    </li>
+                    <li>
+                      <p>asd</p>
+                    </li>
+                    <li>
+                      <p>asdasdк</p>
+                    </li>
+                    <li>
+                      <p>Яdasdasdнasdаasasd, asdasй</p>
+                    </li>
+                    <li>
+                      <p>asdasdasd</p>
+                    </li>
+                  </ul>
+                </div>
                 <div className="city__select-footer">
-                  <p className="city__map">Указать на карте</p>
+                  <p style={isSecondInput ? {display:"none"} : {display:'block'}} className="city__map">Указать на карте</p>
                 </div>
               </div>
             </div>
             <div className="city__form">
-            <button className="city__send">Задать город</button>
+              <button className="city__send">Задать город</button>
             </div>
           </div>
-        </div> */}
+        </div>
       </AppContext.Provider>
       {/* </div> */}
     </>
