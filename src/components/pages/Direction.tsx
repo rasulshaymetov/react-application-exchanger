@@ -45,7 +45,7 @@ const Direction = () => {
       setIsSecondInput(false);
     }
   }, [city, isCount]);
-
+  
   return (
     <>
       {/* <div className="overlay"> */}
@@ -113,6 +113,7 @@ const Direction = () => {
                     id=""
                     placeholder="Введите название страны…"
                   />
+                  <hr className="city__line" />
                   <ul
                     style={
                       isFirstInput ? { display: "block" } : { display: "none" }
@@ -170,6 +171,7 @@ const Direction = () => {
                     id=""
                     placeholder="Введите название страны…"
                   />
+                  <hr className="city__line" />
                   <ul
                     style={
                       isSecondInput ? { display: "block" } : { display: "none" }
