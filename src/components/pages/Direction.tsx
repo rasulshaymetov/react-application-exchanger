@@ -56,7 +56,7 @@ const Direction = () => {
         }}
       >
         <Header />
-        {/* {isLoader ? (
+        {isLoader ? (
           <Loader />
         ) : (
           <>
@@ -76,8 +76,8 @@ const Direction = () => {
             <Footer />
             <Error />
           </>
-        )} */}
-        <div className="city">
+        )}
+        {/* <div className="city">
           <div className="city__wrapper">
             <div className="city__heading">
               <h1>Выбор города</h1>
@@ -171,7 +171,7 @@ const Direction = () => {
                     id=""
                     placeholder="Введите название страны…"
                   />
-                  <hr className="city__line" />
+                  <hr className="city__line" /> 
                   <ul
                     style={
                       isSecondInput ? { display: "block" } : { display: "none" }
@@ -206,7 +206,7 @@ const Direction = () => {
               <button className="city__send">Задать город</button>
             </div>
           </div>
-        </div>
+        </div> */}
       </AppContext.Provider>
       {/* </div> */}
     </>

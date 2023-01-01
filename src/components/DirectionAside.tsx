@@ -8,7 +8,7 @@ const DirectionAside = () => {
   return (
     <div className="aside">
       <div className="aside__container">
-      <div className={`aside__wrapper ${isHide ? 'aside-hidden' : null}`}>
+      <div style={isHide ? {maxHeight:'120rem'} : {maxHeight:'376rem'}} className={`aside__wrapper `}>
         <div className="aside__block">
           <ul>
             <div

@@ -150,7 +150,7 @@ const Table = () => {
 
   return (
     <div className="table table__value-selected">
-      <div className={`table__wrapper ${isHide ? 'table-hidden' : null}`}>
+      <div style={isHide ? {maxHeight:'220rem', overflowY:'auto', height:'100%'} : {maxHeight:'734rem'}} className={`table__wrapper `}>
         <div className="table__container">
           <div className="table__heading">
             <ul className="table__header">
