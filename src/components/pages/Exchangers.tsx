@@ -6,6 +6,7 @@ import Table from "../Table";
 import { setIsLoader } from "../../redux/slices/loaderSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader";
+import ExchangersTable from "../ExchangersTable";
 
 const Exchangers = () => {
   const {isLoader} = useSelector((state:any) => state.loader)
@@ -43,7 +44,7 @@ const Exchangers = () => {
           </div>
           <div className="div">
           <ExchangersInput/>
-          <Table/>
+          <ExchangersTable/>
           </div>
   
         </div>

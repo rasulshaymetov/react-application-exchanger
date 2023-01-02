@@ -458,6 +458,9 @@ li {
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       cursor: pointer;
     }
+    .grid-6{
+      grid-template-columns: repeat(7, 1fr);
+    }
     button {
       border: none;
       cursor: pointer;
@@ -927,4 +930,7 @@ li {
     display: flex;
     gap: 20rem;
   }
+}
+.ml-40{
+  margin-left: 40rem;
 }
