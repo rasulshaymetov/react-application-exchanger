@@ -458,7 +458,7 @@ li {
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       cursor: pointer;
     }
-    .grid-6{
+    .grid-7{
       grid-template-columns: repeat(7, 1fr);
     }
     button {
@@ -933,4 +933,10 @@ li {
 }
 .ml-40{
   margin-left: 40rem;
+}
+.p-25{
+  padding: 25rem 0 !important;
+}
+.mb-15{
+  margin-bottom: 15rem;
 }
