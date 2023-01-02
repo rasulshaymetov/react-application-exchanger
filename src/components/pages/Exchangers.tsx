@@ -1,14 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
 import DirectionAside from "../DirectionAside";
 import ExchangersInput from "../ExchangersInput";
 import Header from "../Header";
 import Table from "../Table";
+import { setIsLoader } from "../../redux/slices/loaderSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../Loader";
 
 const Exchangers = () => {
+  const {isLoader} = useSelector((state:any) => state.loader)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if (isLoader === true) {
+      setTimeout(() => {
+        dispatch(setIsLoader(false));
+      }, 1500);
+    }
+  }, [isLoader]); 
   return (
     <>
       <Header />
-      <div className="main__wrapper">
+    {isLoader ? <Loader /> :   <div className="main__wrapper">
         <div className="main__container">
           <div  className="aside">
             <div className="aside__container">
@@ -35,7 +47,7 @@ const Exchangers = () => {
           </div>
   
         </div>
-      </div>
+      </div>}
     </>
   );
 };
