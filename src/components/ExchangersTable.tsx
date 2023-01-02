@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import star from "../assets/star.svg";
 import sort from "../assets/sort.svg";
 const EXCHANGERS = [
   {
     id: "1",
-    state: "./image/on.svg",
+    state: 'on',
+    // state: "./image/on.svg",
     name: "Шахта",
     courses: "648",
     reserv: "106 567 654",
@@ -14,7 +15,8 @@ const EXCHANGERS = [
   },
   {
     id: "2",
-    state: "./image/on.svg",
+    state: 'on',
+    // state: "./image/on.svg",
     name: "Курсов",
     courses: "648",
     reserv: "106 567 654",
@@ -24,7 +26,8 @@ const EXCHANGERS = [
   },
   {
     id: "3",
-    state: "./image/off.svg",
+    state: 'off',
+    // state: "./image/off.svg",
     name: "ExChange Team",
     courses: "648",
     reserv: "106 567 654",
@@ -34,7 +37,8 @@ const EXCHANGERS = [
   },
   {
     id: "4",
-    state: "./image/off.svg",
+    state: 'off',
+    // state: "./image/off.svg",
     name: "AltCoins",
     courses: "648",
     reserv: "106 567 654",
@@ -44,7 +48,8 @@ const EXCHANGERS = [
   },
   {
     id: "5",
-    state: "./image/off.svg",
+    state: 'off',
+    // state: "./image/off.svg",
     name: "EnergyBit",
     courses: "648",
     reserv: "106 567 654",
@@ -54,7 +59,8 @@ const EXCHANGERS = [
   },
   {
     id: "6",
-    state: "./image/on.svg",
+    state: 'on',
+    // state: "./image/on.svg",
     name: "LowCoin",
     courses: "648",
     reserv: "106 567 654",
@@ -64,7 +70,8 @@ const EXCHANGERS = [
   },
   {
     id: "7",
-    state: "./image/on.svg",
+    state: 'on',
+    // state: "./image/on.svg",
     name: "Change Project",
     courses: "648",
     reserv: "106 567 654",
@@ -75,8 +82,26 @@ const EXCHANGERS = [
 ];
 const ExchangersTable = () => {
   const [isHide, setIsHide] = useState(false);
+  const [isOverlay, setIsOverlay] = useState(false);
+  const [isCurrentElement, setIsCurrentElement] = useState('0')
   function hideTable() {
     setIsHide((prev) => !prev);
+  }
+
+  useEffect(() => {
+    console.log(isCurrentElement)
+  }, [isCurrentElement])
+  
+
+  function test(id:any) {
+    console.log(id.target.id)
+    console.log(id.target.name)
+    setIsCurrentElement(id.target.id)
+    setIsOverlay(true);
+  }
+  function untest() {
+    setIsOverlay(false);
+    console.log("Я убрал мышку с кнопки");
   }
   return (
     <div className="table table__value-selected ml-40">
@@ -84,7 +109,7 @@ const ExchangersTable = () => {
         style={
           isHide
             ? { maxHeight: "150rem", overflowY: "auto", height: "100%" }
-            : { maxHeight: "1243rem" }
+            : { maxHeight: "1243rem", overflowY: "auto" }
         }
         className={`table__wrapper`}
       >
@@ -122,15 +147,39 @@ const ExchangersTable = () => {
                   <div className="p-25">
                     <li>{item.age}</li>
                   </div>
-                  <div className="p-25">
-                    <li>{item.reviews}</li>
-                  </div>
-
-                  <div className="p-25 relative-list">
-                    <button className="absolute-list">
-                      <img src={item.state} alt="Error " />
+                  <div className="p-0 flex">
+                    <li
+                    className="p-25"
+                      // style={
+                      //   isOverlay  &&   isCurrentElement === item.id
+                      //   ? { visibility: "visible" }
+                      //   : { visibility: "hidden", display: "none"} 
+                      // }
+                    >
+                      {item.reviews}
+                    </li>
+                    {/* <div
+                      style={
+                        isOverlay  &&   isCurrentElement === item.id
+                        ? {visibility: "visible"}
+                        : {visibility: "hidden"}
+                      }
+                      className="state-popup"
+                    >
+                    <p>Этот обменник неактивен</p>
+                    </div> */}
+                    <button
+                      id={item.id}
+                      onMouseEnter={(id) => test(id)}
+                      onMouseOut={untest}
+                      className="absolute-list p-none"
+                    >
+                      <img src={`${item.state === "on" ? './image/on.svg' : './image/off.svg' }`} alt="Error " />
                     </button>
                   </div>
+                  {/* <div className="p-25 relative-list">
+             
+                  </div> */}
                 </ul>
               );
             })}
