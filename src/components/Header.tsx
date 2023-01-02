@@ -17,6 +17,9 @@ const Header = () => {
     if (location.pathname === "/react-application-exchanger/direction") {
       setIsDirection(true);
     }
+    if (location.pathname === "/react-application-exchanger/exchangers") {
+      setIsExchanger(true)
+    }
   }, [location]);
   function navigateToLink() {
     dispatch(setIsLoader(true));
@@ -25,7 +28,7 @@ const Header = () => {
     <header className="header">
       <div className="header__wrapper">
         <Link
-          to="/react-application-exchanger"
+          to="/react-application-exchanger/"
           className="clear_link"
           onClick={navigateToLink}
         >
@@ -51,7 +54,7 @@ const Header = () => {
                 "nav-link " + (isExchanger ? " selected" : "unselected")
               }
               onClick={navigateToLink}
-              to="/react-application-exchanger/direction"
+              to="/react-application-exchanger/exchangers"
             >
               <li>Обменники</li>
             </NavLink>

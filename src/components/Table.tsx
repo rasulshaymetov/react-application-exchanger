@@ -15,7 +15,7 @@ const EXCHANGERS = [
     name: "AlfaBit",
     special: [
       {
-        image: [`/image/spec00.svg`, `/image/spec01.svg`, `/image/spec02.svg`],
+        image: [`./image/spec00.svg`, `./image/spec01.svg`, `./image/spec02.svg`],
       },
     ],
     profit_give: "20,000",
