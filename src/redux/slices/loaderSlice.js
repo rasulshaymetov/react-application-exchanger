@@ -2,16 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoader:true,
 };
-const loaderSlice: any = createSlice({
+const loaderSlice = createSlice({
   name: "loader",
   initialState,
   reducers: {
-    setIsLoader(state, action: any) {
+    setIsLoader(state, action) {
       state.isLoader = action.payload;
     },
   },
 });
-export const setLoader = (state: any) => state.loader;
+export const setLoader = (state) => state.loader;
 
 export const { setIsLoader } = loaderSlice.actions;
 

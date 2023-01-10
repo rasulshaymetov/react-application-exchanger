@@ -10,11 +10,11 @@ import { useRef, createRef, useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
 import { setSearchValue } from "../../redux/slices/filterSlice";
-import { setArrayValue } from "../../redux/slices/arrSlice";
+import { setSelectedCards } from "../../redux/slices/arrSlice";
 import loader from "../../assets/loader.svg";
 import { setIsLoader } from "../../redux/slices/loaderSlice";
 import Loader from "../Loader";
-let CARDS: any = [
+let CARDS = [
   {
     heading: "История поиска",
     mainId: 1,
@@ -186,39 +186,44 @@ let CARDS: any = [
 const Main = () => {
   // Loader
   const dispatch = useDispatch();
-  const { isLoader } = useSelector((state: any) => state.loader);
-    
+  const { isLoader } = useSelector((state) => state.loader);
+
   useEffect(() => {
-    if(isLoader === true){
+    if (isLoader === true) {
       setTimeout(() => {
         dispatch(setIsLoader(false));
       }, 1500);
     }
-    }, [isLoader])
-  
+  }, [isLoader]);
 
   // Ввод
   const [isFirstInputValue, setIsFirstInputValue] = useState("");
   const [isLastInputValue, setIsLastInputValue] = useState("");
 
-  const { searchValue } = useSelector((state: any) => state.filter);
   const [isCount, setIsCount] = useState(0);
+
   const [isFirstCard, setIsFirstCard] = useState(true);
-  const [isFilteredItems, setIsFilteredItems] = useState("");
-  const [isSecondInputValue, setIsSecondInputValue] = useState(false);
-  const [isLastFilteredItems, setIsLastFilteredItems] = useState("");
-  const [isDisabledSelect, setIsDisabledSelect] = useState(false);
-  const [isFinishedValue, setIsFinishedValue] = useState(false);
-  const [isInputsFinished, setIsInputsFinished] = useState(false);
-  const [isFilterValue, setIsFilterValue] = useState("");
-  const [isFilteredValues, setIsFilteredValues] = useState([]);
   const [isDirectionCards, setIsDirectionCards] = useState([]);
   const [isTempCards, setIsTempCards] = useState("");
 
-  const { selectedCards } = useSelector((state: any) => state.array);
+  const [isFinishedValue, setIsFinishedValue] = useState(false);
+  const [isInputsFinished, setIsInputsFinished] = useState(false);
+  const [isSecondInputValue, setIsSecondInputValue] = useState(false);
+
+  const [isFilteredItems, setIsFilteredItems] = useState("");
+  const [isLastFilteredItems, setIsLastFilteredItems] = useState("");
+  const [isFilterValue, setIsFilterValue] = useState("");
+  const [isFilteredValues, setIsFilteredValues] = useState([]);
+
+  const [isDisabledSelect, setIsDisabledSelect] = useState(false);
+
+  // * Redux
+  const [isTempArray, setIsTempArray] = useState([])
+  const { searchValue } = useSelector((state) => state.filter);
+  const { selectedCards } = useSelector((state) => state.select);
 
   // * Функция по выбору карточек
-  function selectValue(e: any, type: any) {
+  function selectValue(e, type) {
     if (isDisabledSelect === false && isSecondInputValue === false) {
       let currentValue = "";
       updateSearchValue(currentValue);
@@ -230,8 +235,9 @@ const Main = () => {
         setIsFinishedValue(true);
         setIsSecondInputValue(true);
         updateArrayValue(currentValue);
+        setIsTempArray(currentValue)
         // * Если выбраны определенные карточки, то скрывать несколько элементов массива
-        // let deletedArray: any;
+        // let deletedArray;
         // deletedArray = CARDS.pop();
         // deletedArray = CARDS.pop();
         updateSearchValue("");
@@ -248,6 +254,9 @@ const Main = () => {
       setIsCount(isCount + 1);
       currentValue = `${e.title} (${type})`;
       updateArrayValue(currentValue);
+      console.log(isTempArray)
+      console.log(currentValue)
+      setIsTempArray([...isTempArray, currentValue])
       setIsLastInputValue(currentValue);
       setIsInputsFinished(true);
     }
@@ -255,16 +264,18 @@ const Main = () => {
   // * Отправление значения в Redux с задержкой в 50 милисекунд
 
   const updateSearchValue = useCallback(
-    debounce((str: any) => {
+    debounce((str) => {
       dispatch(setSearchValue(str));
     }, 50),
     []
   );
 
+
+  
   // ? Отправление значения в Redux для последующего рендера в DirectionAside
   const updateArrayValue = useCallback(
-    debounce((str: any) => {
-      dispatch(setArrayValue(str));
+    debounce((str) => {
+      dispatch(setSelectedCards(str));
     }, 10),
     []
   );
@@ -274,19 +285,19 @@ const Main = () => {
   for (let i = 0; i < CARDS.length; i++) {
     cardIds.push(CARDS[i].mainId);
   }
-  const refs = cardIds.reduce((acc: any, value: number) => {
+  const refs = cardIds.reduce((acc, value) => {
     acc[value] = createRef();
     return acc;
   }, {});
-  const end = useRef<any>(null);
+  const end = useRef(null);
 
   // * Отправление значения первого поисковика в Redux
-  function onChangeFirstInput(e: any) {
+  function onChangeFirstInput(e) {
     setIsFirstInputValue(e.target.value);
     updateSearchValue(e.target.value);
   }
   // * Отправление значения второго поисковика в Redux
-  function onChangeSecondInput(e: any) {
+  function onChangeSecondInput(e) {
     setIsLastInputValue(e.target.value);
     updateSearchValue(e.target.value);
   }
@@ -298,10 +309,10 @@ const Main = () => {
     var filteredArray = CARDS;
     // Фильтрация для перового поисковика
 
-    let filterRenderItems: any = filteredArray
-      .map((e: any) => e.items)
+    let filterRenderItems = filteredArray
+      .map((e) => e.items)
       .flat()
-      .filter((e: any) =>
+      .filter((e) =>
         e.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
       );
     // Проверка, является ли это вторым значением
@@ -314,10 +325,10 @@ const Main = () => {
         firstClick = true;
       }
       // Фильтрация для второго поисковика
-      let filterRenderLastItems: any = filteredLastArray
-        .map((e: any) => e.items)
+      let filterRenderLastItems = filteredLastArray
+        .map((e) => e.items)
         .flat()
-        .filter((e: any) =>
+        .filter((e) =>
           e.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
         );
       //  Добавление карточек в состояние отфильтрованных карточек для второго поисковика
@@ -333,10 +344,10 @@ const Main = () => {
     isLastInputValue,
   ]);
 
-  let b: any = [];
+  let b = [];
   const [isRenderValues, setIsRenderValues] = useState(false);
   useEffect(() => {
-    let a = CARDS.map((e: any) => e.items);
+    let a = CARDS.map((e) => e.items);
     for (let i = 0; i < a.length; i++) {
       for (let j = 0; j < a[i].length; j++) {
         if (a[i][j].currency.includes(isFilterValue)) {
@@ -350,11 +361,11 @@ const Main = () => {
   // * Если выбраны две валюты, навигация в следующую страницу
 
   const navigate = useNavigate();
-  useEffect(() => {
-    if (isInputsFinished === true) {
-      navigate("/react-application-exchanger/direction");
-    }
-  }, [isInputsFinished]);
+  // useEffect(() => {
+  //   if (isInputsFinished === true) {
+  //     navigate("/react-application-exchanger/direction");
+  //   }
+  // }, [isInputsFinished]);
   const [isPopup, setIsPopup] = useState(false);
 
   return (
@@ -390,13 +401,13 @@ const Main = () => {
             isRenderValues,
           }}
         >
-              <Header />
+          <Header />
           {isLoader ? (
-            <Loader/>
+            <Loader />
           ) : (
             <>
+            <button onClick={() => console.log(isTempArray)}>FLKDSFSDLKFJ</button>
               <div className={`${isPopup ? "bg-popup-wrapper" : null}`}>
-            
                 <div className="main__wrapper">
                   <div className="main__container">
                     <Aside />

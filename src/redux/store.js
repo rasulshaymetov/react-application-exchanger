@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import filter from "./slices/filterSlice";
-import array from "./slices/arrSlice"
+import select from "./slices/arrSlice"
 import loader from "./slices/loaderSlice"
 import error from "./slices/errorSlice"
+import cards from "./slices/cardsSlice";
 export const store = configureStore({
   reducer: {
     filter,
-    array,
+    select,
     loader,
-    error
+    error,
+    cards
   },
 });
