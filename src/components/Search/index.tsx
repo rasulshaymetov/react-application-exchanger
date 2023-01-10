@@ -8,8 +8,23 @@ import styles from "./Search.module.scss";
 import AppContext from "../../context";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../../redux/slices/filterSlice";
+import { setIsCards } from "../../redux/slices/cardsSlice";
+import { clearIsCards } from "../../redux/slices/cardsSlice";
 import clear from "../../assets/clear.svg";
 const Search: React.FC = () => {
+  const {isCards} = useSelector((state:any) => state.cards)
+  
+  const [isFirstValue, setIsFirstValue] = useState()
+  const [isSecondValue, setIsSecondValue] = useState()
+
+  useEffect(() => {
+    setIsFirstValue(isCards[0])
+    setIsSecondValue(isCards[1])
+    console.log(isFirstValue)
+    console.log(isSecondValue)
+  }, [isCards])
+
+    
   const [isValue, setIsValue] = useState("");
   const [isSwitch, setIsSwitch] = useState(false);
   function resetSwitch() {
@@ -30,14 +45,26 @@ const Search: React.FC = () => {
     isPopup,
   }: any = useContext(AppContext);
   function handleSwitch() {
-    let firstValue = isFirstInputValue;
-    let secondValue = isSecondInputValue;
-    setIsLastInputValue(firstValue);
-    setIsFirstInputValue(secondValue);
     setIsSwitch(!isSwitch);
     setTimeout(resetSwitch, 320);
+    let a = isCards[0];
+    let b = isCards[1];
+    dispatch(clearIsCards([]))
+    firstTest (b)
+   secondTest(a)
   }
-
+  const firstTest = useCallback(
+    debounce((str) => {
+      dispatch(setIsCards(str));
+    }, 10),
+    []
+  );
+  const secondTest = useCallback(
+    debounce((str) => {
+      dispatch(setIsCards(str));
+    }, 10),
+    []
+  );
   const updateSearchValue = useCallback(
     debounce((str: any) => {
       dispatch(setSearchValue(str));
@@ -69,7 +96,7 @@ const Search: React.FC = () => {
         <div className={styles.flex}>
           <input
             type="text"
-            value={isFirstInputValue}
+            value={isFirstValue}
             onChange={onChangeFirstInput}
             placeholder="Отдаю"
             aria-label="Search"
@@ -92,7 +119,7 @@ const Search: React.FC = () => {
           </button>
           <input
             type="text"
-            value={isLastInputValue}
+            value={isSecondValue}
             onChange={onChangeSecondInput}
             placeholder="Получаю"
             aria-label="Search"

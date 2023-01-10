@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
 import { setSearchValue } from "../../redux/slices/filterSlice";
 import { setSelectedCards } from "../../redux/slices/arrSlice";
+import { setIsCards } from "../../redux/slices/cardsSlice";
 import loader from "../../assets/loader.svg";
 import { setIsLoader } from "../../redux/slices/loaderSlice";
 import Loader from "../Loader";
@@ -221,6 +222,8 @@ const Main = () => {
   const [isTempArray, setIsTempArray] = useState([])
   const { searchValue } = useSelector((state) => state.filter);
   const { selectedCards } = useSelector((state) => state.select);
+  const {isCards} = useSelector((state) => state.cards)
+  
 
   // * Функция по выбору карточек
   function selectValue(e, type) {
@@ -230,12 +233,13 @@ const Main = () => {
       setIsCount(isCount + 1);
       currentValue = `${e.title} (${type})`;
       if (isFirstCard === true) {
-        setIsFirstInputValue(currentValue);
+        // setIsFirstInputValue(currentValue);
         setIsFirstCard(false);
         setIsFinishedValue(true);
         setIsSecondInputValue(true);
         updateArrayValue(currentValue);
         setIsTempArray(currentValue)
+        firstTest(currentValue)
         // * Если выбраны определенные карточки, то скрывать несколько элементов массива
         // let deletedArray;
         // deletedArray = CARDS.pop();
@@ -253,11 +257,12 @@ const Main = () => {
       updateSearchValue(currentValue);
       setIsCount(isCount + 1);
       currentValue = `${e.title} (${type})`;
+      secondTest(currentValue)
       updateArrayValue(currentValue);
       console.log(isTempArray)
       console.log(currentValue)
       setIsTempArray([...isTempArray, currentValue])
-      setIsLastInputValue(currentValue);
+      // setIsLastInputValue(currentValue);
       setIsInputsFinished(true);
     }
   }
@@ -269,8 +274,19 @@ const Main = () => {
     }, 50),
     []
   );
-
-
+    
+  const firstTest = useCallback(
+    debounce((str) => {
+      dispatch(setIsCards(str));
+    }, 10),
+    []
+  );
+  const secondTest = useCallback(
+    debounce((str) => {
+      dispatch(setIsCards(str));
+    }, 10),
+    []
+  );
   
   // ? Отправление значения в Redux для последующего рендера в DirectionAside
   const updateArrayValue = useCallback(
@@ -406,7 +422,8 @@ const Main = () => {
             <Loader />
           ) : (
             <>
-            <button onClick={() => console.log(isTempArray)}>FLKDSFSDLKFJ</button>
+            <button onClick={() => console.log(isCards)}>CardsSlice</button>
+            <button onClick={() => console.log(selectedCards)}>ArraySlice</button>
               <div className={`${isPopup ? "bg-popup-wrapper" : null}`}>
                 <div className="main__wrapper">
                   <div className="main__container">

@@ -9,8 +9,11 @@ const cardsSlice = createSlice({
     setIsCards(state, action) {
       state.isCards.push(action.payload)
     },
+      clearIsCards(state) {
+        return (state = [])
+      }
   },
 });
-export const { setIsCards } = cardsSlice.actions;
+export const { setIsCards, clearIsCards } = cardsSlice.actions;
 
 export default cardsSlice.reducer;
