@@ -2,13 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import arrow from "../assets/sort.svg";
 const DirectionAside = () => {
-  const { selectedCards } = useSelector((state: any) => state.select);
+  const { selectedCards } = useSelector((state) => state.select);
+  const array = [{
+    give: 'Тинькофф (USD)',
+    get: 'Bitcoin (BTC)'
+  },
+  {
+    give: '  Альфа Банк (USD)',
+    get: 'Райффайзен банк (RUB) '
+  },
+  {
+    give: 'Dogecoin (DOGE)',
+    get: 'Открытие (RUB)'
+  }
+  ]
   const [isMutatedArray, setIsMutatedArray] = useState([{}])
-  const arr:any = []
+  const arr = []
   useEffect(() => {
-    for(let i  = 0; i < selectedCards.length; i++) {
-        arr.push(selectedCards[i] + " " + selectedCards[i+1])
-        console.log(selectedCards[i+1])
+    for (let i = 0; i < selectedCards.length; i++) {
+      arr.push(selectedCards[i] + " " + selectedCards[i + 1])
+      console.log(selectedCards[i + 1])
     }
   }, [])
 
@@ -23,16 +36,15 @@ const DirectionAside = () => {
           className={`aside__wrapper `}
         >
           <div className="aside__block">
-            {selectedCards.map(function (item: any, index: number) {
+            {array.map(function (item, index) {
               return (
                 <ul>
                   <div
-                    className={`${
-                      isClickedNav === index ? "active-list" : null
-                    }`}
+                    className={`${isClickedNav === index ? "active-list" : null
+                      }`}
                     onClick={() => setIsClickedNav(index)}
                   >
-                    <li>{item}</li>
+                    <li>{item.give} <span> → </span> <br /> {item.get}</li>
                   </div>
                 </ul>
               );

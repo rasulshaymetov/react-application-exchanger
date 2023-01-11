@@ -83,8 +83,7 @@ const Header = () => {
         </div>
         <div className="header__contacts">
           <ul>
-            <li>Поддержка</li>
-            <li>Контакты</li>
+            <li>Поддержка / Контакты</li>
           </ul>
         </div>
       </div>

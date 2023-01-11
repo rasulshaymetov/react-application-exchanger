@@ -222,8 +222,8 @@ const Main = () => {
   const [isTempArray, setIsTempArray] = useState([])
   const { searchValue } = useSelector((state) => state.filter);
   const { selectedCards } = useSelector((state) => state.select);
-  const {isCards} = useSelector((state) => state.cards)
-  
+  const { isCards } = useSelector((state) => state.cards)
+
 
   // * Функция по выбору карточек
   function selectValue(e, type) {
@@ -274,7 +274,7 @@ const Main = () => {
     }, 50),
     []
   );
-    
+
   const firstTest = useCallback(
     debounce((str) => {
       dispatch(setIsCards(str));
@@ -287,7 +287,7 @@ const Main = () => {
     }, 10),
     []
   );
-  
+
   // ? Отправление значения в Redux для последующего рендера в DirectionAside
   const updateArrayValue = useCallback(
     debounce((str) => {
@@ -422,20 +422,18 @@ const Main = () => {
             <Loader />
           ) : (
             <>
-            <button onClick={() => console.log(isCards)}>CardsSlice</button>
-            <button onClick={() => console.log(selectedCards)}>ArraySlice</button>
-              <div className={`${isPopup ? "bg-popup-wrapper" : null}`}>
-                <div className="main__wrapper">
-                  <div className="main__container">
-                    <Aside />
+            <div className={`${isPopup ? "bg-popup-wrapper" : null}`}>
+              <div className="main__wrapper">
+                <div className="main__container">
+                  <Aside />
 
-                    <div className="main__content">
-                      <Search />
-                      <Card />
-                    </div>
+                  <div className="main__content">
+                    <Search />
+                    <Card />
                   </div>
                 </div>
               </div>
+            </div>
               <Footer />
             </>
           )}

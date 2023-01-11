@@ -1,0 +1,17 @@
+<svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="path-1-inside-1_207_1565" fill="white">
+<path d="M0 0H20V5H0V0Z"/>
+</mask>
+<path d="M0 0H20V5H0V0Z" fill="white"/>
+<path d="M0 0V-0.2H-0.2V0H0ZM20 0H20.2V-0.2H20V0ZM0 0.2H20V-0.2H0V0.2ZM19.8 0V5H20.2V0H19.8ZM0.2 5V0H-0.2V5H0.2Z" fill="black" mask="url(#path-1-inside-1_207_1565)"/>
+<mask id="path-3-inside-2_207_1565" fill="white">
+<path d="M0 4.99997H20V9.99997H0V4.99997Z"/>
+</mask>
+<path d="M0 4.99997H20V9.99997H0V4.99997Z" fill="#3D67FF"/>
+<path d="M19.8 4.99997V9.99997H20.2V4.99997H19.8ZM0.2 9.99997V4.99997H-0.2V9.99997H0.2Z" fill="black" mask="url(#path-3-inside-2_207_1565)"/>
+<mask id="path-5-inside-3_207_1565" fill="white">
+<path d="M0 10H20V15H0V10Z"/>
+</mask>
+<path d="M0 10H20V15H0V10Z" fill="#B70808"/>
+<path d="M20 15V15.2H20.2V15H20ZM0 15H-0.2V15.2H0V15ZM19.8 10V15H20.2V10H19.8ZM20 14.8H0V15.2H20V14.8ZM0.2 15V10H-0.2V15H0.2Z" fill="black" mask="url(#path-5-inside-3_207_1565)"/>
+</svg>
